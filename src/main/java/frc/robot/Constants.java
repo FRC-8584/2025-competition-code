@@ -14,7 +14,6 @@ public final class Constants {
     // Heading
     public static final double OriginRobotHeading = 0; //degrees
     public static final double DriverHeading = 0; //degrees
-
   }
 
   /***** Autonomous Time Action *****/
@@ -47,23 +46,14 @@ public final class Constants {
   /***** motor controller ID *****/
   public static class MotorControllerID {
     public static final int LF_TurnID         =  1;
-    public static final int LR_TurnID         =  4;
-    public static final int RF_TurnID         =  2;
-    public static final int RR_TurnID         =  3;
+    public static final int LR_TurnID         =  2;
+    public static final int RF_TurnID         =  3;
+    public static final int RR_TurnID         =  4;
 
     public static final int LF_DriveID        =  5;
-    public static final int LR_DriveID        =  8;
-    public static final int RF_DriveID        =  6;
-    public static final int RR_DriveID        =  7;
-
-    public static final int Intake1ID         =  9;
-    public static final int Intake2ID         = 10;
-    public static final int TransferID        = 11;
-    public static final int LShooterID        = 12;
-    public static final int RShooterID        = 13;
-
-    public static final int LChuteID          = 14;
-    public static final int RChuteID          = 15;
+    public static final int LR_DriveID        =  6;
+    public static final int RF_DriveID        =  7;
+    public static final int RR_DriveID        =  8;
   }
 
   /***** motor speed constants *****/
