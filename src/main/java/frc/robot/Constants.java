@@ -6,11 +6,6 @@ public final class Constants {
     public static final int Player1Port = 0;
     public static final int Player2Port = 1;
 
-
-    // Robot Move & Turn Speed
-    public static final double kMove = 0.6;
-    public static final double kTrun = 0.6;
-
     // Heading
     public static final double OriginRobotHeading = 0; //degrees
     public static final double DriverHeading = 0; //degrees
@@ -40,8 +35,7 @@ public final class Constants {
   }
 
   /***** Field Constants *****/
-  public static class FieldConstants {
-  }
+  public static class FieldConstants {}
 
   /***** motor controller ID *****/
   public static class MotorControllerID {
@@ -54,9 +48,25 @@ public final class Constants {
     public static final int LR_DriveID        =  6;
     public static final int RF_DriveID        =  7;
     public static final int RR_DriveID        =  8;
+
+    public static final int L_ElevatorID      =  9;
+    public static final int R_ElevatorID      =  10;
+
+    public static final int WirstID           =  11;
+    public static final int ClawID            =  12;
   }
 
   /***** motor speed constants *****/
   public static class MotorConstants {
+    // Robot Move & Turn Speed
+    public static final double kMove = 0.6;
+    public static final double kTrun = 0.6;
+
+    // Elevator Move Speed
+    public static final double kElevatorSpd = 0.4;
+
+    // Wirst & Claw Speed
+    public static final double kWirstSpd = 0.5;
+    public static final double kClawSpd = 0.8;
   }
 }
