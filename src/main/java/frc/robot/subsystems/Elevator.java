@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.revrobotics.spark.SparkMax;
@@ -39,6 +40,9 @@ public class Elevator extends SubsystemBase {
     L_pos = Lmotor.getEncoder().getPosition();// return left motor position (cm)
     R_pos = Rmotor.getEncoder().getPosition();// return right motor position (cm)
     position = (L_pos + R_pos) / 2.0;// average position (cm)
+    SmartDashboard.putNumber("L_Pos", L_pos);
+    SmartDashboard.putNumber("R_Pos", R_pos);
+    SmartDashboard.putNumber("Elevator Height", position);
   }
 
   /**
