@@ -9,6 +9,7 @@ import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ControlType;
 
 import frc.robot.Constants;
+import frc.robot.Constants.ElevatorConstants;
 import frc.robot.utils.Tools;
 
 public class Elevator extends SubsystemBase {
@@ -18,21 +19,17 @@ public class Elevator extends SubsystemBase {
   private double position;// average position (cm)
   private double L_pos, R_pos;// left & right motor position (cm)
 
-  private final double min_pos = 10;// lowest position (cm)
-  private final double max_pos = 70;// highest position (cm)
-  private final double init_pos = 10;// initial position (cm)
-
   public Elevator() {
-    L_pos = init_pos;
-    R_pos = init_pos;
-    position = init_pos;
+    L_pos = ElevatorConstants.kElevatorMinPosition;
+    R_pos = ElevatorConstants.kElevatorMinPosition;
+    position = ElevatorConstants.kElevatorMinPosition;
 
     Lmotor.configure(
-      Constants.MotorControllerCfg.getLeftElevatorCfg(),
+      Constants.ElevatorConstants.getLeftElevatorCfg(),
       ResetMode.kResetSafeParameters,
       PersistMode.kPersistParameters);
     Rmotor.configure(
-      Constants.MotorControllerCfg.getRightElevatorCfg(),
+      Constants.ElevatorConstants.getRightElevatorCfg(),
       ResetMode.kResetSafeParameters,
       PersistMode.kPersistParameters);
   }
@@ -49,9 +46,8 @@ public class Elevator extends SubsystemBase {
    * set elevator position (cm)
    */
   public void setPosition(double setpoint) {
-    setpoint = Tools.bounding(setpoint, min_pos, max_pos);
-    Lmotor.getClosedLoopController().setReference(setpoint - init_pos, ControlType.kPosition);
-    Rmotor.getClosedLoopController().setReference(setpoint - init_pos, ControlType.kPosition);
+    Lmotor.getClosedLoopController().setReference(setpoint, ControlType.kPosition);
+    Rmotor.getClosedLoopController().setReference(setpoint, ControlType.kPosition);
   }
 
   /**
@@ -60,8 +56,8 @@ public class Elevator extends SubsystemBase {
    */
   public void setPower(double input) {
     input = Tools.bounding(input);
-    Lmotor.set(input * Constants.MotorConstants.kElevatorSpd);
-    Rmotor.set(input * Constants.MotorConstants.kElevatorSpd);
+    Lmotor.set(input * Constants.ElevatorConstants.kElevatorSpeed);
+    Rmotor.set(input * Constants.ElevatorConstants.kElevatorSpeed);
   }
 
   /**

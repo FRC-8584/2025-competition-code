@@ -9,6 +9,7 @@ import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ControlType;
 
 import frc.robot.Constants;
+import frc.robot.Constants.ClawConstants;
 import frc.robot.utils.Tools;
 
 public class Claw extends SubsystemBase {
@@ -16,26 +17,23 @@ public class Claw extends SubsystemBase {
   private final SparkMax Grapper_motor = new SparkMax(Constants.MotorControllerID.Claw_GrapperID, MotorType.kBrushless);
   
   private double position;// shaft position (deg)
-  private final double min_pos = 0;// minimum position (deg)
-  private final double max_pos = 135;// maximum position (deg)
-  private final double init_pos = 0;// initial position (deg)
 
   public Claw() {
-    position = init_pos;
+    position = ClawConstants.kShaftMinPosition;
 
     Shaft_motor.configure(
-      Constants.MotorControllerCfg.getClawShaftCfg(),
+      Constants.ClawConstants.getShaftCfg(),
       ResetMode.kResetSafeParameters,
       PersistMode.kPersistParameters);
     Grapper_motor.configure(
-      Constants.MotorControllerCfg.getClawGrapperCfg(),
+      Constants.ClawConstants.getGrapperCfg(),
       ResetMode.kResetSafeParameters,
       PersistMode.kPersistParameters);
   }
 
   @Override
   public void periodic() {
-    position = init_pos + Shaft_motor.getEncoder().getPosition();// shaft position (deg)
+    position = Shaft_motor.getEncoder().getPosition();// shaft position (deg)
   }
 
   /**
@@ -43,8 +41,7 @@ public class Claw extends SubsystemBase {
    * set shaft position (deg)
    */
   public void setShaftPosition(double setpoint) {
-    setpoint = Tools.bounding(setpoint, min_pos, max_pos);
-    Shaft_motor.getClosedLoopController().setReference(setpoint - init_pos, ControlType.kPosition);
+    Shaft_motor.getClosedLoopController().setReference(setpoint, ControlType.kPosition);
   }
 
   /**
@@ -54,7 +51,7 @@ public class Claw extends SubsystemBase {
    */
   public void setGrapperPower(double input) {
     input = Tools.bounding(input);
-    Grapper_motor.set(input * Constants.MotorConstants.kGrapperSpd);
+    Grapper_motor.set(input * Constants.ClawConstants.kGrapperSpeed);
   }
 
   /**

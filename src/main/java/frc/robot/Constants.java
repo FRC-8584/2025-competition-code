@@ -60,84 +60,115 @@ public final class Constants {
     public static final int Claw_GrapperID    =  12;
   }
 
-  /***** motor controller config *****/
-  public static class MotorControllerCfg {
+  public static class SwerveConstants {
+    // Robot Move & Turn Speed
+    public static final double kMoveSpeed = 1.0;
+    public static final double kTrunSpeed = 1.0;
+  }
+
+  public static class ElevatorConstants {
+    // Elevator Move Speed
+    public static final double kElevatorSpeed = 0.4;
+
+    // Motor rotate rate (cm/rotations)
+    public static final double kRotateRate = 11.43/15.0;
+
+    // Shaft position limits (cm)
+    public static final double kElevatorMinPosition = 0;
+    public static final double kElevatorMaxPosition = 65.0;
+
+    // Motor controller closed loop control pid
+    public static final double kp = 0.1;
+    public static final double ki = 0;
+    public static final double kd = 0;
+
+    // Motor controller inverted settings
+    public static final boolean kLeftElevatorInverted = false;
+    public static final boolean kRightElevatorInverted = true;
+
     public static final SparkMaxConfig getLeftElevatorCfg() {
       final SparkMaxConfig config = new SparkMaxConfig();
-      final double gearbox_rate = 25;
-      final double position_per_rotations = 6;// cm/rotations
+
       config
-        .inverted(false)
+        .inverted(kLeftElevatorInverted)
         .idleMode(IdleMode.kBrake);
       config.encoder
-        .positionConversionFactor(position_per_rotations/gearbox_rate)// return position (cm)
-        .velocityConversionFactor(position_per_rotations/gearbox_rate/60.0);// return velocity (cm/s)
+        .positionConversionFactor(kRotateRate)// return position (cm)
+        .velocityConversionFactor(kRotateRate/60.0);// return velocity (cm/s)
       config.closedLoop
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)// build-in encoder
-        .pid(1, 0, 0)
-        .maxOutput(MotorConstants.kElevatorSpd)
-        .minOutput(-MotorConstants.kElevatorSpd);
+        .pid(kp, ki, kd)
+        .outputRange(-kElevatorSpeed, kElevatorSpeed)
+        .positionWrappingInputRange(kElevatorMinPosition, kElevatorMaxPosition);
 
       return config;
     }
 
     public static final SparkMaxConfig getRightElevatorCfg() {
       final SparkMaxConfig config = new SparkMaxConfig();
-      final double gearbox_rate = 25;
-      final double position_per_rotations = 6;// cm/rotations
+
       config
-        .inverted(true)// inverted
+        .inverted(kRightElevatorInverted)// inverted
         .idleMode(IdleMode.kBrake);
       config.encoder
-        .positionConversionFactor(position_per_rotations/gearbox_rate)// return position (cm)
-        .velocityConversionFactor(position_per_rotations/gearbox_rate/60.0);// return velocity (cm/s)
+        .positionConversionFactor(kRotateRate)// return position (cm)
+        .velocityConversionFactor(kRotateRate/60.0);// return velocity (cm/s)
       config.closedLoop
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)// build-in encoder
-        .pid(1, 0, 0)
-        .maxOutput(MotorConstants.kElevatorSpd)
-        .minOutput(-MotorConstants.kElevatorSpd);
+        .pid(kp, ki, kd)
+        .outputRange(-kElevatorSpeed, kElevatorSpeed)
+        .positionWrappingInputRange(kElevatorMinPosition, kElevatorMaxPosition);
 
-      return config;
-    }
-
-    public static final SparkMaxConfig getClawShaftCfg() {
-      final SparkMaxConfig config = new SparkMaxConfig();
-      final double gearbox_rate = 80;
-      final double position_per_rotations = 360;// deg/rotations
-      config
-        .inverted(false)
-        .idleMode(IdleMode.kBrake);
-      config.encoder
-        .positionConversionFactor(position_per_rotations/gearbox_rate);// return position (deg)
-      config.closedLoop
-        .feedbackSensor(FeedbackSensor.kPrimaryEncoder)// build-in encoder
-        .pid(0.03, 0, 0)
-        .maxOutput(MotorConstants.kShaftSpd)
-        .minOutput(-MotorConstants.kShaftSpd);
-
-      return config;
-    }
-
-    public static final SparkMaxConfig getClawGrapperCfg() {
-      final SparkMaxConfig config = new SparkMaxConfig();
-      config
-        .inverted(false)
-        .idleMode(IdleMode.kBrake);
       return config;
     }
   }
 
-  /***** motor speed constants *****/
-  public static class MotorConstants {
-    // Robot Move & Turn Speed
-    public static final double kMove = 0.6;
-    public static final double kTrun = 0.6;
-
-    // Elevator Move Speed
-    public static final double kElevatorSpd = 0.4;
-
+  public static class ClawConstants {
     // Claw Shaft & Grapper Speed
-    public static final double kShaftSpd = 0.3;
-    public static final double kGrapperSpd = 0.8;
+    public static final double kShaftSpeed = 1.0;
+    public static final double kGrapperSpeed = 1.0;
+
+    // Motor rotate rate (deg/rotations)
+    public static final double kRotateRate = 360.0/80.0;
+
+    // Shaft position limits (deg)
+    public static final double kShaftMinPosition = 0;
+    public static final double kShaftMaxPosition = 135.0;
+
+    // Motor controller closed loop control pid (Shaft)
+    public static final double kp = 0.1;
+    public static final double ki = 0;
+    public static final double kd = 0;
+
+    // Motor controller inverted settings
+    public static final boolean kShaftInverted = false;
+    public static final boolean kGrapperInverted = false;
+    
+    public static final SparkMaxConfig getShaftCfg() {
+      final SparkMaxConfig config = new SparkMaxConfig();
+
+      config
+        .inverted(kShaftInverted)
+        .idleMode(IdleMode.kBrake);
+      config.encoder
+        .positionConversionFactor(kRotateRate);// return position (deg)
+      config.closedLoop
+        .feedbackSensor(FeedbackSensor.kPrimaryEncoder)// build-in encoder
+        .pid(kp, ki, kd)
+        .outputRange(-kShaftSpeed, kShaftSpeed)
+        .positionWrappingInputRange(kShaftMinPosition, kShaftMaxPosition);
+
+      return config;
+    }
+  
+    public static final SparkMaxConfig getGrapperCfg() {
+      final SparkMaxConfig config = new SparkMaxConfig();
+
+      config
+        .inverted(kGrapperInverted)
+        .idleMode(IdleMode.kBrake);
+
+      return config;
+    }
   }
 }
