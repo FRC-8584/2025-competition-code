@@ -60,8 +60,18 @@ public class Elevator extends SubsystemBase {
    */
   public void setPower(double input) {
     input = Tools.bounding(input);
-    Lmotor.set(input * Constants.ElevatorConstants.kElevatorSpeed);
-    Rmotor.set(input * Constants.ElevatorConstants.kElevatorSpeed);
+    if (input > 0) {
+      Lmotor.set(input * Constants.ElevatorConstants.kElevatorUpSpeed);
+      Rmotor.set(input * Constants.ElevatorConstants.kElevatorUpSpeed);
+    }
+    else if (input < 0) {
+      Lmotor.set(input * Constants.ElevatorConstants.kElevatorDownSpeed);
+      Rmotor.set(input * Constants.ElevatorConstants.kElevatorDownSpeed);
+    }
+    else {
+      Lmotor.set(0);
+      Rmotor.set(0);
+    }
   }
 
   /**

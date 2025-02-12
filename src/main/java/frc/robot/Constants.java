@@ -68,17 +68,18 @@ public final class Constants {
 
   public static class ElevatorConstants {
     // Elevator Move Speed
-    public static final double kElevatorSpeed = 1.0;
+    public static final double kElevatorUpSpeed = 1.0;
+    public static final double kElevatorDownSpeed = 0.8;
 
     // Motor rotate rate (cm/rotations)
     public static final double kRotateRate = 11.43/15.0;
 
     // Shaft position limits (cm)
     public static final double kElevatorMinPosition = 0;
-    public static final double kElevatorMaxPosition = 65.0;
+    public static final double kElevatorMaxPosition = 75.0;
 
     // Motor controller closed loop control pid (Elevator)
-    public static final double kp = 0.1;
+    public static final double kp = 0.08;
     public static final double ki = 0;
     public static final double kd = 0;
 
@@ -98,7 +99,7 @@ public final class Constants {
       config.closedLoop
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)// build-in encoder
         .pid(kp, ki, kd)
-        .outputRange(-kElevatorSpeed, kElevatorSpeed)
+        .outputRange(-kElevatorDownSpeed, kElevatorUpSpeed)
         .positionWrappingInputRange(kElevatorMinPosition, kElevatorMaxPosition);
 
       return config;
@@ -116,7 +117,7 @@ public final class Constants {
       config.closedLoop
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)// build-in encoder
         .pid(kp, ki, kd)
-        .outputRange(-kElevatorSpeed, kElevatorSpeed)
+        .outputRange(-kElevatorDownSpeed, kElevatorUpSpeed)
         .positionWrappingInputRange(kElevatorMinPosition, kElevatorMaxPosition);
 
       return config;

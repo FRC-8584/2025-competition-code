@@ -55,7 +55,7 @@ public class RobotContainer {
     // Elevator Up & Down
     new JoystickButton(js, 1).whileTrue(new SetElevatorPosition(elevator, 0).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
     new JoystickButton(js, 2).whileTrue(new SetElevatorPosition(elevator, 20).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-    new JoystickButton(js, 4).whileTrue(new SetElevatorPosition(elevator, 40).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-    new JoystickButton(js, 3).whileTrue(new SetElevatorPosition(elevator, 60).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+    new JoystickButton(js, 4).whileTrue(new SetElevatorPosition(elevator, 45).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+    new JoystickButton(js, 3).whileTrue(new SetElevatorPosition(elevator, 70).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
   }
 }
