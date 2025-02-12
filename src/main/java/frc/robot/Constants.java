@@ -53,8 +53,8 @@ public final class Constants {
     public static final int RF_DriveID        =  6;
     public static final int RR_DriveID        =  7;
 
-    public static final int Left_ElevatorID   =  9;
-    public static final int Right_ElevatorID  =  10;
+    public static final int Left_ElevatorID   =  10;
+    public static final int Right_ElevatorID  =  9;
 
     public static final int Claw_ShaftID      =  11;
     public static final int Claw_GrapperID    =  12;
@@ -68,7 +68,7 @@ public final class Constants {
 
   public static class ElevatorConstants {
     // Elevator Move Speed
-    public static final double kElevatorSpeed = 0.4;
+    public static final double kElevatorSpeed = 1.0;
 
     // Motor rotate rate (cm/rotations)
     public static final double kRotateRate = 11.43/15.0;
@@ -77,8 +77,8 @@ public final class Constants {
     public static final double kElevatorMinPosition = 0;
     public static final double kElevatorMaxPosition = 65.0;
 
-    // Motor controller closed loop control pid
-    public static final double kp = 0.1;
+    // Motor controller closed loop control pid (Elevator)
+    public static final double kp = 0.15;
     public static final double ki = 0;
     public static final double kd = 0;
 
@@ -136,12 +136,12 @@ public final class Constants {
     public static final double kShaftMaxPosition = 135.0;
 
     // Motor controller closed loop control pid (Shaft)
-    public static final double kp = 0.1;
+    public static final double kp = 0.01;
     public static final double ki = 0;
     public static final double kd = 0;
 
     // Motor controller inverted settings
-    public static final boolean kShaftInverted = false;
+    public static final boolean kShaftInverted = true;
     public static final boolean kGrapperInverted = false;
     
     public static final SparkMaxConfig getShaftCfg() {

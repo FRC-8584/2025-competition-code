@@ -19,6 +19,8 @@ public class SetElevatorPower extends Command {
   }
 
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_elevator.setPower(0);
+  }
 
 }
