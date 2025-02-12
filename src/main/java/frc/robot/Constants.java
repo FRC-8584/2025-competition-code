@@ -78,7 +78,7 @@ public final class Constants {
     public static final double kElevatorMaxPosition = 65.0;
 
     // Motor controller closed loop control pid (Elevator)
-    public static final double kp = 0.15;
+    public static final double kp = 0.1;
     public static final double ki = 0;
     public static final double kd = 0;
 
