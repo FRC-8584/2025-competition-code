@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.commands.*;
 import frc.robot.commands.elevator.*;
-import frc.robot.commands.grapper.SetGrapperPower;
+import frc.robot.commands.grabber.SetGrabberPower;
 import frc.robot.commands.shaft.*;
 import frc.robot.commands.swerve.*;
 
@@ -16,7 +16,7 @@ public class RobotContainer {
   private final Swerve swerve = new Swerve();
   private final Elevator elevator = new Elevator();
   private final Shaft shaft = new Shaft();
-  private final Grapper grapper = new Grapper();
+  private final Grabber grabber = new Grabber();
 
   private final Joystick js1 = new Joystick(Constants.OperatorConstants.Player1Port);
   private final Joystick js2 = new Joystick(Constants.OperatorConstants.Player2Port);
@@ -38,8 +38,8 @@ public class RobotContainer {
     );
 
     // Claw Grapper
-    new JoystickButton(js, 5).whileTrue(new SetGrapperPower(grapper, 1).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-    new JoystickButton(js, 6).whileTrue(new SetGrapperPower(grapper, -1).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+    new JoystickButton(js, 5).whileTrue(new SetGrabberPower(grabber, 1).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+    new JoystickButton(js, 6).whileTrue(new SetGrabberPower(grabber, -1).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
     // Combinate command
     new JoystickButton(js, 1).whileTrue(new Set_L1(elevator, shaft).withInterruptBehavior(InterruptionBehavior.kCancelSelf));

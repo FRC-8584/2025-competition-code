@@ -8,15 +8,15 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkBase.PersistMode;
 
 import frc.robot.Constants.MotorControllerID;
-import frc.robot.Constants.GrapperConstants;
+import frc.robot.Constants.GrabberConstants;
 import frc.robot.utils.Tools;
 
-public class Grapper extends SubsystemBase {
-  private final SparkMax Grapper_motor = new SparkMax(MotorControllerID.GrapperID, MotorType.kBrushless);
+public class Grabber extends SubsystemBase {
+  private final SparkMax Grapper_motor = new SparkMax(MotorControllerID.GrabberID, MotorType.kBrushless);
 
-  public Grapper() {
+  public Grabber() {
     Grapper_motor.configure(
-      GrapperConstants.getGrapperCfg(),
+      GrabberConstants.getGrabberCfg(),
       ResetMode.kResetSafeParameters,
       PersistMode.kPersistParameters);
   }
@@ -31,6 +31,6 @@ public class Grapper extends SubsystemBase {
    */
   public void setPower(double input) {
     input = Tools.bounding(input);
-    Grapper_motor.set(input * GrapperConstants.kGrapperSpeed);
+    Grapper_motor.set(input * GrabberConstants.kGrabberSpeed);
   }
 }
