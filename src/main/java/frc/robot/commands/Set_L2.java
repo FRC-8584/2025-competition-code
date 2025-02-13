@@ -8,8 +8,8 @@ public class Set_L2 extends Command {
   private final Elevator m_Elevator;
   private final Shaft m_shaft;
 
-  private final static double elevator_pos = 16;// cm
-  private final static double shaft_pos = 35;// deg
+  private final double elevator_pos = 16;// cm
+  private final double shaft_pos = 35;// deg
 
   public Set_L2(Elevator elevator, Shaft shaft) {
     m_Elevator = elevator;

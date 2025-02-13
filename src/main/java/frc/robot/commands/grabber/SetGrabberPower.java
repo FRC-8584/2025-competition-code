@@ -1,26 +1,26 @@
-package frc.robot.commands.grapper;
+package frc.robot.commands.grabber;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Grapper;
+import frc.robot.subsystems.Grabber;
 
-public class SetGrapperPower extends Command {
-  private final Grapper m_grapper;
+public class SetGrabberPower extends Command {
+  private final Grabber m_grabber;
   private final double m_setpoint;
 
-  public SetGrapperPower(Grapper grapper, double setpoint) {
-    m_grapper = grapper;
+  public SetGrabberPower(Grabber grabber, double setpoint) {
+    m_grabber = grabber;
     m_setpoint = setpoint;
-    addRequirements(m_grapper);
+    addRequirements(m_grabber);
   }
 
   @Override
   public void execute() {
-    m_grapper.setPower(m_setpoint);
+    m_grabber.setPower(m_setpoint);
   }
 
   @Override
   public void end(boolean interrupted) {
-    m_grapper.setPower(0);
+    m_grabber.setPower(0);
   }
 
 }
