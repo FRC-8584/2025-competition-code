@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Shaft;
+import frc.robot.utils.Tools;
 import frc.robot.Constants;
 import frc.robot.subsystems.Elevator;
 
@@ -27,7 +28,16 @@ public class SetClawState extends Command {
   public void execute() {
     double elevator_setpoint = m_elevator_pos;
     double shaft_setpoint = m_shaft_pos;
+
     double present_elevator_pos = m_Elevator.getPosition();
+
+    if(Tools.isInRange(present_elevator_pos, 15, 40)){
+      shaftMinPos = 20;
+    }
+    else{
+      shaftMinPos = 0;
+    }
+    shaft_setpoint = Tools.bounding(shaft_setpoint, shaftMinPos, shaftMaxPos);
 
     m_Elevator.setPosition(elevator_setpoint);
     m_shaft.setPosition(shaft_setpoint);
