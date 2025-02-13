@@ -1,4 +1,4 @@
-package frc.robot.commands.claw;
+package frc.robot.commands.shaft;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Shaft;

@@ -56,8 +56,8 @@ public final class Constants {
     public static final int Left_ElevatorID   =  10;
     public static final int Right_ElevatorID  =  9;
 
-    public static final int ShaftID      =  11;
-    public static final int GrapperID    =  12;
+    public static final int ShaftID           =  11;
+    public static final int GrapperID         =  12;
   }
 
   public static class SwerveConstants {

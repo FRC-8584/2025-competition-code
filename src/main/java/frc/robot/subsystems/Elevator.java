@@ -9,13 +9,13 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ControlType;
 
-import frc.robot.Constants;
+import frc.robot.Constants.MotorControllerID;
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.utils.Tools;
 
 public class Elevator extends SubsystemBase {
-  private final SparkMax Lmotor = new SparkMax(Constants.MotorControllerID.Left_ElevatorID, MotorType.kBrushless);
-  private final SparkMax Rmotor = new SparkMax(Constants.MotorControllerID.Right_ElevatorID, MotorType.kBrushless);
+  private final SparkMax Lmotor = new SparkMax(MotorControllerID.Left_ElevatorID, MotorType.kBrushless);
+  private final SparkMax Rmotor = new SparkMax(MotorControllerID.Right_ElevatorID, MotorType.kBrushless);
   
   private double position;// average position (cm)
   private double L_pos, R_pos;// left & right motor position (cm)
@@ -26,11 +26,11 @@ public class Elevator extends SubsystemBase {
     position = ElevatorConstants.kElevatorMinPosition;
 
     Lmotor.configure(
-      Constants.ElevatorConstants.getLeftElevatorCfg(),
+      ElevatorConstants.getLeftElevatorCfg(),
       ResetMode.kResetSafeParameters,
       PersistMode.kPersistParameters);
     Rmotor.configure(
-      Constants.ElevatorConstants.getRightElevatorCfg(),
+      ElevatorConstants.getRightElevatorCfg(),
       ResetMode.kResetSafeParameters,
       PersistMode.kPersistParameters);
   }
@@ -61,12 +61,12 @@ public class Elevator extends SubsystemBase {
   public void setPower(double input) {
     input = Tools.bounding(input);
     if (input > 0) {
-      Lmotor.set(input * Constants.ElevatorConstants.kElevatorUpSpeed);
-      Rmotor.set(input * Constants.ElevatorConstants.kElevatorUpSpeed);
+      Lmotor.set(input * ElevatorConstants.kElevatorUpSpeed);
+      Rmotor.set(input * ElevatorConstants.kElevatorUpSpeed);
     }
     else if (input < 0) {
-      Lmotor.set(input * Constants.ElevatorConstants.kElevatorDownSpeed);
-      Rmotor.set(input * Constants.ElevatorConstants.kElevatorDownSpeed);
+      Lmotor.set(input * ElevatorConstants.kElevatorDownSpeed);
+      Rmotor.set(input * ElevatorConstants.kElevatorDownSpeed);
     }
     else {
       Lmotor.set(0);
