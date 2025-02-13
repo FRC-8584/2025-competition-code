@@ -22,6 +22,7 @@ public class RobotStates {
     // values
     private volatile double gyroX;
     private volatile boolean intake_switch;
+    private double elevator_position;
 
     private RobotStates() {
         // Sensors
@@ -31,6 +32,7 @@ public class RobotStates {
         // Timer
         executor = new java.util.Timer();
 		executor.schedule(new RobotStatesUpdateTask(this), 0L, 20);
+        elevator_position = Constants.ElevatorConstants.kElevatorMinPosition;
     }
 
     public static RobotStates getInstance() {

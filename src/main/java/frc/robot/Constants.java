@@ -69,7 +69,7 @@ public final class Constants {
   public static class ElevatorConstants {
     // Elevator Move Speed
     public static final double kElevatorUpSpeed = 1.0;
-    public static final double kElevatorDownSpeed = 0.8;
+    public static final double kElevatorDownSpeed = 0.6;
 
     // Motor rotate rate (cm/rotations)
     public static final double kRotateRate = 11.43/15.0;

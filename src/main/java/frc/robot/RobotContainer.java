@@ -3,14 +3,13 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.claw.RunGrapper;
-import frc.robot.commands.claw.SetShaftPosition;
-import frc.robot.commands.elevator.SetElevatorPower;
-import frc.robot.commands.elevator.SetElevatorPosition;
-import frc.robot.commands.swerve.JoystickSwerve;
-import frc.robot.subsystems.Claw;
-import frc.robot.subsystems.Elevator;
-import frc.robot.subsystems.Swerve;
+
+import frc.robot.commands.*;
+import frc.robot.commands.claw.*;
+import frc.robot.commands.elevator.*;
+import frc.robot.commands.swerve.*;
+
+import frc.robot.subsystems.*;
 
 public class RobotContainer {
   private final Swerve swerve = new Swerve();
@@ -36,26 +35,29 @@ public class RobotContainer {
       ()->js1.getRawAxis(4))
     );
 
-    // Elevator Up & Down
-    new JoystickButton(js, 5).whileTrue(new SetElevatorPower(elevator, 1).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-    new JoystickButton(js, 6).whileTrue(new SetElevatorPower(elevator, -1).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+    // Claw Grapper
+    new JoystickButton(js, 5).whileTrue(new RunGrapper(claw, 1).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+    new JoystickButton(js, 6).whileTrue(new RunGrapper(claw, -1).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
-    // Claw Shaft
-    new JoystickButton(js, 3).whileTrue(new SetShaftPosition(claw, 0).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-    new JoystickButton(js, 4).whileTrue(new SetShaftPosition(claw, 35).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-    new JoystickButton(js, 2).whileTrue(new SetShaftPosition(claw, 70).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-
-    new JoystickButton(js, 1).whileTrue(new RunGrapper(claw, 1).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-
+    // Combinate command
+    new JoystickButton(js, 1).whileTrue(new Set_L1(elevator, claw).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+    new JoystickButton(js, 2).whileTrue(new Set_L2(elevator, claw).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+    new JoystickButton(js, 4).whileTrue(new Set_L3(elevator, claw).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+    new JoystickButton(js, 3).whileTrue(new Set_L4(elevator, claw).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
   }
 
   private void player2CommandList() {
     final Joystick js = js2;
 
-    // Elevator Up & Down
+    // Claw Shaft
+    new JoystickButton(js, 5).whileTrue(new SetShaftPosition(claw, 0).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+    new JoystickButton(js, 6).whileTrue(new SetShaftPosition(claw, 35).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+    new JoystickButton(js, 7).whileTrue(new SetShaftPosition(claw, 130).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+
+    // Elevator
     new JoystickButton(js, 1).whileTrue(new SetElevatorPosition(elevator, 0).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-    new JoystickButton(js, 2).whileTrue(new SetElevatorPosition(elevator, 20).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-    new JoystickButton(js, 4).whileTrue(new SetElevatorPosition(elevator, 45).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+    new JoystickButton(js, 2).whileTrue(new SetElevatorPosition(elevator, 16).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+    new JoystickButton(js, 4).whileTrue(new SetElevatorPosition(elevator, 35).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
     new JoystickButton(js, 3).whileTrue(new SetElevatorPosition(elevator, 70).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
   }
 }
