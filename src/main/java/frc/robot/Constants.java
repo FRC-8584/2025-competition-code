@@ -56,8 +56,8 @@ public final class Constants {
     public static final int Left_ElevatorID   =  10;
     public static final int Right_ElevatorID  =  9;
 
-    public static final int Claw_ShaftID      =  11;
-    public static final int Claw_GrapperID    =  12;
+    public static final int ShaftID      =  11;
+    public static final int GrapperID    =  12;
   }
 
   public static class SwerveConstants {
@@ -124,10 +124,9 @@ public final class Constants {
     }
   }
 
-  public static class ClawConstants {
-    // Claw Shaft & Grapper Speed
+  public static class ShaftConstants {
+    // Shaft Speed
     public static final double kShaftSpeed = 1.0;
-    public static final double kGrapperSpeed = 1.0;
 
     // Motor rotate rate (deg/rotations)
     public static final double kRotateRate = 360.0/80.0;
@@ -143,7 +142,6 @@ public final class Constants {
 
     // Motor controller inverted settings
     public static final boolean kShaftInverted = true;
-    public static final boolean kGrapperInverted = false;
     
     public static final SparkMaxConfig getShaftCfg() {
       final SparkMaxConfig config = new SparkMaxConfig();
@@ -161,7 +159,16 @@ public final class Constants {
 
       return config;
     }
-  
+  }
+
+
+  public static class GrapperConstants {
+    // Grapper Speed
+    public static final double kGrapperSpeed = 1.0;
+
+    // Motor controller inverted settings
+    public static final boolean kGrapperInverted = false;
+
     public static final SparkMaxConfig getGrapperCfg() {
       final SparkMaxConfig config = new SparkMaxConfig();
 

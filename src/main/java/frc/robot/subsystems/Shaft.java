@@ -10,24 +10,18 @@ import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ControlType;
 
 import frc.robot.Constants;
-import frc.robot.Constants.ClawConstants;
-import frc.robot.utils.Tools;
+import frc.robot.Constants.ShaftConstants;
 
-public class Claw extends SubsystemBase {
-  private final SparkMax Shaft_motor = new SparkMax(Constants.MotorControllerID.Claw_ShaftID, MotorType.kBrushless);
-  private final SparkMax Grapper_motor = new SparkMax(Constants.MotorControllerID.Claw_GrapperID, MotorType.kBrushless);
+public class Shaft extends SubsystemBase {
+  private final SparkMax Shaft_motor = new SparkMax(Constants.MotorControllerID.ShaftID, MotorType.kBrushless);
   
   private double position;// shaft position (deg)
 
-  public Claw() {
-    position = ClawConstants.kShaftMinPosition;
+  public Shaft() {
+    position = ShaftConstants.kShaftMinPosition;
 
     Shaft_motor.configure(
-      Constants.ClawConstants.getShaftCfg(),
-      ResetMode.kResetSafeParameters,
-      PersistMode.kPersistParameters);
-    Grapper_motor.configure(
-      Constants.ClawConstants.getGrapperCfg(),
+      Constants.ShaftConstants.getShaftCfg(),
       ResetMode.kResetSafeParameters,
       PersistMode.kPersistParameters);
   }
@@ -42,18 +36,8 @@ public class Claw extends SubsystemBase {
    * @param setpoint
    * set shaft position (deg)
    */
-  public void setShaftPosition(double setpoint) {
+  public void setPosition(double setpoint) {
     Shaft_motor.getClosedLoopController().setReference(setpoint, ControlType.kPosition);
-  }
-
-  /**
-   * @param input
-   * run the grapper
-   * range: 1.0 ~ -1.0
-   */
-  public void setGrapperPower(double input) {
-    input = Tools.bounding(input);
-    Grapper_motor.set(input * Constants.ClawConstants.kGrapperSpeed);
   }
 
   /**
