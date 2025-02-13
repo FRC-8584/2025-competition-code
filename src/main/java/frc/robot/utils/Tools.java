@@ -49,8 +49,7 @@ public class Tools {
 	 */
 	public static boolean isInRange(double pos, final double min, final double max) {
 		boolean result = false;
-		result = pos >= min ? true : false;
-		result = pos <= max ? true : false;
+		result = (pos >= min ? true : false) & (pos <= max ? true : false);
 
 		return result;
 	}
@@ -60,8 +59,7 @@ public class Tools {
 	 */
 	public static boolean isOutRange(double pos, final double min, final double max) {
 		boolean result = false;
-		result = pos < min ? true : false;
-		result = pos > max ? true : false;
+		result = (pos < min ? true : false) | (pos > max ? true : false);
 
 		return result;
 	}
