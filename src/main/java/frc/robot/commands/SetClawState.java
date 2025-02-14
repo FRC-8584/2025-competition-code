@@ -31,8 +31,8 @@ public class SetClawState extends Command {
 
     double present_elevator_pos = m_Elevator.getPosition();
 
-    if(Tools.isInRange(present_elevator_pos, 15, 40)){
-      shaftMinPos = 20;
+    if(Tools.isInRange(present_elevator_pos, 15, 50)){
+      shaftMinPos = 25;
     }
     else{
       shaftMinPos = 0;

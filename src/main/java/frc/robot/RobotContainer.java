@@ -22,8 +22,8 @@ public class RobotContainer {
   private final Joystick joystick_2 = new Joystick(Constants.OperatorConstants.Player2Port);
 
   public RobotContainer() {
-    elevator.setDefaultCommand(new SetElevatorPosition(elevator, elevator.getPosition()));
-    shaft.setDefaultCommand(new SetShaftPosition(shaft, shaft.getPosition()));
+    elevator.setDefaultCommand(new DefaultElevator(elevator));
+    shaft.setDefaultCommand(new DefaultShaft(shaft));
 
     player1CommandList();
     player2CommandList();
@@ -45,10 +45,10 @@ public class RobotContainer {
     new JoystickButton(js, 6).whileTrue(new SetGrabberPower(grabber, -1).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
     // Combinate command
-    new JoystickButton(js, 1).whileTrue(new SetClawState(elevator, shaft, 0, 0).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-    new JoystickButton(js, 2).whileTrue(new SetClawState(elevator, shaft, 16, 35).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-    new JoystickButton(js, 4).whileTrue(new SetClawState(elevator, shaft, 35, 35).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-    new JoystickButton(js, 3).whileTrue(new SetClawState(elevator, shaft, 70, 35).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+    new JoystickButton(js, 1).onTrue(new SetClawState(elevator, shaft, 0, 0).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+    new JoystickButton(js, 2).onTrue(new SetClawState(elevator, shaft, 13, 25).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+    new JoystickButton(js, 4).onTrue(new SetClawState(elevator, shaft, 34, 25).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+    new JoystickButton(js, 3).onTrue(new SetClawState(elevator, shaft, 70, 35).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
   }
 
   private void player2CommandList() {
