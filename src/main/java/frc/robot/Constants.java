@@ -53,11 +53,14 @@ public final class Constants {
     public static final int RF_DriveID        =  6;
     public static final int RR_DriveID        =  7;
 
-    public static final int Left_ElevatorID   =  10;
-    public static final int Right_ElevatorID  =  9;
+    public static final int Left_ElevatorID   =  9;
+    public static final int Right_ElevatorID  =  10;
 
     public static final int ShaftID           =  11;
     public static final int GrabberID         =  12;
+
+    public static final int Left_ClimberID    =  13;
+    public static final int Right_ClimberID   =  14;
   }
 
   public static class SwerveConstants {
@@ -84,8 +87,8 @@ public final class Constants {
     public static final double kd = 0;
 
     // Motor controller inverted settings
-    public static final boolean kLeftElevatorInverted = false;
-    public static final boolean kRightElevatorInverted = true;
+    public static final boolean kLeftElevatorInverted = true;
+    public static final boolean kRightElevatorInverted = false;
 
     public static final SparkMaxConfig getLeftElevatorCfg() {
       final SparkMaxConfig config = new SparkMaxConfig();
@@ -175,6 +178,64 @@ public final class Constants {
       config
         .inverted(kGrabberInverted)
         .idleMode(IdleMode.kBrake);
+
+      return config;
+    }
+  }
+
+  public static class ClimberConstants {
+    // Climber Move Speed
+    public static final double kClimberForwardSpeed = 1.0;
+    public static final double kClimberReverseSpeed = 1.0;
+
+    // Motor rotate rate (deg/rotations)
+    public static final double kRotateRate = 360.0/100.0;
+
+    // Climber Shaft position limits (deg)
+    public static final double kClimberMinPosition = 0;
+    public static final double kClimberMaxPosition = 270.0;
+
+    // Motor controller closed loop control pid (Climber Shaft)
+    public static final double kp = 0.02;
+    public static final double ki = 0;
+    public static final double kd = 0;
+
+    // Motor controller inverted settings
+    public static final boolean kLeftClimberInverted = false;
+    public static final boolean kRightClimberInverted = true;
+
+    public static final SparkMaxConfig getLeftClimberCfg() {
+      final SparkMaxConfig config = new SparkMaxConfig();
+
+      config
+        .inverted(kLeftClimberInverted)
+        .idleMode(IdleMode.kBrake);
+      config.encoder
+        .positionConversionFactor(kRotateRate)// return position (deg)
+        .velocityConversionFactor(kRotateRate/60.0);// return velocity (deg/s)
+      config.closedLoop
+        .feedbackSensor(FeedbackSensor.kPrimaryEncoder)// build-in encoder
+        .pid(kp, ki, kd)
+        .outputRange(-kClimberReverseSpeed, kClimberForwardSpeed)
+        .positionWrappingInputRange(kClimberMinPosition, kClimberMaxPosition);
+
+      return config;
+    }
+
+    public static final SparkMaxConfig getRightClimberCfg() {
+      final SparkMaxConfig config = new SparkMaxConfig();
+
+      config
+        .inverted(kRightClimberInverted)
+        .idleMode(IdleMode.kBrake);
+      config.encoder
+        .positionConversionFactor(kRotateRate)// return position (deg)
+        .velocityConversionFactor(kRotateRate/60.0);// return velocity (deg/s)
+      config.closedLoop
+        .feedbackSensor(FeedbackSensor.kPrimaryEncoder)// build-in encoder
+        .pid(kp, ki, kd)
+        .outputRange(-kClimberReverseSpeed, kClimberForwardSpeed)
+        .positionWrappingInputRange(kClimberMinPosition, kClimberMaxPosition);
 
       return config;
     }
