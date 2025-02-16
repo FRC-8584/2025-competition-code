@@ -136,7 +136,7 @@ public final class Constants {
 
     // Shaft position limits (deg)
     public static final double kShaftMinPosition = 0;
-    public static final double kShaftMaxPosition = 135.0;
+    public static final double kShaftMaxPosition = 200.0;
 
     // Motor controller closed loop control pid (Shaft)
     public static final double kp = 0.01;
