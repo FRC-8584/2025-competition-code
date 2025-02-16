@@ -18,12 +18,13 @@ public class Elevator extends SubsystemBase {
   private final SparkMax Rmotor = new SparkMax(MotorControllerID.Right_ElevatorID, MotorType.kBrushless);
   
   private double position;// average position (cm)
+  private double setpoint;
   private double L_pos, R_pos;// left & right motor position (cm)
 
   public Elevator() {
     L_pos = ElevatorConstants.kElevatorMinPosition;
     R_pos = ElevatorConstants.kElevatorMinPosition;
-    position = ElevatorConstants.kElevatorMinPosition;
+    setpoint = ElevatorConstants.kElevatorMinPosition;
 
     Lmotor.configure(
       ElevatorConstants.getLeftElevatorCfg(),
@@ -40,6 +41,12 @@ public class Elevator extends SubsystemBase {
     L_pos = Lmotor.getEncoder().getPosition();// return left motor position (cm)
     R_pos = Rmotor.getEncoder().getPosition();// return right motor position (cm)
     position = (L_pos + R_pos) / 2.0;// average position (cm)
+
+    //set position
+    Lmotor.getClosedLoopController().setReference(setpoint, ControlType.kPosition);
+    Rmotor.getClosedLoopController().setReference(setpoint, ControlType.kPosition);
+
+    // upload data
     SmartDashboard.putNumber("L_Pos", L_pos);
     SmartDashboard.putNumber("R_Pos", R_pos);
     SmartDashboard.putNumber("Elevator Height", position);
@@ -50,8 +57,7 @@ public class Elevator extends SubsystemBase {
    * set elevator position (cm)
    */
   public void setPosition(double setpoint) {
-    Lmotor.getClosedLoopController().setReference(setpoint, ControlType.kPosition);
-    Rmotor.getClosedLoopController().setReference(setpoint, ControlType.kPosition);
+    this.setpoint = setpoint;
   }
 
   /**
@@ -79,5 +85,12 @@ public class Elevator extends SubsystemBase {
    */
   public double getPosition() {
     return position;
+  }
+
+  /**
+   * @return elevator setpoint (cm)
+   */
+  public double getSetpoint() {
+    return setpoint;
   }
 }

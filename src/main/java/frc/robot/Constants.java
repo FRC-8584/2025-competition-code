@@ -189,7 +189,7 @@ public final class Constants {
     public static final double kClimberReverseSpeed = 1.0;
 
     // Motor rotate rate (deg/rotations)
-    public static final double kRotateRate = 360.0/100.0;
+    public static final double kRotateRate = 360.0/(100.0*5.77777);
 
     // Climber Shaft position limits (deg)
     public static final double kClimberMinPosition = 0;
