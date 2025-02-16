@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.revrobotics.spark.SparkMax;
@@ -14,7 +15,13 @@ import frc.robot.utils.Tools;
 public class Grabber extends SubsystemBase {
   private final SparkMax Grapper_motor = new SparkMax(MotorControllerID.GrabberID, MotorType.kBrushless);
 
+  private boolean isGetCoral;
+  private boolean isGetAlgae;
+
   public Grabber() {
+    isGetCoral = false;
+    isGetAlgae = false;
+
     Grapper_motor.configure(
       GrabberConstants.getGrabberCfg(),
       ResetMode.kResetSafeParameters,
@@ -22,7 +29,10 @@ public class Grabber extends SubsystemBase {
   }
 
   @Override
-  public void periodic() {}
+  public void periodic() {
+    SmartDashboard.putBoolean("Grabber Get CORAL", isGetCoral);
+    SmartDashboard.putBoolean("Grabber Get ALGAE", isGetAlgae);
+  }
 
   /**
    * @param input

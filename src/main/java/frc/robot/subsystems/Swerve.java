@@ -2,15 +2,16 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import frc.robot.modules.SwerveModule;
-import frc.robot.utils.PID;
-import frc.robot.utils.Tools;
 import frc.robot.Constants;
 import frc.robot.Constants.SwerveConstants;
 
+import frc.robot.modules.SwerveModule;
+
+import frc.robot.utils.PID;
+import frc.robot.utils.Tools;
+
 public class Swerve extends SubsystemBase {
   /**********swerve motor modules**********/
-
 	private final SwerveModule lf;
   private final SwerveModule lr;  
   private final SwerveModule rf;
@@ -19,7 +20,6 @@ public class Swerve extends SubsystemBase {
   /**********variables**********/
 
   /**********constants**********/
-
   private static final double a = Constants.MechanicalConstants.RobotLength / Constants.MechanicalConstants.r;
   private static final double b = Constants.MechanicalConstants.RobotWidth / Constants.MechanicalConstants.r;
 

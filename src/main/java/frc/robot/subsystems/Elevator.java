@@ -14,8 +14,8 @@ import frc.robot.Constants.ElevatorConstants;
 import frc.robot.utils.Tools;
 
 public class Elevator extends SubsystemBase {
-  private final SparkMax Lmotor = new SparkMax(MotorControllerID.Left_ElevatorID, MotorType.kBrushless);
-  private final SparkMax Rmotor = new SparkMax(MotorControllerID.Right_ElevatorID, MotorType.kBrushless);
+  private final SparkMax Elevator_Left_motor = new SparkMax(MotorControllerID.Left_ElevatorID, MotorType.kBrushless);
+  private final SparkMax Elevator_Right_motor = new SparkMax(MotorControllerID.Right_ElevatorID, MotorType.kBrushless);
   
   private double position;// average position (cm)
   private double setpoint;
@@ -24,13 +24,14 @@ public class Elevator extends SubsystemBase {
   public Elevator() {
     L_pos = ElevatorConstants.kElevatorMinPosition;
     R_pos = ElevatorConstants.kElevatorMinPosition;
+    position = ElevatorConstants.kElevatorMinPosition;
     setpoint = ElevatorConstants.kElevatorMinPosition;
 
-    Lmotor.configure(
+    Elevator_Left_motor.configure(
       ElevatorConstants.getLeftElevatorCfg(),
       ResetMode.kResetSafeParameters,
       PersistMode.kPersistParameters);
-    Rmotor.configure(
+    Elevator_Right_motor.configure(
       ElevatorConstants.getRightElevatorCfg(),
       ResetMode.kResetSafeParameters,
       PersistMode.kPersistParameters);
@@ -38,18 +39,19 @@ public class Elevator extends SubsystemBase {
 
   @Override
   public void periodic() {
-    L_pos = Lmotor.getEncoder().getPosition();// return left motor position (cm)
-    R_pos = Rmotor.getEncoder().getPosition();// return right motor position (cm)
+    L_pos = Elevator_Left_motor.getEncoder().getPosition();// return left motor position (cm)
+    R_pos = Elevator_Right_motor.getEncoder().getPosition();// return right motor position (cm)
     position = (L_pos + R_pos) / 2.0;// average position (cm)
 
     //set position
-    Lmotor.getClosedLoopController().setReference(setpoint, ControlType.kPosition);
-    Rmotor.getClosedLoopController().setReference(setpoint, ControlType.kPosition);
+    Elevator_Left_motor.getClosedLoopController().setReference(setpoint, ControlType.kPosition);
+    Elevator_Right_motor.getClosedLoopController().setReference(setpoint, ControlType.kPosition);
 
-    // upload data
-    SmartDashboard.putNumber("L_Pos", L_pos);
-    SmartDashboard.putNumber("R_Pos", R_pos);
+    // update data
+    SmartDashboard.putNumber("Elevator L_Pos", L_pos);
+    SmartDashboard.putNumber("Elevator R_Pos", R_pos);
     SmartDashboard.putNumber("Elevator Height", position);
+    SmartDashboard.putNumber("Elevator setpoint", position);
   }
 
   /**
@@ -67,16 +69,16 @@ public class Elevator extends SubsystemBase {
   public void setPower(double input) {
     input = Tools.bounding(input);
     if (input > 0) {
-      Lmotor.set(input * ElevatorConstants.kElevatorUpSpeed);
-      Rmotor.set(input * ElevatorConstants.kElevatorUpSpeed);
+      Elevator_Left_motor.set(input * ElevatorConstants.kElevatorUpSpeed);
+      Elevator_Right_motor.set(input * ElevatorConstants.kElevatorUpSpeed);
     }
     else if (input < 0) {
-      Lmotor.set(input * ElevatorConstants.kElevatorDownSpeed);
-      Rmotor.set(input * ElevatorConstants.kElevatorDownSpeed);
+      Elevator_Left_motor.set(input * ElevatorConstants.kElevatorDownSpeed);
+      Elevator_Right_motor.set(input * ElevatorConstants.kElevatorDownSpeed);
     }
     else {
-      Lmotor.set(0);
-      Rmotor.set(0);
+      Elevator_Left_motor.set(0);
+      Elevator_Right_motor.set(0);
     }
   }
 

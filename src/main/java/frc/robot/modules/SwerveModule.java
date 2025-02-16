@@ -11,7 +11,7 @@ import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.*;
 
 public class SwerveModule {
-	public final TalonSRX turningMotor;
+	public final TalonSRX turnMotor;
 	public final SparkMax driveMotor;
 
 	private String name = "";
@@ -22,18 +22,25 @@ public class SwerveModule {
 
 	/**********functions**********/
 
-	public SwerveModule(final int turningMotorID, final int driveMotorID, final PID pid){
-		turningMotor = new TalonSRX(turningMotorID);
+	public SwerveModule(final int turnMotorID, final int driveMotorID, final PID pid){
+		turnMotor = new TalonSRX(turnMotorID);
 		driveMotor = new SparkMax(driveMotorID, SparkLowLevel.MotorType.kBrushed);
+		
+		turnMotor.configFactoryDefault();
+
+		turnMotor.configSelectedFeedbackSensor(FeedbackDevice.Analog);
+		turnMotor.setSelectedSensorPosition(driveMotorID);
+		turnMotor.setInverted(true);// invert motor output
+		turnMotor.setSensorPhase(true);// invert sensor
+		
 		this.pid = pid;
 		this.pid.setDeadband(0.01);
 
-		turningMotor.configSelectedFeedbackSensor(FeedbackDevice.Analog);
 		invert = 1;
 	}
 
 	public void update() {
-		final double value = -((int)turningMotor.getSelectedSensorPosition() & 0x03ff) * 0.3515625;
+		final double value = ((int)turnMotor.getSelectedSensorPosition() & 0x03ff) * 0.3515625;
 
 		turnValue = value < 0 ? value + 360 : value;
 		SmartDashboard.putNumber(name, turnValue);
@@ -65,12 +72,12 @@ public class SwerveModule {
 		final double turnPower = Tools.bounding(pid.calculate(error / 90.0));
 		final double drivePower = invert * speed * Math.cos(error * 0.0174533);
 
-		turningMotor.set(TalonSRXControlMode.PercentOutput, -turnPower);
+		turnMotor.set(TalonSRXControlMode.PercentOutput, turnPower);
 		driveMotor.set(drivePower);
 	}
 
 	public void stop() {
-		turningMotor.set(TalonSRXControlMode.PercentOutput, 0);
+		turnMotor.set(TalonSRXControlMode.PercentOutput, 0);
 		driveMotor.set(0);
 	}
 

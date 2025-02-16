@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
 
 import frc.robot.commands.*;
-import frc.robot.commands.climber.SetClimberPower;
+import frc.robot.commands.climber.*;
 import frc.robot.commands.elevator.*;
 import frc.robot.commands.grabber.*;
 import frc.robot.commands.shaft.*;
