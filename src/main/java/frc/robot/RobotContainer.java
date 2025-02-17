@@ -25,7 +25,7 @@ public class RobotContainer {
 
   public RobotContainer() {
     player1CommandList();
-    player2CommandList();
+    // player2CommandList();
   }
 
   private void player1CommandList() {
@@ -48,39 +48,18 @@ public class RobotContainer {
     new JoystickButton(js, 2).onTrue(new SetClawState(elevator, shaft, 13, 25).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
     new JoystickButton(js, 4).onTrue(new SetClawState(elevator, shaft, 34, 25).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
     new JoystickButton(js, 3).onTrue(new SetClawState(elevator, shaft, 70, 35).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-  }
 
-  private void player2CommandList() {
-    final Joystick js = joystick_2;
+    // Combinate command ALGAE Reef & Processor
+    new JoystickButton(js, 7).onTrue(new SetClawState(elevator, shaft, 38, 125).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+    new JoystickButton(js, 8).onTrue(new SetClawState(elevator, shaft, 14, 200).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
     // Climber
     climber.setDefaultCommand(
       new SetClimberPower(climber, () -> js.getY())
     );
+  }
 
-    // Claw Grapper
-    new JoystickButton(js, 5).whileTrue(new SetGrabberPower(grabber, 1).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-    new JoystickButton(js, 6).whileTrue(new SetGrabberPower(grabber, -1).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-
-    // Combinate command CORAL L1~L4
-    new JoystickButton(js, 1).onTrue(new SetClawState(elevator, shaft, 0, 0).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-    new JoystickButton(js, 2).onTrue(new SetClawState(elevator, shaft, 13, 25).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-    new JoystickButton(js, 4).onTrue(new SetClawState(elevator, shaft, 34, 25).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-    new JoystickButton(js, 3).onTrue(new SetClawState(elevator, shaft, 70, 35).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-
-    // Combinate command ALGAE Reef & Processor
-    new JoystickButton(js, 7).onTrue(new SetClawState(elevator, shaft, 36, 125).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-    new JoystickButton(js, 8).onTrue(new SetClawState(elevator, shaft, 14, 200).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-
-    // // Claw Shaft
-    // new JoystickButton(js, 5).onTrue(new SetShaftPosition(shaft, 0).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-    // new JoystickButton(js, 6).onTrue(new SetShaftPosition(shaft, 35).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-    // new JoystickButton(js, 7).onTrue(new SetShaftPosition(shaft, 130).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-
-    // // Elevator
-    // new JoystickButton(js, 1).onTrue(new SetElevatorPosition(elevator, 0).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-    // new JoystickButton(js, 2).onTrue(new SetElevatorPosition(elevator, 16).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-    // new JoystickButton(js, 4).onTrue(new SetElevatorPosition(elevator, 35).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-    // new JoystickButton(js, 3).onTrue(new SetElevatorPosition(elevator, 70).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+  private void player2CommandList() {
+    final Joystick js = joystick_2;
   }
 }
