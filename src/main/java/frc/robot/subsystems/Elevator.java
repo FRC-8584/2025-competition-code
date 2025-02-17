@@ -51,7 +51,7 @@ public class Elevator extends SubsystemBase {
     SmartDashboard.putNumber("Elevator L_Pos", L_pos);
     SmartDashboard.putNumber("Elevator R_Pos", R_pos);
     SmartDashboard.putNumber("Elevator Height", position);
-    SmartDashboard.putNumber("Elevator setpoint", position);
+    SmartDashboard.putNumber("Elevator setpoint", setpoint);
   }
 
   /**
