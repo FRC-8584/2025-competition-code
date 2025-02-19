@@ -3,6 +3,8 @@ package frc.robot;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import com.ctre.phoenix6.configs.CANcoderConfiguration;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
 
 public final class Constants {
 
@@ -41,8 +43,8 @@ public final class Constants {
   /***** Field Constants *****/
   public static class FieldConstants {}
 
-  /***** motor controller ID *****/
-  public static class MotorControllerID {
+  /***** CAN Device ID *****/
+  public static class CAN_DeviceID {
     public static final int LF_TurnID         =  1;
     public static final int LR_TurnID         =  4;
     public static final int RF_TurnID         =  2;
@@ -61,12 +63,46 @@ public final class Constants {
 
     public static final int Left_ClimberID    =  13;
     public static final int Right_ClimberID   =  14;
+
+    public static final int LF_CANcoderID     =  15;
+    public static final int LR_CANcoderID     =  18;
+    public static final int RF_CANcoderID     =  16;
+    public static final int RR_CANcoderID     =  17;
   }
 
   public static class SwerveConstants {
     // Robot Move & Turn Speed
     public static final double kMoveSpeed = 1.0;
     public static final double kTrunSpeed = 1.0;
+
+    // Motor gear ratio
+    public static final double kDriveMotorRatio = 11.43/15.0;
+    public static final double kTurnMotorRatio = 10;
+
+    // Motor controller inverted settings
+    public static final boolean kDriveMotorInverted = false;
+    public static final boolean kTurnMotorInverted = false;
+
+    public static final double a = MechanicalConstants.RobotLength / MechanicalConstants.r;
+    public static final double b = MechanicalConstants.RobotWidth / MechanicalConstants.r;
+
+    public static final TalonFXConfiguration getDriveMotorCfg() {
+      TalonFXConfiguration config = new TalonFXConfiguration();
+
+      return config;
+    }
+
+    public static final TalonFXConfiguration getTurnMotorCfg() {
+      TalonFXConfiguration config = new TalonFXConfiguration();
+
+      return config;
+    }
+
+    public static final CANcoderConfiguration getCANcoderCfg() {
+      CANcoderConfiguration config = new CANcoderConfiguration();
+
+      return config;
+    }
   }
 
   public static class ElevatorConstants {

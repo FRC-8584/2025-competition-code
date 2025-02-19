@@ -2,39 +2,27 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import frc.robot.Constants;
+import frc.robot.Constants.CAN_DeviceID;
 import frc.robot.Constants.SwerveConstants;
 
 import frc.robot.modules.SwerveModule;
 
-import frc.robot.utils.PID;
 import frc.robot.utils.Tools;
 
 public class Swerve extends SubsystemBase {
-  /**********swerve motor modules**********/
+  /**********swerve modules**********/
 	private final SwerveModule lf;
   private final SwerveModule lr;  
   private final SwerveModule rf;
   private final SwerveModule rr;
 
-  /**********variables**********/
-
-  /**********constants**********/
-  private static final double a = Constants.MechanicalConstants.RobotLength / Constants.MechanicalConstants.r;
-  private static final double b = Constants.MechanicalConstants.RobotWidth / Constants.MechanicalConstants.r;
-
   /**********functions**********/
 
   public Swerve() {
-    lf = new SwerveModule(Constants.MotorControllerID.LF_TurnID, Constants.MotorControllerID.LF_DriveID, new PID(3, 2*1e-3, 0));
-    lr = new SwerveModule(Constants.MotorControllerID.LR_TurnID, Constants.MotorControllerID.LR_DriveID, new PID(3, 2*1e-3, 0));
-    rf = new SwerveModule(Constants.MotorControllerID.RF_TurnID, Constants.MotorControllerID.RF_DriveID, new PID(3, 2*1e-3, 0));
-    rr = new SwerveModule(Constants.MotorControllerID.RR_TurnID, Constants.MotorControllerID.RR_DriveID, new PID(3, 2*1e-3, 0));
-
-    lf.setName("Left_front");
-    lr.setName("Left_rear");
-    rf.setName("Right_front");
-    rr.setName("Right_rear");
+    lf = new SwerveModule(CAN_DeviceID.LF_TurnID, CAN_DeviceID.LF_DriveID, CAN_DeviceID.LF_CANcoderID);
+    lr = new SwerveModule(CAN_DeviceID.LR_TurnID, CAN_DeviceID.LR_DriveID, CAN_DeviceID.LR_CANcoderID);
+    rf = new SwerveModule(CAN_DeviceID.RF_TurnID, CAN_DeviceID.RF_DriveID, CAN_DeviceID.RF_CANcoderID);
+    rr = new SwerveModule(CAN_DeviceID.RR_TurnID, CAN_DeviceID.RR_DriveID, CAN_DeviceID.RR_CANcoderID);
 
     move(0, 0, 0);
   }
@@ -74,10 +62,10 @@ public class Swerve extends SubsystemBase {
 
     //calculate vector (x, y)
 
-    final double lf_x = x + turn * a, lf_y = y + turn * b;
-    final double lr_x = x - turn * a, lr_y = y + turn * b;
-    final double rf_x = x + turn * a, rf_y = y - turn * b;
-    final double rr_x = x - turn * a, rr_y = y - turn * b;
+    final double lf_x = x + turn * SwerveConstants.a, lf_y = y + turn * SwerveConstants.b;
+    final double lr_x = x - turn * SwerveConstants.a, lr_y = y + turn * SwerveConstants.b;
+    final double rf_x = x + turn * SwerveConstants.a, rf_y = y - turn * SwerveConstants.b;
+    final double rr_x = x - turn * SwerveConstants.a, rr_y = y - turn * SwerveConstants.b;
 
     //calculate turn degrees
 

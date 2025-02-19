@@ -9,11 +9,11 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ControlType;
 
-import frc.robot.Constants.MotorControllerID;
+import frc.robot.Constants.CAN_DeviceID;
 import frc.robot.Constants.ShaftConstants;
 
 public class Shaft extends SubsystemBase {
-  private final SparkMax Shaft_motor = new SparkMax(MotorControllerID.ShaftID, MotorType.kBrushless);
+  private final SparkMax Shaft_motor = new SparkMax(CAN_DeviceID.ShaftID, MotorType.kBrushless);
   
   private double position;// shaft position (deg)
 

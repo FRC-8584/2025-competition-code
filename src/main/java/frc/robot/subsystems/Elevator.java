@@ -9,13 +9,13 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ControlType;
 
-import frc.robot.Constants.MotorControllerID;
+import frc.robot.Constants.CAN_DeviceID;
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.utils.Tools;
 
 public class Elevator extends SubsystemBase {
-  private final SparkMax Elevator_Left_motor = new SparkMax(MotorControllerID.Left_ElevatorID, MotorType.kBrushless);
-  private final SparkMax Elevator_Right_motor = new SparkMax(MotorControllerID.Right_ElevatorID, MotorType.kBrushless);
+  private final SparkMax Elevator_Left_motor = new SparkMax(CAN_DeviceID.Left_ElevatorID, MotorType.kBrushless);
+  private final SparkMax Elevator_Right_motor = new SparkMax(CAN_DeviceID.Right_ElevatorID, MotorType.kBrushless);
   
   private double position;// average position (cm)
   private double setpoint;

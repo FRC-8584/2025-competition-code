@@ -9,13 +9,13 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ControlType;
 
-import frc.robot.Constants.MotorControllerID;
+import frc.robot.Constants.CAN_DeviceID;
 import frc.robot.Constants.ClimberConstants;
 import frc.robot.utils.Tools;
 
 public class Climber extends SubsystemBase {
-  private final SparkMax Climber_Left_motor = new SparkMax(MotorControllerID.Left_ClimberID, MotorType.kBrushless);
-  private final SparkMax Climber_Right_motor = new SparkMax(MotorControllerID.Right_ClimberID, MotorType.kBrushless);
+  private final SparkMax Climber_Left_motor = new SparkMax(CAN_DeviceID.Left_ClimberID, MotorType.kBrushless);
+  private final SparkMax Climber_Right_motor = new SparkMax(CAN_DeviceID.Right_ClimberID, MotorType.kBrushless);
   
   private double position;// average position (deg)
   private double L_pos, R_pos;// left & right motor position (deg)
