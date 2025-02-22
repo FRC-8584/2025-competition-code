@@ -5,6 +5,9 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
+import com.ctre.phoenix6.signals.SensorDirectionValue;
 
 public final class Constants {
 
@@ -55,52 +58,66 @@ public final class Constants {
     public static final int RF_DriveID        =  6;
     public static final int RR_DriveID        =  7;
 
-    public static final int Left_ElevatorID   =  9;
-    public static final int Right_ElevatorID  =  10;
+    public static final int LF_CANcoderID     =  9;
+    public static final int LR_CANcoderID     =  12;
+    public static final int RF_CANcoderID     =  10;
+    public static final int RR_CANcoderID     =  11;
 
-    public static final int ShaftID           =  11;
-    public static final int GrabberID         =  12;
+    public static final int Left_ElevatorID   =  13;
+    public static final int Right_ElevatorID  =  14;
 
-    public static final int Left_ClimberID    =  13;
-    public static final int Right_ClimberID   =  14;
+    public static final int ShaftID           =  15;
+    public static final int GrabberID         =  16;
 
-    public static final int LF_CANcoderID     =  15;
-    public static final int LR_CANcoderID     =  18;
-    public static final int RF_CANcoderID     =  16;
-    public static final int RR_CANcoderID     =  17;
+    public static final int Left_ClimberID    =  17;
+    public static final int Right_ClimberID   =  18;
+
   }
 
   public static class SwerveConstants {
     // Robot Move & Turn Speed
-    public static final double kMoveSpeed = 1.0;
-    public static final double kTrunSpeed = 1.0;
+    public static final double kDriveSpeed = 1.0;
+    public static final double kTurnSpeed = 1.0;
 
     // Motor gear ratio
-    public static final double kDriveMotorRatio = 11.43/15.0;
-    public static final double kTurnMotorRatio = 10;
+    public static final double kDriveMotorGearRatio = 8.14;
 
     // Motor controller inverted settings
     public static final boolean kDriveMotorInverted = false;
     public static final boolean kTurnMotorInverted = false;
 
-    public static final double a = MechanicalConstants.RobotLength / MechanicalConstants.r;
-    public static final double b = MechanicalConstants.RobotWidth / MechanicalConstants.r;
+    // Swerve measurements
+    public static final double kSwerveMaxSpeed = 4.0;
+    public static final double kWheelRadius = 50.27;// mm
+    public static final double kDistancePerRotate = kWheelRadius * 2 * Math.PI / kDriveMotorGearRatio / 1000.0;// m/rotation
+    public static final double kWidth = 712.0;
+    public static final double kHeight = 709.0;
+
+    // encoder offsets
+    public static final double kLF_offset = -0.438721;
+    public static final double kLR_offset = -0.307373;
+    public static final double kRF_offset = -0.430176;
+    public static final double kRR_offset = -0.307861;
 
     public static final TalonFXConfiguration getDriveMotorCfg() {
       TalonFXConfiguration config = new TalonFXConfiguration();
-
+      config.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+      config.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+      config.Feedback.SensorToMechanismRatio = kDistancePerRotate;
       return config;
     }
 
     public static final TalonFXConfiguration getTurnMotorCfg() {
       TalonFXConfiguration config = new TalonFXConfiguration();
-
+      config.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+      config.MotorOutput.NeutralMode = NeutralModeValue.Brake;
       return config;
     }
 
-    public static final CANcoderConfiguration getCANcoderCfg() {
+    public static final CANcoderConfiguration getCANcoderCfg(double offset) {
       CANcoderConfiguration config = new CANcoderConfiguration();
-
+      config.MagnetSensor.SensorDirection = SensorDirectionValue.CounterClockwise_Positive;
+      config.MagnetSensor.MagnetOffset = offset;
       return config;
     }
   }

@@ -1,74 +1,81 @@
 package frc.robot.modules;
 
-import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.configs.CANcoderConfiguration;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.CANcoder;
+import com.ctre.phoenix6.hardware.TalonFX;
 
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
 import frc.robot.Constants.SwerveConstants;
 
 public class SwerveModule {
-	public final TalonFX driveMotor, turnMotor;
-	public final CANcoder enc_CANcoder;
+  private final TalonFX driveMotor;
+  private final TalonFX turnMotor;
+  private final CANcoder turnEncoder;
 
-	private double turnValue;
-	private double invert;
+  private final PIDController pid;
+  
+  private double invert;
+  
+  public SwerveModule(int turnMotorId, int dirveMotorId, int turnEncoderId, double encoder_offset) {
+    driveMotor = new TalonFX(dirveMotorId);
+    turnMotor = new TalonFX(turnMotorId);
+    turnEncoder = new CANcoder(turnEncoderId);
 
-	/**********functions**********/
+    pid = new PIDController(0.7, 0, 1e-6);
 
-	public SwerveModule(final int turnMotorID, final int driveMotorID, final int CANcoderID){
-		driveMotor = new TalonFX(driveMotorID);
-		turnMotor = new TalonFX(turnMotorID);
-		enc_CANcoder = new CANcoder(CANcoderID);
+    invert = 1.0;
 
-		driveMotor.getConfigurator().apply(SwerveConstants.getDriveMotorCfg());
-		turnMotor.getConfigurator().apply(SwerveConstants.getTurnMotorCfg());
-		enc_CANcoder.getConfigurator().apply(SwerveConstants.getCANcoderCfg());
+    applyConfigs(
+			SwerveConstants.getDriveMotorCfg(),
+			SwerveConstants.getTurnMotorCfg(),
+			SwerveConstants.getCANcoderCfg(encoder_offset)
+		);
+  }
 
-		invert = 1;
-	}
+  public void setState(SwerveModuleState state) {
+    double err_degree = errCalculator(state.angle.getDegrees() - getEncoderAngle().getDegrees());
+    driveMotor.set(state.speedMetersPerSecond * invert);
+    turnMotor.set(pid.calculate(err_degree / 90));
+  }
+  
+  public SwerveModulePosition getPosition() {
+    return new SwerveModulePosition(driveMotor.getPosition().getValueAsDouble(), getEncoderAngle());
+  }
 
-	public void update() {
-		turnValue = enc_CANcoder.getPosition().getValueAsDouble();
-	}
+  private Rotation2d getEncoderAngle() {
+    return Rotation2d.fromDegrees(turnEncoder.getAbsolutePosition().getValueAsDouble() * 360.0);
+  }
 
-	/*** motor ***/
-
-	public void setpoint(final double speed, final double angle) {
-		double error = angle - turnValue;//SP - PV 
-
+  private double errCalculator(double err) {
 		if(invert == -1){
-			error -= 180;
-			error = error < -180 ? error + 360 : error;
+			err -= 180;
+			err = err < -180 ? err + 360 : err;
 		}
 
-		error = error > 180 ? error - 360 : error;
-		error = error < -180 ? error + 360 : error;
+		err = err > 180 ? err - 360 : err;
+		err = err < -180 ? err + 360 : err;
 
-		if(-90 <= error && error < 90){}
-		else if(90 <= error && error < 180){
-			error -= 180;
+		if(-90 <= err && err < 90){}
+		else if(90 <= err && err < 180){
+			err -= 180;
 			invert *= -1.0;
 		}
-		else if(-180 <= error && error < -90){
-			error += 180;
+		else if(-180 <= err && err < -90){
+			err += 180;
 			invert *= -1.0;
 		}
+    return err;
+  }
 
-		final double turnPower = 0;
-		final double drivePower = speed * Math.cos(error * 0.0174533);
+  public void applyConfigs(TalonFXConfiguration driveMotor, TalonFXConfiguration turnMotor, CANcoderConfiguration turnEncoder) {
+    this.driveMotor.getConfigurator().apply(driveMotor);
+    this.turnMotor.getConfigurator().apply(turnMotor);
+    this.turnEncoder.getConfigurator().apply(turnEncoder);
+  }
 
-		turnMotor.set(turnPower);
-		driveMotor.set(drivePower);
-	}
-
-	public void stop() {
-		turnMotor.set(0);
-		driveMotor.set(0);
-	}
-
-	/*** encoder ***/
-
-	public double getEncValue() {
-		return turnValue;
-	}
-
+  public void logging(String name) {}
 }
