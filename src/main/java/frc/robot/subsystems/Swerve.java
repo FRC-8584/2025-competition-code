@@ -97,10 +97,10 @@ public class Swerve extends SubsystemBase {
     }
 
     public Swerve() {
-        front_left = new SwerveModule(CAN_DeviceID.LF_TurnID, CAN_DeviceID.LF_DriveID, CAN_DeviceID.LF_CANcoderID, CancoderOffsets.FrontLeft);
-        front_right = new SwerveModule(CAN_DeviceID.RF_TurnID, CAN_DeviceID.RF_DriveID, CAN_DeviceID.RF_CANcoderID, CancoderOffsets.FrontRight);
-        back_right = new SwerveModule(CAN_DeviceID.RR_TurnID, CAN_DeviceID.RR_DriveID, CAN_DeviceID.RR_CANcoderID, CancoderOffsets.BackRight);
-        back_left = new SwerveModule(CAN_DeviceID.LR_TurnID, CAN_DeviceID.LR_DriveID, CAN_DeviceID.LR_CANcoderID, CancoderOffsets.BackLeft);
+        front_left = new SwerveModule(CAN_DeviceID.FL_TurnID, CAN_DeviceID.FL_DriveID, CAN_DeviceID.FL_CANcoderID, CancoderOffsets.FrontLeft);
+        front_right = new SwerveModule(CAN_DeviceID.FR_TurnID, CAN_DeviceID.FR_DriveID, CAN_DeviceID.FR_CANcoderID, CancoderOffsets.FrontRight);
+        back_right = new SwerveModule(CAN_DeviceID.BR_TurnID, CAN_DeviceID.BR_DriveID, CAN_DeviceID.BR_CANcoderID, CancoderOffsets.BackRight);
+        back_left = new SwerveModule(CAN_DeviceID.BL_TurnID, CAN_DeviceID.BL_DriveID, CAN_DeviceID.BL_CANcoderID, CancoderOffsets.BackLeft);
 
         gyro = new AHRS(NavXComType.kMXP_SPI);
         poseEstimator = new SwerveDrivePoseEstimator(
