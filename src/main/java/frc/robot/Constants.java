@@ -6,6 +6,9 @@ import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
+import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -93,6 +96,31 @@ public class Constants {
                 configs.MagnetSensor.SensorDirection = SensorDirectionValue.CounterClockwise_Positive;
                 configs.MagnetSensor.MagnetOffset = offset;
                 return configs;
+            }
+        }
+    }
+
+    public static class ClawConstants {
+        public static final double MaxAngle = 135; // degree
+        public static final double MinAngle = 0; // degree
+        public static final double MaxPower = 0.5;
+        public static final double MinPower = -0.5;
+
+        public static class  Configs {
+            public static SparkMaxConfig getShaftConfig() {
+                SparkMaxConfig configs = new SparkMaxConfig();
+                configs
+                    .inverted(true)
+                    .idleMode(IdleMode.kBrake);
+                configs.encoder
+                    .positionConversionFactor(360.0 / 80.0);
+                configs.closedLoop
+                    .outputRange(MinPower, MaxPower)
+                    .positionWrappingInputRange(MaxAngle, MinAngle)
+                    .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
+                    .pid(0.2, 0, 0);
+                return configs;
+                
             }
         }
     }
