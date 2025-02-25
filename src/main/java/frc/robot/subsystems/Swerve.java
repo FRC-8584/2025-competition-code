@@ -1,0 +1,128 @@
+package frc.robot.subsystems;
+
+import com.studica.frc.AHRS;
+import com.studica.frc.AHRS.NavXComType;
+
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.CAN_DeviceID;
+import frc.robot.Constants.OperationConstant;
+import frc.robot.Constants.SwerveConstants;
+import frc.robot.Constants.SwerveConstants.CancoderOffsets;
+import frc.robot.modules.SwerveModule;
+
+public class Swerve extends SubsystemBase {
+    private final SwerveModule front_left, front_right, back_right, back_left;
+    private final AHRS gyro;
+    private final SwerveDrivePoseEstimator poseEstimator;
+    private final Field2d field;
+
+    private final double invert, initial_angle;
+
+    /**
+     * Drive by "Axie"
+     * @param x x value (-1 ~ 1)
+     * @param y y value (-1 ~ 1)
+     * @param turn turn value (-1 ~ 1)
+     */
+    public void drive(double x, double y, double turn, boolean fieldRelative) {
+        ChassisSpeeds speeds = new ChassisSpeeds(
+            x * SwerveConstants.MaxDriveSpeed * OperationConstant.DriveSpeed * invert,
+            y * SwerveConstants.MaxDriveSpeed * OperationConstant.DriveSpeed * invert,
+            turn * SwerveConstants.MaxTurnSpeed * OperationConstant.TurnSpeed
+        );
+        SwerveModuleState[] states = SwerveConstants.kinematics.toSwerveModuleStates(
+            fieldRelative ?
+                ChassisSpeeds.fromFieldRelativeSpeeds(
+                    speeds,
+                    getGyroAngle()
+                ):
+                speeds
+        );
+        SwerveDriveKinematics.desaturateWheelSpeeds(states, SwerveConstants.MaxDriveSpeed);
+        front_left.setState(states[0]);
+        front_right.setState(states[1]);
+        back_right.setState(states[2]);
+        back_left.setState(states[3]);
+    }
+
+    /**
+     * Drive by "ChassisSpeed"
+     * @param x vxMetersPerSecond
+     * @param y vyMetersPerSecond
+     * @param turn omegaRadiusPerSecond
+     */
+    public void drive(ChassisSpeeds speeds, boolean fieldRelative) {
+        SwerveModuleState[] states = SwerveConstants.kinematics.toSwerveModuleStates(
+            fieldRelative ?
+                ChassisSpeeds.fromFieldRelativeSpeeds(
+                    speeds,
+                    getGyroAngle()
+                ):
+                speeds
+        );
+        SwerveDriveKinematics.desaturateWheelSpeeds(states, SwerveConstants.MaxDriveSpeed);
+        front_left.setState(states[0]);
+        front_right.setState(states[1]);
+        back_right.setState(states[2]);
+        back_left.setState(states[3]);
+    }
+
+    private void updateOdometry() {
+        poseEstimator.update(
+            getGyroAngle(),
+            new SwerveModulePosition[] {
+                front_left.gePosition(),
+                front_right.gePosition(),
+                back_right.gePosition(),
+                back_left.gePosition()
+            });
+    }
+
+    private Rotation2d getGyroAngle() {
+        double angle = (360 - (gyro.getAngle() - initial_angle)) % 360.0;
+        if (angle > 180) angle -= 360;
+        if (angle <-180) angle += 360;
+        return Rotation2d.fromDegrees(angle);
+    }
+
+    public Swerve() {
+        front_left = new SwerveModule(CAN_DeviceID.LF_TurnID, CAN_DeviceID.LF_DriveID, CAN_DeviceID.LF_CANcoderID, CancoderOffsets.FrontLeft);
+        front_right = new SwerveModule(CAN_DeviceID.RF_TurnID, CAN_DeviceID.RF_DriveID, CAN_DeviceID.RF_CANcoderID, CancoderOffsets.FrontRight);
+        back_right = new SwerveModule(CAN_DeviceID.RR_TurnID, CAN_DeviceID.RR_DriveID, CAN_DeviceID.RR_CANcoderID, CancoderOffsets.BackRight);
+        back_left = new SwerveModule(CAN_DeviceID.LR_TurnID, CAN_DeviceID.LR_DriveID, CAN_DeviceID.LR_CANcoderID, CancoderOffsets.BackLeft);
+
+        gyro = new AHRS(NavXComType.kMXP_SPI);
+        poseEstimator = new SwerveDrivePoseEstimator(
+            SwerveConstants.kinematics,
+            getGyroAngle(),
+            new SwerveModulePosition[] {
+                front_left.gePosition(),
+                front_right.gePosition(),
+                back_right.gePosition(),
+                back_left.gePosition()
+            }, new Pose2d(0, 0, getGyroAngle())
+        );
+        field = new Field2d();
+
+        invert = DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red ? -1.0: 1.0;
+        initial_angle = gyro.getAngle();
+    }   
+
+    @Override
+    public void periodic() {
+        updateOdometry();
+        field.setRobotPose(poseEstimator.getEstimatedPosition());
+        SmartDashboard.putData("Field",field);
+    }
+}
