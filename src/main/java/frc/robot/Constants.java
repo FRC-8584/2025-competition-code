@@ -133,4 +133,35 @@ public class Constants {
             }
         }
     }
+
+    public static class ElevatorConstants{
+        public static final double MaxPosition = 75.0;
+        public static final double MinPosition = 0.0;
+        public static final double MaxPower = 0.5;
+        public static final double MinPower = 0.2;
+
+        public static final double Level_1_Height = 0;
+        public static final double Level_2_Height = 30;
+        public static final double Level_3_Height = 45;
+        public static final double Level_4_Height = 70;
+
+        public static enum Levels{
+            L1, L2, L3, L4
+          }
+
+        public static class Configs {
+            public static SparkMaxConfig GetElevatorConfig(boolean inverted) {
+                SparkMaxConfig config = new SparkMaxConfig();
+                config.idleMode(null).inverted(inverted);
+                config.encoder.positionConversionFactor(11.43 / 180.0);
+                config.closedLoop
+                    .outputRange(MaxPower, MinPower)
+                    .positionWrappingInputRange(MinPosition, MaxPosition)
+                    .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
+                    .pid(0.3, 0, 0);
+                return config;
+            } 
+            
+        }
+    }
 }
