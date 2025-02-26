@@ -34,6 +34,10 @@ public class SwerveModule {
         turnMotor.set(pid.calculate(err_degree / 90.0));
     }
 
+    public SwerveModuleState getState() {
+        return new SwerveModuleState(driveMotor.getVelocity().getValueAsDouble() * SwerveConstants.WheelPerimeter, getEncoderAngle());
+    }
+
     public SwerveModulePosition gePosition() {
         return new SwerveModulePosition(driveMotor.getPosition().getValueAsDouble() / 8.14 * SwerveConstants.WheelPerimeter, getEncoderAngle());
     }
