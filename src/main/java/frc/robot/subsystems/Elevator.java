@@ -10,6 +10,7 @@ import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.ElevatorConstants;
@@ -20,6 +21,7 @@ public class Elevator extends SubsystemBase {
   SparkMax r_motor = new SparkMax(Constants.CAN_DeviceID.Right_ElevatorID, MotorType.kBrushless);
 
   public double UShouldBeHere = 0.0;
+  public boolean Hold = true;
 
   public Elevator() {
     l_motor.configure(Constants.ElevatorConstants.Configs.GetElevatorConfig(false), ResetMode.kResetSafeParameters , PersistMode.kPersistParameters);
@@ -37,24 +39,28 @@ public class Elevator extends SubsystemBase {
 
         l_motor.getClosedLoopController().setReference(ElevatorConstants.Level_1_Height, ControlType.kPosition);
         r_motor.getClosedLoopController().setReference(ElevatorConstants.Level_1_Height, ControlType.kPosition);
+        UShouldBeHere =  ElevatorConstants.Level_1_Height;
         break;
 
       case L2:
 
         l_motor.getClosedLoopController().setReference(ElevatorConstants.Level_2_Height, ControlType.kPosition);
         r_motor.getClosedLoopController().setReference(ElevatorConstants.Level_2_Height,ControlType.kPosition);
+        UShouldBeHere = ElevatorConstants.Level_2_Height;
         break;
 
       case L3:
 
         l_motor.getClosedLoopController().setReference(ElevatorConstants.Level_3_Height, ControlType.kPosition);
         r_motor.getClosedLoopController().setReference(ElevatorConstants.Level_3_Height, ControlType.kPosition);
+        UShouldBeHere = ElevatorConstants.Level_3_Height;
         break;
 
       case L4:
 
         l_motor.getClosedLoopController().setReference(ElevatorConstants.Level_4_Height, ControlType.kPosition);
         r_motor.getClosedLoopController().setReference(ElevatorConstants.Level_4_Height, ControlType.kPosition);
+        UShouldBeHere = ElevatorConstants.Level_4_Height;
         break;
 
       default:
@@ -64,7 +70,11 @@ public class Elevator extends SubsystemBase {
 
   @Override
   public void periodic() {
-    
+    if(Hold) {
+      l_motor.getClosedLoopController().setReference(getPosition(), ControlType.kPosition);
+      r_motor.getClosedLoopController().setReference(getPosition(), ControlType.kPosition);
+    }
+    SmartDashboard.putNumber("The_Elevator_Height", getPosition());
   }
   public double getPosition() {
     return (l_motor.getEncoder().getPosition() + r_motor.getEncoder().getPosition()) / 2.0;
