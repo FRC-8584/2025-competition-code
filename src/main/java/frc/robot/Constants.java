@@ -3,27 +3,26 @@ package frc.robot;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
+
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
+
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 
 public final class Constants {
 
   public static class OperatorConstants {
     public static final int Player1Port = 0;
     public static final int Player2Port = 1;
-
-    // Heading
-    public static final double OriginRobotHeading = 0; //degrees
-    public static final double DriverHeading = 0; //degrees
   }
 
   /***** Autonomous Time Action *****/
-  public static enum AutoActions {
-    ShootOnly
-  }
+  public static enum AutoActions {}
 
   /***** Alliance *****/
   public static enum Alliance {
@@ -31,12 +30,7 @@ public final class Constants {
   }
 
   /***** Robot Mechanical Constants *****/
-  public static class MechanicalConstants {
-    // Chassis
-    public static final double RobotLength = 1.0;
-    public static final double RobotWidth = 1.0;
-    public static final double r = Math.sqrt(RobotLength * RobotLength + RobotWidth * RobotWidth);
-  }
+  public static class MechanicalConstants {}
 
   /***** Sensor Constants *****/
   public static class SensorConstants {
@@ -80,18 +74,24 @@ public final class Constants {
     public static final double kTurnSpeed = 1.0;
 
     // Motor gear ratio
-    public static final double kDriveMotorGearRatio = 8.14;
+    public static final double kDriveGearRatio = 8.14;
 
     // Motor controller inverted settings
     public static final boolean kDriveMotorInverted = false;
     public static final boolean kTurnMotorInverted = false;
 
     // Swerve measurements
-    public static final double kSwerveMaxSpeed = 4.0;
-    public static final double kWheelRadius = 50.27;// mm
-    public static final double kDistancePerRotate = kWheelRadius * 2 * Math.PI / kDriveMotorGearRatio / 1000.0;// m/rotation
-    public static final double kWidth = 712.0;
-    public static final double kHeight = 709.0;
+    public static final double kWheelRadius = 0.05;// m
+    public static final double kSwerveWheelDistance_x = 0.58;// m
+    public static final double kSwerveWheelDistance_y = 0.58;// m
+    public static final double kMaxDriveMotorRPM = 3000;// RPM
+
+    public static final double kWheelPerimeter = kWheelRadius * 2 * Math.PI;  // m
+    public static final double kRadian = 
+      Math.sqrt(Math.pow(kSwerveWheelDistance_x/2.0, 2) * Math.pow(kSwerveWheelDistance_y/2.0, 2));// m
+
+    public static final double kMaxDriveSpeed = kMaxDriveMotorRPM / kDriveGearRatio * kWheelPerimeter / 60.0; // m/s
+    public static final double kMaxTurnSpeed = kMaxDriveSpeed / kRadian; // rad/s
 
     // encoder offsets
     public static final double kLF_offset = -0.438721;
@@ -103,12 +103,15 @@ public final class Constants {
       TalonFXConfiguration config = new TalonFXConfiguration();
       config.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
       config.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-      config.Feedback.SensorToMechanismRatio = kDistancePerRotate;
       return config;
     }
 
     public static final TalonFXConfiguration getTurnMotorCfg() {
       TalonFXConfiguration config = new TalonFXConfiguration();
+      config.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
+      config.Slot0.kP = 0.1;
+      config.Slot0.kI = 0;
+      config.Slot0.kD = 0;
       config.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
       config.MotorOutput.NeutralMode = NeutralModeValue.Brake;
       return config;
@@ -120,6 +123,15 @@ public final class Constants {
       config.MagnetSensor.MagnetOffset = offset;
       return config;
     }
+
+    public static final SwerveDriveKinematics kinematics = new SwerveDriveKinematics(
+      new Translation2d[] {
+        new Translation2d(kSwerveWheelDistance_x/2.0, kSwerveWheelDistance_y/2.0),
+        new Translation2d(kSwerveWheelDistance_x/2.0, -kSwerveWheelDistance_y/2.0),
+        new Translation2d(-kSwerveWheelDistance_x/2.0, -kSwerveWheelDistance_y/2.0),
+        new Translation2d(-kSwerveWheelDistance_x/2.0, kSwerveWheelDistance_y/2.0)
+      }
+    );
   }
 
   public static class ElevatorConstants {
