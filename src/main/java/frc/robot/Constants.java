@@ -106,12 +106,14 @@ public class Constants {
         public static final double MaxPower = 0.5;
         public static final double MinPower = -0.5;
 
-        public static class Levels {
-            public static final double Level_1_Angle = 0;
-            public static final double Level_2_Angle = 20;
-            public static final double Level_3_Angle = 45;
-            public static final double Level_4_Angle = 135;
+        public static enum Levels {
+            L1, L2, L3, L4
         }
+
+        public static final double Level_1_Angle = 0;
+        public static final double Level_2_Angle = 20;
+        public static final double Level_3_Angle = 45;
+        public static final double Level_4_Angle = 135;
 
         public static class  Configs {
             public static SparkMaxConfig getShaftConfig() {
