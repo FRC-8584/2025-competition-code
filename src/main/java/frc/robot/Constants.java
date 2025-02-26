@@ -56,7 +56,7 @@ public class Constants {
         public static final double WheelRadius = 0.05; //m
         public static final double WheelPerimeter = WheelRadius * 2 * Math.PI;  //m
         public static final double MaxDriveSpeed = 100.0 / 8.14 * WheelPerimeter; //m/s
-        public static final double MaxTurnSpeed = (MaxDriveSpeed / (0.82 * Math.PI)) * Math.PI * 2; //rad/s
+        public static final double MaxTurnSpeed = MaxDriveSpeed / 0.41; //rad/s
 
         public static final SwerveDriveKinematics kinematics = new SwerveDriveKinematics(
             new Translation2d[] {

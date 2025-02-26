@@ -1,5 +1,9 @@
 package frc.robot.subsystems;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.config.PIDConstants;
+import com.pathplanner.lib.config.RobotConfig;
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.studica.frc.AHRS;
 import com.studica.frc.AHRS.NavXComType;
 
@@ -89,11 +93,57 @@ public class Swerve extends SubsystemBase {
             });
     }
 
+    private Pose2d getPose() {
+        return poseEstimator.getEstimatedPosition();
+    }
+
+    private void resetPose(Pose2d pose) {
+        poseEstimator.resetPose(pose);
+    }
+
+    private ChassisSpeeds getRobotRelativeSpeeds() {
+        return SwerveConstants.kinematics.toChassisSpeeds(
+            front_left.getState(),
+            front_right.getState(),
+            back_right.getState(),
+            back_left.getState()
+        );
+    }
+
     private Rotation2d getGyroAngle() {
         double angle = (360 - (gyro.getAngle() - initial_angle)) % 360.0;
         if (angle > 180) angle -= 360;
         if (angle <-180) angle += 360;
         return Rotation2d.fromDegrees(angle);
+    }
+
+    private void configAuto() {
+        RobotConfig config;
+        try{
+            config = RobotConfig.fromGUISettings();
+        } catch (Exception e) {
+            config = null;
+            e.printStackTrace();
+        }
+        AutoBuilder.configure(
+            this::getPose,
+            this::resetPose, 
+            this::getRobotRelativeSpeeds,
+            (speeds, feedforwards) -> drive(speeds, false), 
+            new PPHolonomicDriveController( 
+                    new PIDConstants(5.0, 0.0, 0.0), 
+                    new PIDConstants(5.0, 0.0, 0.0)
+            ),
+            config,
+            () -> {
+              var alliance = DriverStation.getAlliance();
+              if (alliance.isPresent()) {
+                return alliance.get() == DriverStation.Alliance.Red;
+              }
+              return false;
+            },
+            this 
+        );
     }
 
     public Swerve() {
@@ -117,6 +167,8 @@ public class Swerve extends SubsystemBase {
 
         invert = DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red ? -1.0: 1.0;
         initial_angle = gyro.getAngle();
+
+        configAuto();
     }   
 
     @Override
