@@ -24,7 +24,8 @@ public class RobotContainer {
         ()->swerve.drive(
           OperationConstant.axieOptimizers[0].get(Tools.deadband(-js.getY(), 0.05)),
           OperationConstant.axieOptimizers[1].get(Tools.deadband(-js.getX(), 0.05)),
-          OperationConstant.axieOptimizers[2].get(Tools.deadband(-js.getRawAxis(4), 0.05)), false),
+          OperationConstant.axieOptimizers[2].get(Tools.deadband(-js.getRawAxis(4), 0.05)), 
+          true),
         swerve)
     );
 

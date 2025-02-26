@@ -166,7 +166,7 @@ public class Swerve extends SubsystemBase {
         field = new Field2d();
 
         invert = DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red ? -1.0: 1.0;
-        initial_angle = gyro.getAngle();
+        initial_angle = gyro.getAngle() + ( DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red ? 180: 0);
 
         configAuto();
     }   
