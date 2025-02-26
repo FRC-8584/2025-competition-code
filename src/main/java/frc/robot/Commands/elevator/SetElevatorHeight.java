@@ -43,5 +43,6 @@ public class SetElevatorHeight extends Command {
       m_Elevator.Hold = true;
       return true;
     }
+    else return false;
   }
 }
