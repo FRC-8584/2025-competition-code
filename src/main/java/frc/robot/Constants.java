@@ -152,7 +152,7 @@ public class Constants {
         public static class Configs {
             public static SparkMaxConfig GetElevatorConfig(boolean inverted) {
                 SparkMaxConfig config = new SparkMaxConfig();
-                config.idleMode(null).inverted(inverted);
+                config.idleMode(IdleMode.kBrake).inverted(inverted);
                 config.encoder.positionConversionFactor(11.43 / 180.0);
                 config.closedLoop
                     .outputRange(MaxPower, MinPower)
