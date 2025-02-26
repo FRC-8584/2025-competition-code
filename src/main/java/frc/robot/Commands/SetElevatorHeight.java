@@ -5,8 +5,8 @@
 package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.ElevatorConstants.Levels;
 import frc.robot.subsystems.Elevator;
-import frc.robot.subsystems.Elevator.Levels;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class SetElevatorHeight extends Command {

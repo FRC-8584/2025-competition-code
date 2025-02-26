@@ -9,11 +9,10 @@ import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.config.SparkBaseConfig;
-import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.ElevatorConstants;
 
 public class Elevator extends SubsystemBase {
   /** Creates a new Elevator. */
@@ -21,10 +20,6 @@ public class Elevator extends SubsystemBase {
   SparkMax r_motor = new SparkMax(Constants.CAN_DeviceID.Right_ElevatorID, MotorType.kBrushless);
 
   public double UShouldBeHere = 0.0;
-
-  public enum Levels{
-    L1, L2, L3, L4
-  }
 
   public Elevator() {
     l_motor.configure(Constants.ElevatorConstants.Configs.GetElevatorConfig(false), ResetMode.kResetSafeParameters , PersistMode.kPersistParameters);
@@ -36,30 +31,30 @@ public class Elevator extends SubsystemBase {
     r_motor.set(n);
   }
 
-  public void SetPosition(Levels m_L) {
+  public void SetPosition(ElevatorConstants.Levels m_L) {
     switch (m_L) {
       case L1:
 
-        l_motor.getClosedLoopController().setReference(0.0, ControlType.kPosition);
-        r_motor.getClosedLoopController().setReference(0.0, ControlType.kPosition);
+        l_motor.getClosedLoopController().setReference(ElevatorConstants.Level_1_Height, ControlType.kPosition);
+        r_motor.getClosedLoopController().setReference(ElevatorConstants.Level_1_Height, ControlType.kPosition);
         break;
 
       case L2:
 
-        l_motor.getClosedLoopController().setReference(1.0, ControlType.kPosition);
-        r_motor.getClosedLoopController().setReference(1.0,ControlType.kPosition);
+        l_motor.getClosedLoopController().setReference(ElevatorConstants.Level_2_Height, ControlType.kPosition);
+        r_motor.getClosedLoopController().setReference(ElevatorConstants.Level_2_Height,ControlType.kPosition);
         break;
 
       case L3:
 
-        l_motor.getClosedLoopController().setReference(0.0, ControlType.kPosition);
-        r_motor.getClosedLoopController().setReference(0.0, ControlType.kPosition);
+        l_motor.getClosedLoopController().setReference(ElevatorConstants.Level_3_Height, ControlType.kPosition);
+        r_motor.getClosedLoopController().setReference(ElevatorConstants.Level_3_Height, ControlType.kPosition);
         break;
 
       case L4:
 
-        l_motor.getClosedLoopController().setReference(0.0, ControlType.kPosition);
-        r_motor.getClosedLoopController().setReference(0.0, ControlType.kPosition);
+        l_motor.getClosedLoopController().setReference(ElevatorConstants.Level_4_Height, ControlType.kPosition);
+        r_motor.getClosedLoopController().setReference(ElevatorConstants.Level_4_Height, ControlType.kPosition);
         break;
 
       default:
