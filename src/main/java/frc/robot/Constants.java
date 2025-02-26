@@ -124,4 +124,26 @@ public class Constants {
             }
         }
     }
+
+    public static class ElevatorConstants{
+        public static final double MaxPosition = 75.0;
+        public static final double MinPosition = 0.0;
+        public static final double MaxPower = 0.5;
+        public static final double MinPower = 0.2;
+
+        public static class Configs {
+            public static SparkMaxConfig GetElevatorConfig(boolean inverted) {
+                SparkMaxConfig config = new SparkMaxConfig();
+                config.idleMode(null).inverted(inverted);
+                config.encoder.positionConversionFactor(1.0/80.0);
+                config.closedLoop
+                    .outputRange(MaxPower, MinPower)
+                    .positionWrappingInputRange(MinPosition, MaxPosition)
+                    .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
+                    .pid(0.3, 0, 0);
+                return config;
+            } 
+            
+        }
+    }
 }

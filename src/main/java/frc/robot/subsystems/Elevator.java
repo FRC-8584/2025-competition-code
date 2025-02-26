@@ -6,7 +6,11 @@ package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.ControlType;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.SparkBaseConfig;
+import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -23,7 +27,8 @@ public class Elevator extends SubsystemBase {
   }
 
   public Elevator() {
-
+    l_motor.configure(Constants.ElevatorConstants.Configs.GetElevatorConfig(false), ResetMode.kResetSafeParameters , PersistMode.kPersistParameters);
+    r_motor.configure(Constants.ElevatorConstants.Configs.GetElevatorConfig(true), ResetMode.kResetSafeParameters , PersistMode.kPersistParameters);
   }
 
   public void SetPower(double n) {
@@ -41,8 +46,8 @@ public class Elevator extends SubsystemBase {
 
       case L2:
 
-        l_motor.getClosedLoopController().setReference(0.0, ControlType.kPosition);
-        r_motor.getClosedLoopController().setReference(0.0, ControlType.kPosition);
+        l_motor.getClosedLoopController().setReference(1.0, ControlType.kPosition);
+        r_motor.getClosedLoopController().setReference(1.0,ControlType.kPosition);
         break;
 
       case L3:
