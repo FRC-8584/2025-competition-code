@@ -8,13 +8,14 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import frc.robot.Constants.CAN_DeviceID;
 import frc.robot.Constants.ClawConstants;
+import frc.robot.Constants.ClawConstants.Levels;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Claw extends SubsystemBase {
   private final SparkMax shaft_motor;
   private final SparkMax grabber_motor;
 
-  private int level;
+  private Levels level;
 
   public Claw() {
     shaft_motor = new SparkMax(CAN_DeviceID.ShaftID, MotorType.kBrushless);
@@ -23,7 +24,7 @@ public class Claw extends SubsystemBase {
     shaft_motor.configure(ClawConstants.Configs.getShaftConfig(), ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
   
-  public void setShaftLevel(int level) {
+  public void setShaftLevel(Levels level) {
     this.level = level;
   }
 
@@ -41,9 +42,9 @@ public class Claw extends SubsystemBase {
 
   @Override
   public void periodic() {
-    if(level == 1) setShaftPosition(ClawConstants.Levels.Level_1_Angle);
-    if(level == 2) setShaftPosition(ClawConstants.Levels.Level_2_Angle);
-    if(level == 3) setShaftPosition(ClawConstants.Levels.Level_3_Angle);
-    if(level == 4) setShaftPosition(ClawConstants.Levels.Level_4_Angle);
+    if(level == Levels.L1) setShaftPosition(ClawConstants.Level_1_Angle);
+    if(level == Levels.L2) setShaftPosition(ClawConstants.Level_2_Angle);
+    if(level == Levels.L3) setShaftPosition(ClawConstants.Level_3_Angle);
+    if(level == Levels.L4) setShaftPosition(ClawConstants.Level_4_Angle);
   }
 }
