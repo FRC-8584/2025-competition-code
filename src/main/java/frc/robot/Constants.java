@@ -115,6 +115,11 @@ public class Constants {
         public static final double Level_3_Angle = 45;
         public static final double Level_4_Angle = 135;
 
+        public static final double GrabberPower = 0.2;
+        public static final int SensorPort = 0;
+        public static final double SensorThreshold = 1350;
+        public static final double SensorDelay = 0.55; //s
+
         public static class  Configs {
             public static SparkMaxConfig getShaftConfig() {
                 SparkMaxConfig configs = new SparkMaxConfig();
