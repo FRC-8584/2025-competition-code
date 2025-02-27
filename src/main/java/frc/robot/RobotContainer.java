@@ -32,9 +32,9 @@ public class RobotContainer {
       new RunCommand(
         () ->
         swerve.drive(
-          -js.getY(),
-          -js.getX(),
-          -js.getRawAxis(4),
+          -Constants.OperatorConstants.axieOptimizers[0].get(js.getY()),
+          -Constants.OperatorConstants.axieOptimizers[1].get(js.getX()),
+          -Constants.OperatorConstants.axieOptimizers[2].get(js.getRawAxis(4)),
           false
         ), swerve
       )
