@@ -53,9 +53,9 @@ public class RobotContainer {
     new JoystickButton(js2, 5).whileTrue(new SetGrabberPower(-0.1, claw));
 
     new JoystickButton(js2, 1).onTrue(new SetClawLevel(ClawConstants.Levels.L1, claw));
-    new JoystickButton(js2, 2).onTrue(new SetClawLevel(ClawConstants.Levels.L2, claw));
-    new JoystickButton(js2, 3).onTrue(new SetClawLevel(ClawConstants.Levels.L3, claw));
-    new JoystickButton(js2, 4).onTrue(new SetClawLevel(ClawConstants.Levels.L4, claw));
+    new JoystickButton(js2, 2).onTrue(new SetClawLevel(ClawConstants.Levels.Default, claw));
+    new JoystickButton(js2, 3).onTrue(new SetClawLevel(ClawConstants.Levels.L2, claw));
+    new JoystickButton(js2, 4).onTrue(new SetClawLevel(ClawConstants.Levels.L3, claw));
   }
 
   public Command getAutonomousCommand() {

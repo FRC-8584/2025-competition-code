@@ -112,9 +112,9 @@ public class Constants {
 
         public static enum Levels {
             L1 (0),
-            L2(15.0),
-            L3(45.0),
-            L4(135.0);
+            L2(45.0),
+            L3(135.0),
+            Default(15.0);
 
             private double angle;
 
@@ -193,5 +193,11 @@ public class Constants {
             } 
             
         }
+    }
+
+    public static class LimelightConstants {
+        public static final double X = 0.27; //m
+        public static final double Y = -0.27; //m
+        public static final double Angle = 45.0; //degree
     }
 }

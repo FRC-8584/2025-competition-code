@@ -1,15 +1,19 @@
 package frc.robot.commands.claw;
 
+import java.util.function.Supplier;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.ClawConstants;
 import frc.robot.subsystems.Claw;
 
-public class GrabTillGet extends Command {
+public class GrabCoral extends Command {
   private Claw claw;
   private double counter;
+  private Supplier<Boolean> stop;
 
-  public GrabTillGet(Claw claw) {
+  public GrabCoral(Claw claw, Supplier<Boolean> stop) {
     this.claw = claw;
+    this.stop = stop;
     counter = 0;
     addRequirements(this.claw);
   }
@@ -27,7 +31,7 @@ public class GrabTillGet extends Command {
 
   @Override
   public boolean isFinished() {
-    if(counter >= ClawConstants.SensorDelay / 0.05) return true;
+    if((counter >= ClawConstants.SensorDelay / 0.05) || stop.get()) return true;
     else return false;
   }
 }

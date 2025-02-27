@@ -4,6 +4,7 @@ package frc.robot.commands.claw;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.ClawConstants.Levels;
 import frc.robot.subsystems.Claw;
+import frc.robot.utils.Tools;
 
 public class SetClawLevel extends Command {
   private Levels level;
@@ -18,5 +19,11 @@ public class SetClawLevel extends Command {
   @Override
   public void execute() {
     claw.setShaftLevel(level);
+  }
+
+  @Override
+  public boolean isFinished() {
+    if(Tools.isInRange(claw.getPosition(), level.getAngle() - 5.0, level.getAngle() + 5.0)) return true;
+    else return false;
   }
 }
