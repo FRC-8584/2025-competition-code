@@ -4,9 +4,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Claw;
 
 public class SetGrabberPower extends Command {
-  private int power;
+  private double power;
   private Claw claw;
-  public SetGrabberPower(int power, Claw claw) {
+  public SetGrabberPower(double power, Claw claw) {
     this.power = power;
     this.claw = claw;
     addRequirements(this.claw);
