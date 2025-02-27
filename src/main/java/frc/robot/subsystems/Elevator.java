@@ -19,6 +19,8 @@ public class Elevator extends SubsystemBase {
   /** Creates a new Elevator. */
   SparkMax l_motor = new SparkMax(Constants.CAN_DeviceID.Left_ElevatorID, MotorType.kBrushless);
   SparkMax r_motor = new SparkMax(Constants.CAN_DeviceID.Right_ElevatorID, MotorType.kBrushless);
+  
+  public ElevatorConstants.Levels m_L;
 
   public double UShouldBeHere = 0.0;
   public boolean Hold = true;
@@ -33,48 +35,41 @@ public class Elevator extends SubsystemBase {
     r_motor.set(n);
   }
 
-  public void SetPosition(ElevatorConstants.Levels m_L) {
+  @Override
+  public void periodic() {
     switch (m_L) {
       case L1:
 
         l_motor.getClosedLoopController().setReference(ElevatorConstants.Level_1_Height, ControlType.kPosition);
         r_motor.getClosedLoopController().setReference(ElevatorConstants.Level_1_Height, ControlType.kPosition);
-        UShouldBeHere =  ElevatorConstants.Level_1_Height;
+        
         break;
 
       case L2:
 
         l_motor.getClosedLoopController().setReference(ElevatorConstants.Level_2_Height, ControlType.kPosition);
         r_motor.getClosedLoopController().setReference(ElevatorConstants.Level_2_Height,ControlType.kPosition);
-        UShouldBeHere = ElevatorConstants.Level_2_Height;
+        
         break;
 
       case L3:
 
         l_motor.getClosedLoopController().setReference(ElevatorConstants.Level_3_Height, ControlType.kPosition);
         r_motor.getClosedLoopController().setReference(ElevatorConstants.Level_3_Height, ControlType.kPosition);
-        UShouldBeHere = ElevatorConstants.Level_3_Height;
+        
         break;
 
       case L4:
 
         l_motor.getClosedLoopController().setReference(ElevatorConstants.Level_4_Height, ControlType.kPosition);
         r_motor.getClosedLoopController().setReference(ElevatorConstants.Level_4_Height, ControlType.kPosition);
-        UShouldBeHere = ElevatorConstants.Level_4_Height;
+        
         break;
 
       default:
         break;
     }
-  }
-
-  @Override
-  public void periodic() {
-    if(Hold) {
-      l_motor.getClosedLoopController().setReference(getPosition(), ControlType.kPosition);
-      r_motor.getClosedLoopController().setReference(getPosition(), ControlType.kPosition);
-    }
-    SmartDashboard.putNumber("The_Elevator_Height", getPosition());
+    SmartDashboard.putNumber("TheElevatorHeight", getPosition());
   }
   public double getPosition() {
     return (l_motor.getEncoder().getPosition() + r_motor.getEncoder().getPosition()) / 2.0;
