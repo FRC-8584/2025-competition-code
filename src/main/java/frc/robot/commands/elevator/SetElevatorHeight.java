@@ -26,8 +26,7 @@ public class SetElevatorHeight extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Elevator.Hold = false;
-    m_Elevator.SetPosition(m_L);
+    m_Elevator.m_L = this.m_L;
   }
 
   // Called once the command ends or is interrupted.
