@@ -20,6 +20,8 @@ public class Elevator extends SubsystemBase {
   /** Creates a new Elevator. */
   SparkMax l_motor = new SparkMax(Constants.CAN_DeviceID.Left_ElevatorID, MotorType.kBrushless);
   SparkMax r_motor = new SparkMax(Constants.CAN_DeviceID.Right_ElevatorID, MotorType.kBrushless);
+  
+  public ElevatorConstants.Levels m_L;
 
   public ElevatorConstants.Levels m_L = Levels.L1;
 
@@ -36,7 +38,7 @@ public class Elevator extends SubsystemBase {
   public void SetPosition() {
     
   }
-
+  
   @Override
   public void periodic() {
     switch (m_L) {
