@@ -163,7 +163,20 @@ public class Constants {
         public static final double Level_4_Height = 70;
 
         public static enum Levels{
-            L1, L2, L3, L4
+            L1(0.0),
+            L2(30.0),
+            L3(45.0),
+            L4(75.0);
+
+            private double height;
+
+            private Levels(double h){
+                this.height = h;
+            }
+
+            public double getheight() {
+                return this.height;
+            }
           }
 
         public static class Configs {
