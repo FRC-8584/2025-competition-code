@@ -14,9 +14,17 @@ import com.ctre.phoenix6.signals.SensorDirectionValue;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 
+import frc.robot.utils.AxieOptimizer;
+
 public final class Constants {
 
   public static class OperatorConstants {
+    public static final AxieOptimizer[] axieOptimizers = 
+    new AxieOptimizer[] {
+        new AxieOptimizer(0.035),
+        new AxieOptimizer(0.035),
+        new AxieOptimizer(0.05)
+    };
     public static final int Player1Port = 0;
     public static final int Player2Port = 1;
   }
