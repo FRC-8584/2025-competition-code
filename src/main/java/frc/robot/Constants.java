@@ -103,9 +103,9 @@ public final class Constants {
 
     // encoder offsets
     public static final double kLF_offset = -0.42;
-    public static final double kLR_offset = -0.307373;
+    public static final double kLR_offset = -0.3074;
     public static final double kRF_offset = -0.42;
-    public static final double kRR_offset = -0.307373;
+    public static final double kRR_offset = -0.3074;
 
     public static final TalonFXConfiguration getDriveMotorCfg() {
       TalonFXConfiguration config = new TalonFXConfiguration();
