@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.ElevatorConstants;
+import frc.robot.Constants.ElevatorConstants.Levels;
 
 public class Elevator extends SubsystemBase {
   /** Creates a new Elevator. */
@@ -22,8 +23,7 @@ public class Elevator extends SubsystemBase {
   
   public ElevatorConstants.Levels m_L;
 
-  public double UShouldBeHere = 0.0;
-  public boolean Hold = true;
+  public ElevatorConstants.Levels m_L = Levels.L1;
 
   public Elevator() {
     l_motor.configure(Constants.ElevatorConstants.Configs.GetElevatorConfig(false), ResetMode.kResetSafeParameters , PersistMode.kPersistParameters);
@@ -35,6 +35,10 @@ public class Elevator extends SubsystemBase {
     r_motor.set(n);
   }
 
+  public void SetPosition() {
+    
+  }
+  
   @Override
   public void periodic() {
     switch (m_L) {
@@ -69,7 +73,7 @@ public class Elevator extends SubsystemBase {
       default:
         break;
     }
-    SmartDashboard.putNumber("TheElevatorHeight", getPosition());
+    SmartDashboard.putNumber("The_Elevator_Height", getPosition());
   }
   public double getPosition() {
     return (l_motor.getEncoder().getPosition() + r_motor.getEncoder().getPosition()) / 2.0;

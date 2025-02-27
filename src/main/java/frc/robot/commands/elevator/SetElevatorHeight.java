@@ -5,17 +5,19 @@
 package frc.robot.commands.elevator;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.ElevatorConstants;
 import frc.robot.Constants.ElevatorConstants.Levels;
 import frc.robot.subsystems.Elevator;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class SetElevatorHeight extends Command {
   Elevator m_Elevator;
-  Levels m_L;
+  Levels m_L = Levels.L1;
   /** Creates a new SetElevatorHeight. */
   public SetElevatorHeight(Elevator subsystem, Levels level) {
     m_Elevator = subsystem;
     m_L = level;
+    addRequirements(m_Elevator);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -38,10 +40,25 @@ public class SetElevatorHeight extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(Math.abs(m_Elevator.getPosition() - m_Elevator.UShouldBeHere)<0.05){
-      m_Elevator.Hold = true;
-      return true;
+    switch(this.m_L) {
+      case L1:
+        if(m_Elevator.getPosition() == ElevatorConstants.Level_1_Height){
+          return true;
+        }
+      case L2:
+      if(m_Elevator.getPosition() == ElevatorConstants.Level_1_Height){
+        return true;
+      }
+      case L3:
+        if(m_Elevator.getPosition() == ElevatorConstants.Level_1_Height){
+          return true;
+      }
+      case L4:
+        if(m_Elevator.getPosition() == ElevatorConstants.Level_1_Height){
+          return true;
+      }
+      default:
+        return true;
     }
-    else return false;
   }
 }
