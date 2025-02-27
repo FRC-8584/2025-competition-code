@@ -48,8 +48,6 @@ public class Elevator extends SubsystemBase {
     Elevator_Right_motor.getClosedLoopController().setReference(setpoint, ControlType.kPosition);
 
     // update data
-    SmartDashboard.putNumber("Elevator L_Pos", L_pos);
-    SmartDashboard.putNumber("Elevator R_Pos", R_pos);
     SmartDashboard.putNumber("Elevator Height", position);
     SmartDashboard.putNumber("Elevator setpoint", setpoint);
   }

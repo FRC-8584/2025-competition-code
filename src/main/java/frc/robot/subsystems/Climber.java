@@ -18,12 +18,14 @@ public class Climber extends SubsystemBase {
   private final SparkMax Climber_Right_motor = new SparkMax(CAN_DeviceID.Right_ClimberID, MotorType.kBrushless);
   
   private double position;// average position (deg)
+  private double setpoint;
   private double L_pos, R_pos;// left & right motor position (deg)
 
   public Climber() {
     L_pos = ClimberConstants.kClimberMinPosition;
     R_pos = ClimberConstants.kClimberMinPosition;
     position = ClimberConstants.kClimberMinPosition;
+    setpoint = ClimberConstants.kClimberMinPosition;
 
     Climber_Left_motor.configure(
       ClimberConstants.getLeftClimberCfg(),
@@ -40,9 +42,12 @@ public class Climber extends SubsystemBase {
     L_pos = Climber_Left_motor.getEncoder().getPosition();// return left motor position (deg)
     R_pos = Climber_Right_motor.getEncoder().getPosition();// return right motor position (deg)
     position = (L_pos + R_pos) / 2.0;// average position (deg)
-    SmartDashboard.putNumber("Climber L_Pos", L_pos);
-    SmartDashboard.putNumber("Climber R_Pos", R_pos);
+
+    Climber_Left_motor.getClosedLoopController().setReference(setpoint, ControlType.kPosition);
+    Climber_Right_motor.getClosedLoopController().setReference(setpoint, ControlType.kPosition);
+
     SmartDashboard.putNumber("Climber Height", position);
+    SmartDashboard.putNumber("Climber setpoint", setpoint);
   }
 
   /**
@@ -50,8 +55,7 @@ public class Climber extends SubsystemBase {
    * set elevator position (cm)
    */
   public void setPosition(double setpoint) {
-    Climber_Left_motor.getClosedLoopController().setReference(setpoint, ControlType.kPosition);
-    Climber_Right_motor.getClosedLoopController().setReference(setpoint, ControlType.kPosition);
+    this.setpoint = setpoint;
   }
 
   /**

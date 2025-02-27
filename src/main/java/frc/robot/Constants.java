@@ -17,16 +17,46 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import frc.robot.utils.AxieOptimizer;
 
 public final class Constants {
-
   public static class OperatorConstants {
     public static final AxieOptimizer[] axieOptimizers = 
     new AxieOptimizer[] {
-        new AxieOptimizer(0.035),
-        new AxieOptimizer(0.035),
-        new AxieOptimizer(0.05)
+      new AxieOptimizer(0.035),
+      new AxieOptimizer(0.035),
+      new AxieOptimizer(0.05)
     };
     public static final int Player1Port = 0;
     public static final int Player2Port = 1;
+  }
+
+  public static enum ClawState {
+    GET_CORAL_SOURCE          (0, 0),
+    HOLD_CORAL                (0, 0),
+    PUT_CORAL_REEF_L1         (0, 0),
+    PUT_CORAL_REEF_L2         (14, 25),
+    PUT_CORAL_REEF_L3         (35, 25),
+    PUT_CORAL_REEF_L4         (70, 35),
+
+    GET_ALGAE_REEF_HIGH       (40, 125),
+    GET_ALGAE_REEF_DEEP       (20, 125),
+    HOLD_ALGAE                (20, 110),
+    PUT_ALGAE_NET             (75, 135),
+    PUT_ALGAE_PROCESSOR       (20, 200);
+
+    private double elevatorValue;
+    private double clawValue;
+
+    ClawState(double elevatorValue, double clawValue) {
+      this.elevatorValue = elevatorValue;
+      this.clawValue = clawValue;
+    }
+
+    public double getElevatorValue() {
+      return elevatorValue;
+    }
+
+    public double getClawValue() {
+      return clawValue;
+    }
   }
 
   /***** Autonomous Time Action *****/

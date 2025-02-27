@@ -16,9 +16,11 @@ public class Shaft extends SubsystemBase {
   private final SparkMax Shaft_motor = new SparkMax(CAN_DeviceID.ShaftID, MotorType.kBrushless);
   
   private double position;// shaft position (deg)
+  private double setpoint;
 
   public Shaft() {
     position = ShaftConstants.kShaftMinPosition;
+    setpoint = ShaftConstants.kShaftMinPosition;
 
     Shaft_motor.configure(
       ShaftConstants.getShaftCfg(),
@@ -29,7 +31,10 @@ public class Shaft extends SubsystemBase {
   @Override
   public void periodic() {
     position = Shaft_motor.getEncoder().getPosition();// shaft position (deg)
+    Shaft_motor.getClosedLoopController().setReference(setpoint, ControlType.kPosition);
+
     SmartDashboard.putNumber("Shaft Angle", position);
+    SmartDashboard.putNumber("Shaft setpoint", position);
   }
 
   /**
@@ -37,7 +42,7 @@ public class Shaft extends SubsystemBase {
    * set shaft position (deg)
    */
   public void setPosition(double setpoint) {
-    Shaft_motor.getClosedLoopController().setReference(setpoint, ControlType.kPosition);
+    this.setpoint = setpoint;
   }
 
   /**

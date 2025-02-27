@@ -41,18 +41,42 @@ public class RobotContainer {
     );
 
     // Claw Grapper
-    new JoystickButton(js, 5).whileTrue(new SetGrabberPower(grabber, 1).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-    new JoystickButton(js, 6).whileTrue(new SetGrabberPower(grabber, -1).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+    new JoystickButton(js, 5)
+      .whileTrue(new SetGrabberPower(grabber, 1)
+      .withInterruptBehavior(InterruptionBehavior.kCancelSelf)
+    );
+    new JoystickButton(js, 6)
+      .whileTrue(new SetGrabberPower(grabber, -1)
+      .withInterruptBehavior(InterruptionBehavior.kCancelSelf)
+    );
 
     // Combinate command
-    new JoystickButton(js, 1).onTrue(new SetClawState(elevator, shaft, 0, 0).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-    new JoystickButton(js, 2).onTrue(new SetClawState(elevator, shaft, 14, 25).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-    new JoystickButton(js, 4).onTrue(new SetClawState(elevator, shaft, 35, 25).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-    new JoystickButton(js, 3).onTrue(new SetClawState(elevator, shaft, 70, 35).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+    new JoystickButton(js, 1)
+      .onTrue(new SetClawState(elevator, shaft, Constants.ClawState.PUT_CORAL_REEF_L1)
+      .withInterruptBehavior(InterruptionBehavior.kCancelSelf)
+    );
+    new JoystickButton(js, 2)
+      .onTrue(new SetClawState(elevator, shaft, Constants.ClawState.PUT_CORAL_REEF_L2)
+      .withInterruptBehavior(InterruptionBehavior.kCancelSelf)
+    );
+    new JoystickButton(js, 4)
+      .onTrue(new SetClawState(elevator, shaft, Constants.ClawState.PUT_CORAL_REEF_L3)
+      .withInterruptBehavior(InterruptionBehavior.kCancelSelf)
+    );
+    new JoystickButton(js, 3)
+      .onTrue(new SetClawState(elevator, shaft, Constants.ClawState.PUT_CORAL_REEF_L4)
+      .withInterruptBehavior(InterruptionBehavior.kCancelSelf)
+    );
 
     // Combinate command ALGAE Reef & Processor
-    new JoystickButton(js, 7).onTrue(new SetClawState(elevator, shaft, 40, 125).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-    new JoystickButton(js, 8).onTrue(new SetClawState(elevator, shaft, 20, 200).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+    new JoystickButton(js, 7)
+      .onTrue(new SetClawState(elevator, shaft, Constants.ClawState.GET_ALGAE_REEF_HIGH)
+      .withInterruptBehavior(InterruptionBehavior.kCancelSelf)
+    );
+    new JoystickButton(js, 8)
+      .onTrue(new SetClawState(elevator, shaft, Constants.ClawState.PUT_ALGAE_PROCESSOR)
+      .withInterruptBehavior(InterruptionBehavior.kCancelSelf)
+    );
   }
 
   // private void player2CommandList() {
