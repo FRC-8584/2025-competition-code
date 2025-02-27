@@ -12,8 +12,8 @@ import frc.robot.commands.elevator.SetElevatorHeight;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Elevator;
 
-public class ToLevel extends SequentialCommandGroup {
-    public ToLevel(Levels level, Claw claw, Elevator elevator) {
+public class ToCoralLevel extends SequentialCommandGroup {
+    public ToCoralLevel(Levels level, Claw claw, Elevator elevator) {
         ClawConstants.Levels claw_level = ClawConstants.Levels.L1;
         ElevatorConstants.Levels elevator_level = ElevatorConstants.Levels.L1;
         switch (level) {
