@@ -22,15 +22,15 @@ public class ToCoralLevel extends SequentialCommandGroup {
                 elevator_level = ElevatorConstants.Levels.L1;
                 break;
             case L2:
-                claw_level = ClawConstants.Levels.L2;
+                claw_level = ClawConstants.Levels.Default;
                 elevator_level = ElevatorConstants.Levels.L2;
                 break;
             case L3:
-                claw_level = ClawConstants.Levels.L3;
+                claw_level = ClawConstants.Levels.L2;
                 elevator_level = ElevatorConstants.Levels.L3;
                 break;
             case L4:
-                claw_level = ClawConstants.Levels.L4;
+                claw_level = ClawConstants.Levels.L3;
                 elevator_level = ElevatorConstants.Levels.L4;
                 break;
             default:
@@ -38,7 +38,7 @@ public class ToCoralLevel extends SequentialCommandGroup {
         }
         addCommands(
             new ParallelCommandGroup(
-                new SetClawLevel(ClawConstants.Levels.L2, claw),
+                new SetClawLevel(ClawConstants.Levels.Default, claw),
                 new SetElevatorHeight(elevator, elevator_level)
             ),
             new SetClawLevel(claw_level, claw),

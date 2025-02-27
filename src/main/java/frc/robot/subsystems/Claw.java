@@ -50,8 +50,8 @@ public class Claw extends SubsystemBase {
   @Override
   public void periodic() {
     if(level == Levels.L1) setShaftPosition(ClawConstants.Levels.L1.getAngle());
+    if(level == Levels.Default) setShaftPosition(ClawConstants.Levels.Default.getAngle());
     if(level == Levels.L2) setShaftPosition(ClawConstants.Levels.L2.getAngle());
     if(level == Levels.L3) setShaftPosition(ClawConstants.Levels.L3.getAngle());
-    if(level == Levels.L4) setShaftPosition(ClawConstants.Levels.L4.getAngle());
   }
 }

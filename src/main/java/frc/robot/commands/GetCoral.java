@@ -14,7 +14,7 @@ public class GetCoral extends ParallelCommandGroup {
     public GetCoral(Claw claw, Elevator elevator, Joystick joystick) {
         addCommands(
             new ParallelCommandGroup(
-                new SetClawLevel(ClawConstants.Levels.L2, claw),
+                new SetClawLevel(ClawConstants.Levels.Default, claw),
                 new SetElevatorHeight(elevator, ElevatorConstants.Levels.L1)
             ),
             new SetClawLevel(ClawConstants.Levels.L1, claw),

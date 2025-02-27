@@ -112,9 +112,9 @@ public class Constants {
 
         public static enum Levels {
             L1 (0),
-            L2(15.0),
-            L3(45.0),
-            L4(135.0);
+            L2(45.0),
+            L3(135.0),
+            Default(15.0);
 
             private double angle;
 
