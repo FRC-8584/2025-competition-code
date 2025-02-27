@@ -94,10 +94,10 @@ public final class Constants {
     public static final double kMaxTurnSpeed = kMaxDriveSpeed / kRadian; // rad/s
 
     // encoder offsets
-    public static final double kLF_offset = -0.438721;
+    public static final double kLF_offset = -0.42;
     public static final double kLR_offset = -0.307373;
-    public static final double kRF_offset = -0.430176;
-    public static final double kRR_offset = -0.307861;
+    public static final double kRF_offset = -0.42;
+    public static final double kRR_offset = -0.307373;
 
     public static final TalonFXConfiguration getDriveMotorCfg() {
       TalonFXConfiguration config = new TalonFXConfiguration();

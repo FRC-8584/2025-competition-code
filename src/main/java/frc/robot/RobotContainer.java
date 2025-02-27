@@ -52,7 +52,7 @@ public class RobotContainer {
 
     // Combinate command ALGAE Reef & Processor
     new JoystickButton(js, 7).onTrue(new SetClawState(elevator, shaft, 40, 125).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-    new JoystickButton(js, 8).onTrue(new SetClawState(elevator, shaft, 18, 200).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+    new JoystickButton(js, 8).onTrue(new SetClawState(elevator, shaft, 20, 200).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
   }
 
   // private void player2CommandList() {
