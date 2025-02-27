@@ -194,4 +194,10 @@ public class Constants {
             
         }
     }
+
+    public static class LimelightConstants {
+        public static final double X = 0.27; //m
+        public static final double Y = -0.27; //m
+        public static final double Angle = 45.0; //degree
+    }
 }
