@@ -138,7 +138,7 @@ public class Constants {
         public static final double MaxPosition = 75.0;
         public static final double MinPosition = 0.0;
         public static final double MaxPower = 0.5;
-        public static final double MinPower = 0.2;
+        public static final double MinPower = -0.2;
 
         public static final double Level_1_Height = 0;
         public static final double Level_2_Height = 30;
@@ -153,9 +153,9 @@ public class Constants {
             public static SparkMaxConfig GetElevatorConfig(boolean inverted) {
                 SparkMaxConfig config = new SparkMaxConfig();
                 config.idleMode(IdleMode.kBrake).inverted(inverted);
-                config.encoder.positionConversionFactor(11.43 / 180.0);
+                config.encoder.positionConversionFactor(11.43 / 15.0);
                 config.closedLoop
-                    .outputRange(MaxPower, MinPower)
+                    .outputRange(MinPower, MaxPower)
                     .positionWrappingInputRange(MinPosition, MaxPosition)
                     .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
                     .pid(0.3, 0, 0);
