@@ -10,6 +10,9 @@ import frc.robot.commands.*;
 import frc.robot.commands.grabber.*;
 
 import frc.robot.Constants.ClawState;
+import frc.robot.Constants.LimelightConstants;
+
+import frc.robot.utils.LimelightHelpers;
 import frc.robot.utils.Tools;
 
 public class RobotContainer {
@@ -24,6 +27,19 @@ public class RobotContainer {
   public RobotContainer() {
     player1CommandList();
     // player2CommandList();
+    configureLimelight();
+  }
+
+  private void configureLimelight(){
+    LimelightHelpers.setCameraPose_RobotSpace(
+      "limelight", 
+      LimelightConstants.X,    // Forward offset (meters)
+      LimelightConstants.Y,    // Side offset (meters)
+      LimelightConstants.Height,   // Height offset (meters)
+      0.0,    // Roll (degrees)
+      0.0,   // Pitch (degrees)
+      LimelightConstants.Angle    // Yaw (degrees)
+    );
   }
 
   private void player1CommandList() {
@@ -53,21 +69,21 @@ public class RobotContainer {
     );
 
     // ClawState Combinate command CORAL Reef & Source
-    setButtonToClawState(js, 1, ClawState.PUT_CORAL_REEF_L1);// Claw L1, Button A
-    setButtonToClawState(js, 2, ClawState.PUT_CORAL_REEF_L2);// Claw L2, Button B
-    setButtonToClawState(js, 4, ClawState.PUT_CORAL_REEF_L3);// Claw L3, Button Y
-    setButtonToClawState(js, 3, ClawState.PUT_CORAL_REEF_L4);// Claw L4, Button X
+    clawStateBinding(js, 1, ClawState.DEFAULT_STATE);// Claw default state(L1), Button A
+    clawStateBinding(js, 2, ClawState.PUT_CORAL_L2);// Claw L2, Button B
+    clawStateBinding(js, 4, ClawState.PUT_CORAL_L3);// Claw L3, Button Y
+    clawStateBinding(js, 3, ClawState.PUT_CORAL_L4);// Claw L4, Button X
 
     // ClawState Combinate command ALGAE Reef & Processor
-    setButtonToClawState(js, 7, ClawState.GET_ALGAE_REEF_HIGH);
-    setButtonToClawState(js, 8, ClawState.PUT_ALGAE_PROCESSOR);
+    clawStateBinding(js, 7, ClawState.GET_ALGAE_HIGH);
+    clawStateBinding(js, 8, ClawState.PUT_ALGAE_PROCESSOR);
   }
 
   // private void player2CommandList() {
   //   final Joystick js = joystick_2;
   // }
 
-  private void setButtonToClawState(Joystick js, int button_number, ClawState state) {
+  private void clawStateBinding(Joystick js, int button_number, ClawState state) {
     new JoystickButton(js, button_number)
       .onTrue(new SetClawState(elevator, shaft, state)
       .withInterruptBehavior(InterruptionBehavior.kCancelSelf)

@@ -28,19 +28,29 @@ public final class Constants {
     public static final int Player2Port = 1;
   }
 
-  public static enum ClawState {
-    GET_CORAL_SOURCE          (0, 0),
-    HOLD_CORAL                (0, 0),
-    PUT_CORAL_REEF_L1         (0, 0),
-    PUT_CORAL_REEF_L2         (14, 25),
-    PUT_CORAL_REEF_L3         (35, 25),
-    PUT_CORAL_REEF_L4         (70, 35),
+  /***** Alliance *****/
+  public static enum Alliance {
+    RED, Blue
+  }
 
-    GET_ALGAE_REEF_HIGH       (40, 125),
-    GET_ALGAE_REEF_DEEP       (20, 125),
-    HOLD_ALGAE                (20, 110),
-    PUT_ALGAE_NET             (75, 135),
-    PUT_ALGAE_PROCESSOR       (20, 200);
+  /***** Autonomous Time Action *****/
+  public static enum AutoActions {}
+
+  public static enum Reef {
+    Left, Right
+  }
+
+  public static enum ClawState {
+    DEFAULT_STATE           (0, 0),// GET_CORAL_SOURCE, HOLD_CORAL, PUT_CORAL_L1
+    PUT_CORAL_L2            (14, 25),
+    PUT_CORAL_L3            (35, 25),
+    PUT_CORAL_L4            (70, 35),
+
+    GET_ALGAE_HIGH          (40, 125),
+    GET_ALGAE_DEEP          (20, 125),
+    HOLD_ALGAE              (20, 110),
+    PUT_ALGAE_NET           (75, 140),
+    PUT_ALGAE_PROCESSOR     (20, 200);
 
     private double elevatorValue;
     private double clawValue;
@@ -57,14 +67,6 @@ public final class Constants {
     public double getClawValue() {
       return clawValue;
     }
-  }
-
-  /***** Autonomous Time Action *****/
-  public static enum AutoActions {}
-
-  /***** Alliance *****/
-  public static enum Alliance {
-    RED, Blue
   }
 
   /***** Robot Mechanical Constants *****/
@@ -268,7 +270,6 @@ public final class Constants {
     }
   }
 
-
   public static class GrabberConstants {
     // Grabber Speed
     public static final double kGrabberSpeed = 1.0;
@@ -287,61 +288,10 @@ public final class Constants {
     }
   }
 
-  public static class ClimberConstants {
-    // Climber Move Speed
-    public static final double kClimberForwardSpeed = 1.0;
-    public static final double kClimberReverseSpeed = 1.0;
-
-    // Motor rotate rate (deg/rotations)
-    public static final double kRotateRate = 360.0/(100.0*5.77777);
-
-    // Climber Shaft position limits (deg)
-    public static final double kClimberMinPosition = 0;
-    public static final double kClimberMaxPosition = 270.0;
-
-    // Motor controller closed loop control pid (Climber Shaft)
-    public static final double kp = 0.02;
-    public static final double ki = 0;
-    public static final double kd = 0;
-
-    // Motor controller inverted settings
-    public static final boolean kLeftClimberInverted = false;
-    public static final boolean kRightClimberInverted = true;
-
-    public static final SparkMaxConfig getLeftClimberCfg() {
-      final SparkMaxConfig config = new SparkMaxConfig();
-
-      config
-        .inverted(kLeftClimberInverted)
-        .idleMode(IdleMode.kBrake);
-      config.encoder
-        .positionConversionFactor(kRotateRate)// return position (deg)
-        .velocityConversionFactor(kRotateRate/60.0);// return velocity (deg/s)
-      config.closedLoop
-        .feedbackSensor(FeedbackSensor.kPrimaryEncoder)// build-in encoder
-        .pid(kp, ki, kd)
-        .outputRange(-kClimberReverseSpeed, kClimberForwardSpeed)
-        .positionWrappingInputRange(kClimberMinPosition, kClimberMaxPosition);
-
-      return config;
-    }
-
-    public static final SparkMaxConfig getRightClimberCfg() {
-      final SparkMaxConfig config = new SparkMaxConfig();
-
-      config
-        .inverted(kRightClimberInverted)
-        .idleMode(IdleMode.kBrake);
-      config.encoder
-        .positionConversionFactor(kRotateRate)// return position (deg)
-        .velocityConversionFactor(kRotateRate/60.0);// return velocity (deg/s)
-      config.closedLoop
-        .feedbackSensor(FeedbackSensor.kPrimaryEncoder)// build-in encoder
-        .pid(kp, ki, kd)
-        .outputRange(-kClimberReverseSpeed, kClimberForwardSpeed)
-        .positionWrappingInputRange(kClimberMinPosition, kClimberMaxPosition);
-
-      return config;
-    }
+  public static class LimelightConstants {
+    public static final double X = 0.25;// m
+    public static final double Y = -0.27;// m
+    public static final double Height = -0.2;// m
+    public static final double Angle = 45.0;// deg
   }
 }
