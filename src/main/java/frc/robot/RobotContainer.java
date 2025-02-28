@@ -9,12 +9,8 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.LimelightConstants;
 import frc.robot.Constants.OperationConstant;
-import frc.robot.Constants.OperationConstant.Keys;
-import frc.robot.commands.GetCoral;
-import frc.robot.commands.ToCoralLevel;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Swerve;
@@ -44,11 +40,6 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    new JoystickButton(js, Keys.GetCoral).onTrue(new GetCoral(claw, elevator, js));
-    new JoystickButton(js, Keys.ToReefL1).onTrue(new ToCoralLevel(OperationConstant.Levels.L1, claw, elevator));
-    new JoystickButton(js, Keys.ToReefL2).onTrue(new ToCoralLevel(OperationConstant.Levels.L2, claw, elevator));
-    new JoystickButton(js, Keys.ToReefL3).onTrue(new ToCoralLevel(OperationConstant.Levels.L3, claw, elevator));
-    new JoystickButton(js, Keys.ToReefL4).onTrue(new ToCoralLevel(OperationConstant.Levels.L4, claw, elevator));
   }
 
   private void configureLimelight(){
