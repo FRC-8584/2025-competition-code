@@ -14,7 +14,6 @@ import frc.robot.Constants.LimelightConstants;
 import frc.robot.Constants.OperationConstant;
 import frc.robot.Constants.OperationConstant.Keys;
 import frc.robot.Constants.OperationConstant.Reef;
-import frc.robot.commands.AimReef;
 import frc.robot.commands.GetCoral;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Elevator;
@@ -45,8 +44,6 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    new JoystickButton(js, Keys.AimRightReef).onTrue(new AimReef(swerve, Reef.Right));
-    new JoystickButton(js, Keys.AimRightReef).onTrue(new AimReef(swerve, Reef.Left));
     new JoystickButton(js, Keys.GetCoral).onTrue(new GetCoral(claw, elevator, js));
   }
 

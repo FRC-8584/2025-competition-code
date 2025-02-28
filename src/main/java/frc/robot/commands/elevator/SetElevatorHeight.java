@@ -43,19 +43,19 @@ public class SetElevatorHeight extends Command {
   public boolean isFinished() {
     switch(this.m_L) {
       case L1:
-        if(Tools.isInRange(ElevatorConstants.Level_1_Height, ElevatorConstants.Level_1_Height-0.1, ElevatorConstants.Level_1_Height+0.1)){
+        if(Tools.isInRange(ElevatorConstants.Level_1_Height, ElevatorConstants.Level_1_Height-1.0, ElevatorConstants.Level_1_Height+1.0)){
           return true;
         }
       case L2:
-      if(Tools.isInRange(ElevatorConstants.Level_2_Height, ElevatorConstants.Level_2_Height-0.1, ElevatorConstants.Level_2_Height+0.1)){
+      if(Tools.isInRange(ElevatorConstants.Level_2_Height, ElevatorConstants.Level_2_Height-1.0, ElevatorConstants.Level_2_Height+1.0)){
         return true;
       }
       case L3:
-        if(Tools.isInRange(ElevatorConstants.Level_3_Height, ElevatorConstants.Level_3_Height-0.1, ElevatorConstants.Level_3_Height+0.1)){
+        if(Tools.isInRange(ElevatorConstants.Level_3_Height, ElevatorConstants.Level_3_Height-1.0, ElevatorConstants.Level_3_Height+1.0)){
           return true;
       }
       case L4:
-        if(Tools.isInRange(ElevatorConstants.Level_4_Height, ElevatorConstants.Level_4_Height-0.1, ElevatorConstants.Level_4_Height+0.1)){
+        if(Tools.isInRange(ElevatorConstants.Level_4_Height, ElevatorConstants.Level_4_Height-1.0, ElevatorConstants.Level_4_Height+1.0)){
           return true;
       }
       default:
