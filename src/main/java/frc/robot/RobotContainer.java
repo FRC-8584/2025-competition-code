@@ -43,20 +43,20 @@ public class RobotContainer {
     );
 
     // Claw Grapper
-    new JoystickButton(js, 5)
+    new JoystickButton(js, 5)// Grapper Forward, Button LB
       .whileTrue(new SetGrabberPower(grabber, 1)
       .withInterruptBehavior(InterruptionBehavior.kCancelSelf)
     );
-    new JoystickButton(js, 6)
+    new JoystickButton(js, 6)// Grapper Reverse, Button RB
       .whileTrue(new SetGrabberPower(grabber, -1)
       .withInterruptBehavior(InterruptionBehavior.kCancelSelf)
     );
 
     // ClawState Combinate command CORAL Reef & Source
-    setButtonToClawState(js, 1, ClawState.PUT_CORAL_REEF_L1);
-    setButtonToClawState(js, 2, ClawState.PUT_CORAL_REEF_L2);
-    setButtonToClawState(js, 4, ClawState.PUT_CORAL_REEF_L3);
-    setButtonToClawState(js, 3, ClawState.PUT_CORAL_REEF_L4);
+    setButtonToClawState(js, 1, ClawState.PUT_CORAL_REEF_L1);// Claw L1, Button A
+    setButtonToClawState(js, 2, ClawState.PUT_CORAL_REEF_L2);// Claw L2, Button B
+    setButtonToClawState(js, 4, ClawState.PUT_CORAL_REEF_L3);// Claw L3, Button Y
+    setButtonToClawState(js, 3, ClawState.PUT_CORAL_REEF_L4);// Claw L4, Button X
 
     // ClawState Combinate command ALGAE Reef & Processor
     setButtonToClawState(js, 7, ClawState.GET_ALGAE_REEF_HIGH);
