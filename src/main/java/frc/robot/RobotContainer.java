@@ -9,13 +9,8 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.LimelightConstants;
 import frc.robot.Constants.OperationConstant;
-import frc.robot.Constants.OperationConstant.Keys;
-import frc.robot.Constants.OperationConstant.Reef;
-import frc.robot.commands.AimReef;
-import frc.robot.commands.GetCoral;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Swerve;
@@ -45,9 +40,6 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    new JoystickButton(js, Keys.AimRightReef).onTrue(new AimReef(swerve, Reef.Right));
-    new JoystickButton(js, Keys.AimRightReef).onTrue(new AimReef(swerve, Reef.Left));
-    new JoystickButton(js, Keys.GetCoral).onTrue(new GetCoral(claw, elevator, js));
   }
 
   private void configureLimelight(){

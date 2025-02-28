@@ -10,6 +10,7 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import frc.robot.utils.AxieOptimizer;
@@ -35,8 +36,10 @@ public class Constants {
         public static final double DriveSpeed = 0.7;
 
         public static class Keys {
-            public static final int AimLeftReef = 2;
-            public static final int AimRightReef = 3;
+            public static final int ToReefL1 = 1;
+            public static final int ToReefL2 = 2;
+            public static final int ToReefL3 = 4;
+            public static final int ToReefL4 = 3;
             public static final int GetCoral = 5;
             public static final int StopGetCoral = 6;
         }
@@ -114,6 +117,9 @@ public class Constants {
                 return configs;
             }
         }
+
+        public static final PIDController XAutoAimPID = new PIDController(0.2, 0, 0);
+        public static final PIDController YAutoAimPID = new PIDController(0.2, 0, 0);
     }
 
     public static class ClawConstants {
@@ -125,7 +131,7 @@ public class Constants {
         public static enum Levels {
             L1 (0),
             L2(45.0),
-            L3(135.0),
+            L3(115.0),
             Default(15.0);
 
             private double angle;
@@ -208,9 +214,14 @@ public class Constants {
     }
 
     public static class LimelightConstants {
-        public static final double X = 0.25; //m
-        public static final double Y = -0.27; //m
-        public static final double Height = -0.2; //m
+        public static final double X = 0.29; //m
+        public static final double Y = 0.25; //m
+        public static final double Height = 0.2; //m
         public static final double Angle = 45.0; //degree
+
+        public static final double X_Distance = 0.15; //m
+        public static final double Y_Distance = 0.20; //m
+        public static final double AutoAimDeadband = 0.01; //m
+        
     }
 }

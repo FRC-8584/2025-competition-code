@@ -23,7 +23,7 @@ public class SetClawLevel extends Command {
 
   @Override
   public boolean isFinished() {
-    if(Tools.isInRange(claw.getPosition(), level.getAngle() - 5.0, level.getAngle() + 5.0)) return true;
+    if(Tools.isInRange(claw.getPosition(), level.getAngle() - 2.0, level.getAngle() + 2.0)) return true;
     else return false;
   }
 }
