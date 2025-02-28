@@ -118,7 +118,7 @@ public final class Constants {
     public static final double kWheelRadius = 0.05;// m
     public static final double kSwerveWheelDistance_x = 0.58;// m
     public static final double kSwerveWheelDistance_y = 0.58;// m
-    public static final double kMaxDriveMotorRPM = 2000;// RPM
+    public static final double kMaxDriveMotorRPM = 6000;// RPM
 
     public static final double kWheelPerimeter = kWheelRadius * 2 * Math.PI;  // m
     public static final double kRadian = 
@@ -135,7 +135,7 @@ public final class Constants {
 
     public static final TalonFXConfiguration getDriveMotorCfg() {
       TalonFXConfiguration config = new TalonFXConfiguration();
-      config.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+      config.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
       config.MotorOutput.NeutralMode = NeutralModeValue.Brake;
       return config;
     }

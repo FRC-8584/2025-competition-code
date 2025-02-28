@@ -29,12 +29,15 @@ public class SwerveModule {
     applyCfg(encoder_offset);
     pid = new PIDController(0.7, 0, 1e-6);
     invert = 1.0;
+
+    driveMotor.set(0);
+    turnMotor.set(0);
   }
 
   public void setState(SwerveModuleState state) {
     double err_degree = errCalculator(state.angle.getDegrees() - getEncAngle().getDegrees());
     driveMotor.set((state.speedMetersPerSecond / SwerveConstants.kMaxDriveSpeed) * Math.cos(err_degree * Math.PI / 180.0) * invert);
-    turnMotor.set(Tools.bounding(pid.calculate(err_degree / 45.0)));
+    turnMotor.set(Tools.bounding(pid.calculate(err_degree / 90.0)));
   }
 
   public SwerveModuleState getState() {
