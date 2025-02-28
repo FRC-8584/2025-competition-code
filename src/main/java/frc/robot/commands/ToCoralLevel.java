@@ -2,12 +2,10 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.ClawConstants;
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.Constants.OperationConstant.Levels;
 import frc.robot.commands.claw.SetClawLevel;
-import frc.robot.commands.claw.SetGrabberPower;
 import frc.robot.commands.elevator.SetElevatorHeight;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Elevator;
@@ -41,10 +39,7 @@ public class ToCoralLevel extends SequentialCommandGroup {
                 new SetClawLevel(ClawConstants.Levels.Default, claw),
                 new SetElevatorHeight(elevator, elevator_level)
             ),
-            new SetClawLevel(claw_level, claw),
-            new SetGrabberPower(0.4, claw),
-            new WaitCommand(0.3), 
-            new SetGrabberPower(0, claw)
+            new SetClawLevel(claw_level, claw)
         );
     }
 }
