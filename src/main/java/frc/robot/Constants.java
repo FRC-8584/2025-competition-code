@@ -122,7 +122,7 @@ public final class Constants {
 
     public static final double kWheelPerimeter = kWheelRadius * 2 * Math.PI;  // m
     public static final double kRadian = 
-      Math.sqrt(Math.pow(kSwerveWheelDistance_x/2.0, 2) * Math.pow(kSwerveWheelDistance_y/2.0, 2));// m
+      Math.sqrt(Math.pow(kSwerveWheelDistance_x/2.0, 2) + Math.pow(kSwerveWheelDistance_y/2.0, 2));// m
 
     public static final double kMaxDriveSpeed = kMaxDriveMotorRPM / 60.0 * kWheelPerimeter / kDriveGearRatio; // m/s
     public static final double kMaxTurnSpeed = kMaxDriveSpeed / kRadian; // rad/s
