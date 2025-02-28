@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
 
 import frc.robot.subsystems.*;
-
+import frc.robot.Constants.ClawState;
 import frc.robot.commands.*;
 import frc.robot.commands.grabber.*;
 
@@ -50,36 +50,25 @@ public class RobotContainer {
       .withInterruptBehavior(InterruptionBehavior.kCancelSelf)
     );
 
-    // Combinate command
-    new JoystickButton(js, 1)
-      .onTrue(new SetClawState(elevator, shaft, Constants.ClawState.PUT_CORAL_REEF_L1)
-      .withInterruptBehavior(InterruptionBehavior.kCancelSelf)
-    );
-    new JoystickButton(js, 2)
-      .onTrue(new SetClawState(elevator, shaft, Constants.ClawState.PUT_CORAL_REEF_L2)
-      .withInterruptBehavior(InterruptionBehavior.kCancelSelf)
-    );
-    new JoystickButton(js, 4)
-      .onTrue(new SetClawState(elevator, shaft, Constants.ClawState.PUT_CORAL_REEF_L3)
-      .withInterruptBehavior(InterruptionBehavior.kCancelSelf)
-    );
-    new JoystickButton(js, 3)
-      .onTrue(new SetClawState(elevator, shaft, Constants.ClawState.PUT_CORAL_REEF_L4)
-      .withInterruptBehavior(InterruptionBehavior.kCancelSelf)
-    );
+    // ClawState Combinate command CORAL Reef & Source
+    setButtonToClawState(js, 1, ClawState.PUT_CORAL_REEF_L1);
+    setButtonToClawState(js, 2, ClawState.PUT_CORAL_REEF_L2);
+    setButtonToClawState(js, 4, ClawState.PUT_CORAL_REEF_L3);
+    setButtonToClawState(js, 3, ClawState.PUT_CORAL_REEF_L4);
 
-    // Combinate command ALGAE Reef & Processor
-    new JoystickButton(js, 7)
-      .onTrue(new SetClawState(elevator, shaft, Constants.ClawState.GET_ALGAE_REEF_HIGH)
-      .withInterruptBehavior(InterruptionBehavior.kCancelSelf)
-    );
-    new JoystickButton(js, 8)
-      .onTrue(new SetClawState(elevator, shaft, Constants.ClawState.PUT_ALGAE_PROCESSOR)
-      .withInterruptBehavior(InterruptionBehavior.kCancelSelf)
-    );
+    // ClawState Combinate command ALGAE Reef & Processor
+    setButtonToClawState(js, 7, ClawState.GET_ALGAE_REEF_HIGH);
+    setButtonToClawState(js, 8, ClawState.PUT_ALGAE_PROCESSOR);
   }
 
   // private void player2CommandList() {
   //   final Joystick js = joystick_2;
   // }
+
+  private void setButtonToClawState(Joystick js, int button_number, ClawState state) {
+    new JoystickButton(js, button_number)
+      .onTrue(new SetClawState(elevator, shaft, state)
+      .withInterruptBehavior(InterruptionBehavior.kCancelSelf)
+    );
+  }
 }
