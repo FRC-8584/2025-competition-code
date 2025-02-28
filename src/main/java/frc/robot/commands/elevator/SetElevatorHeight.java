@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.Constants.ElevatorConstants.Levels;
 import frc.robot.subsystems.Elevator;
+import frc.robot.utils.Tools;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class SetElevatorHeight extends Command {
@@ -42,19 +43,19 @@ public class SetElevatorHeight extends Command {
   public boolean isFinished() {
     switch(this.m_L) {
       case L1:
-        if(m_Elevator.getPosition() == ElevatorConstants.Level_1_Height){
+        if(Tools.isInRange(ElevatorConstants.Level_1_Height, ElevatorConstants.Level_1_Height-0.1, ElevatorConstants.Level_1_Height+0.1)){
           return true;
         }
       case L2:
-      if(m_Elevator.getPosition() == ElevatorConstants.Level_1_Height){
+      if(Tools.isInRange(ElevatorConstants.Level_2_Height, ElevatorConstants.Level_2_Height-0.1, ElevatorConstants.Level_2_Height+0.1)){
         return true;
       }
       case L3:
-        if(m_Elevator.getPosition() == ElevatorConstants.Level_1_Height){
+        if(Tools.isInRange(ElevatorConstants.Level_3_Height, ElevatorConstants.Level_3_Height-0.1, ElevatorConstants.Level_3_Height+0.1)){
           return true;
       }
       case L4:
-        if(m_Elevator.getPosition() == ElevatorConstants.Level_1_Height){
+        if(Tools.isInRange(ElevatorConstants.Level_4_Height, ElevatorConstants.Level_4_Height-0.1, ElevatorConstants.Level_4_Height+0.1)){
           return true;
       }
       default:
