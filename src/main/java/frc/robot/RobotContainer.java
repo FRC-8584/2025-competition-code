@@ -10,20 +10,20 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.Constants.ClawConstants;
-import frc.robot.Constants.ElevatorConstants;
+import frc.robot.Constants.LimelightConstants;
 import frc.robot.Constants.OperationConstant;
-import frc.robot.commands.claw.SetClawLevel;
-import frc.robot.commands.claw.SetGrabberPower;
-import frc.robot.commands.elevator.SetElevatorHeight;
+import frc.robot.Constants.OperationConstant.Keys;
+import frc.robot.Constants.OperationConstant.Reef;
+import frc.robot.commands.AimReef;
+import frc.robot.commands.GetCoral;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Swerve;
+import frc.robot.utils.LimelightHelpers;
 import frc.robot.utils.Tools;
 
 public class RobotContainer {
   private Joystick js = new Joystick(0);
-  private Joystick js2 = new Joystick(1);
   
   private Swerve swerve = new Swerve();
   private Elevator elevator = new Elevator();
@@ -41,21 +41,24 @@ public class RobotContainer {
     );
 
     configureBindings();
+    configureLimelight();
   }
 
   private void configureBindings() {
-    new JoystickButton(js, 1).onTrue(new SetElevatorHeight(elevator, ElevatorConstants.Levels.L1));
-    new JoystickButton(js, 2).onTrue(new SetElevatorHeight(elevator, ElevatorConstants.Levels.L2));
-    new JoystickButton(js, 3).onTrue(new SetElevatorHeight(elevator, ElevatorConstants.Levels.L3));
-    new JoystickButton(js, 4).onTrue(new SetElevatorHeight(elevator, ElevatorConstants.Levels.L4));
+    new JoystickButton(js, Keys.AimRightReef).onTrue(new AimReef(swerve, Reef.Right));
+    new JoystickButton(js, Keys.AimRightReef).onTrue(new AimReef(swerve, Reef.Left));
+    new JoystickButton(js, Keys.GetCoral).onTrue(new GetCoral(claw, elevator, js));
+  }
 
-    new JoystickButton(js2, 5).whileTrue(new SetGrabberPower(0.1, claw));
-    new JoystickButton(js2, 5).whileTrue(new SetGrabberPower(-0.1, claw));
-
-    new JoystickButton(js2, 1).onTrue(new SetClawLevel(ClawConstants.Levels.L1, claw));
-    new JoystickButton(js2, 2).onTrue(new SetClawLevel(ClawConstants.Levels.Default, claw));
-    new JoystickButton(js2, 3).onTrue(new SetClawLevel(ClawConstants.Levels.L2, claw));
-    new JoystickButton(js2, 4).onTrue(new SetClawLevel(ClawConstants.Levels.L3, claw));
+  private void configureLimelight(){
+    LimelightHelpers.setCameraPose_RobotSpace("limelight", 
+    LimelightConstants.X,    // Forward offset (meters)
+    LimelightConstants.Y,    // Side offset (meters)
+    LimelightConstants.Height,    // Height offset (meters)
+    0.0,    // Roll (degrees)
+    0.0,   // Pitch (degrees)
+    LimelightConstants.Angle    // Yaw (degrees)
+);
   }
 
   public Command getAutonomousCommand() {

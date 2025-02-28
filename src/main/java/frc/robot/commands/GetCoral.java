@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.Constants.ClawConstants;
 import frc.robot.Constants.ElevatorConstants;
+import frc.robot.Constants.OperationConstant.Keys;
 import frc.robot.commands.claw.GrabCoral;
 import frc.robot.commands.claw.SetClawLevel;
 import frc.robot.commands.elevator.SetElevatorHeight;
@@ -18,7 +19,8 @@ public class GetCoral extends ParallelCommandGroup {
                 new SetElevatorHeight(elevator, ElevatorConstants.Levels.L1)
             ),
             new SetClawLevel(ClawConstants.Levels.L1, claw),
-            new GrabCoral(claw, ()->joystick.getRawButton(6))
+            new GrabCoral(claw, ()->joystick.getRawButton(Keys.StopGetCoral))
         );
     }
 }
+ 

@@ -20,14 +20,26 @@ public class Constants {
             L1, L2, L3, L4
         }
 
+        public static enum Reef {
+            Left, Right
+        }
+
         public static final AxieOptimizer[] axieOptimizers = 
             new AxieOptimizer[] {
                 new AxieOptimizer(0.035),
                 new AxieOptimizer(0.035),
                 new AxieOptimizer(0.05)
             };
+            
         public static final double TurnSpeed = 0.4;
         public static final double DriveSpeed = 0.7;
+
+        public static class Keys {
+            public static final int AimLeftReef = 2;
+            public static final int AimRightReef = 3;
+            public static final int GetCoral = 5;
+            public static final int StopGetCoral = 6;
+        }
     }
     
     public static class CAN_DeviceID {
@@ -196,8 +208,9 @@ public class Constants {
     }
 
     public static class LimelightConstants {
-        public static final double X = 0.27; //m
+        public static final double X = 0.25; //m
         public static final double Y = -0.27; //m
+        public static final double Height = -0.2; //m
         public static final double Angle = 45.0; //degree
     }
 }
