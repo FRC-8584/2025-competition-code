@@ -218,5 +218,10 @@ public class Constants {
         public static final double Y = 0.25; //m
         public static final double Height = 0.2; //m
         public static final double Angle = 45.0; //degree
+
+        public static final double X_Distance = 0.15; //m
+        public static final double Y_Distance = 0.20; //m
+        public static final double AutoAimDeadband = 0.01; //m
+        
     }
 }

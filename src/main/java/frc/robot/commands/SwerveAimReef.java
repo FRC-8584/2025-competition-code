@@ -31,22 +31,22 @@ public class SwerveAimReef extends Command {
         // x
         double x, y, turn;
         if(reef == Reef.Left) {
-            if(Tools.isInRange(tag_x, -0.16, -0.14)) x = 0;
-            else x = ((tag_x > -0.15) ? -0.1 : 0.1) * SwerveConstants.MaxDriveSpeed; 
+            if(Tools.isInRange(tag_x, -LimelightConstants.X_Distance-LimelightConstants.AutoAimDeadband, -LimelightConstants.X_Distance+LimelightConstants.AutoAimDeadband)) x = 0;
+            else x = ((tag_x > -LimelightConstants.X_Distance) ? -0.1 : 0.1) * SwerveConstants.MaxDriveSpeed; 
         }
         else {
-            if(Tools.isInRange(tag_x, 0.14, 0.16)) x = 0;
-            else x = ((tag_x > 0.15) ? -0.1 : 0.1) * SwerveConstants.MaxDriveSpeed;
+            if(Tools.isInRange(tag_x, LimelightConstants.X_Distance-LimelightConstants.AutoAimDeadband, LimelightConstants.X_Distance+LimelightConstants.AutoAimDeadband)) x = 0;
+            else x = ((tag_x > LimelightConstants.X_Distance) ? -0.1 : 0.1) * SwerveConstants.MaxDriveSpeed;
         }
         // y
-        if(Tools.isInRange(tag_y, 0.19, 0.21)) y = 0;
-        else y =  ((tag_y > 0.2) ? -0.1 : 0.1) * SwerveConstants.MaxDriveSpeed;
+        if(Tools.isInRange(tag_y, LimelightConstants.Y_Distance-LimelightConstants.AutoAimDeadband, LimelightConstants.Y_Distance+LimelightConstants.AutoAimDeadband)) y = 0;
+        else y =  ((tag_y > LimelightConstants.Y_Distance) ? -0.1 : 0.1) * SwerveConstants.MaxDriveSpeed;
         // turn
         if (tag_angle > 90) tag_angle-= 90;
         else  tag_angle = 90-tag_angle;
         if(Tools.isInRange(tag_angle, -3.0, 3.0)) turn = 0;
         else turn = ((tag_angle > 0) ? -0.1 : 0.1) * SwerveConstants.MaxTurnSpeed;
-        swerve.drive(x, y, turn, false);
+        swerve.drive(y, x, turn, false);
     }
 
     @Override
