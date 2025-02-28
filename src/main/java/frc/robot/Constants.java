@@ -108,34 +108,30 @@ public final class Constants {
 
   public static class SwerveConstants {
     // Robot Move & Turn Speed
-    public static final double kDriveSpeed = 1.0;
-    public static final double kTurnSpeed = 1.0;
+    public static final double kDriveSpeed = 0.4;
+    public static final double kTurnSpeed = 0.4;
 
     // Motor gear ratio
     public static final double kDriveGearRatio = 8.14;
-
-    // Motor controller inverted settings
-    public static final boolean kDriveMotorInverted = false;
-    public static final boolean kTurnMotorInverted = false;
 
     // Swerve measurements
     public static final double kWheelRadius = 0.05;// m
     public static final double kSwerveWheelDistance_x = 0.58;// m
     public static final double kSwerveWheelDistance_y = 0.58;// m
-    public static final double kMaxDriveMotorRPM = 3000;// RPM
+    public static final double kMaxDriveMotorRPM = 2000;// RPM
 
     public static final double kWheelPerimeter = kWheelRadius * 2 * Math.PI;  // m
     public static final double kRadian = 
       Math.sqrt(Math.pow(kSwerveWheelDistance_x/2.0, 2) * Math.pow(kSwerveWheelDistance_y/2.0, 2));// m
 
-    public static final double kMaxDriveSpeed = kMaxDriveMotorRPM / kDriveGearRatio * kWheelPerimeter / 60.0; // m/s
+    public static final double kMaxDriveSpeed = kMaxDriveMotorRPM / 60.0 * kWheelPerimeter / kDriveGearRatio; // m/s
     public static final double kMaxTurnSpeed = kMaxDriveSpeed / kRadian; // rad/s
 
     // encoder offsets
-    public static final double kLF_offset = -0.42;
-    public static final double kLR_offset = -0.3074;
-    public static final double kRF_offset = -0.42;
-    public static final double kRR_offset = -0.3074;
+    public static final double kLF_offset = 0.300049;
+    public static final double kLR_offset = -0.287550;
+    public static final double kRF_offset = -0.383686;
+    public static final double kRR_offset = -0.204590;
 
     public static final TalonFXConfiguration getDriveMotorCfg() {
       TalonFXConfiguration config = new TalonFXConfiguration();

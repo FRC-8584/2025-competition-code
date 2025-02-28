@@ -6,9 +6,11 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
 
 import frc.robot.subsystems.*;
-import frc.robot.Constants.ClawState;
 import frc.robot.commands.*;
 import frc.robot.commands.grabber.*;
+
+import frc.robot.Constants.ClawState;
+import frc.robot.utils.Tools;
 
 public class RobotContainer {
   private final Swerve swerve = new Swerve();
@@ -32,9 +34,9 @@ public class RobotContainer {
       new RunCommand(
         () ->
         swerve.drive(
-          -Constants.OperatorConstants.axieOptimizers[0].get(js.getY()),
-          -Constants.OperatorConstants.axieOptimizers[1].get(js.getX()),
-          -Constants.OperatorConstants.axieOptimizers[2].get(js.getRawAxis(4)),
+          -Constants.OperatorConstants.axieOptimizers[0].get(Tools.deadband(js.getY(), 0.05)),
+          -Constants.OperatorConstants.axieOptimizers[1].get(Tools.deadband(js.getX(), 0.05)),
+          -Constants.OperatorConstants.axieOptimizers[2].get(Tools.deadband(js.getRawAxis(4), 0.05)),
           false
         ), swerve
       )

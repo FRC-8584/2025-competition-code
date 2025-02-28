@@ -127,7 +127,7 @@ public class Swerve extends SubsystemBase {
     RF.setState(states[1]);
     RR.setState(states[2]);
     LR.setState(states[3]);
-}
+  }
 
   private Rotation2d getGyroAngle() {
     double angle = (360 - (gyro.getAngle() - initial_angle)) % 360.0;
@@ -151,7 +151,4 @@ public class Swerve extends SubsystemBase {
 	private void updateLoggingValue() {
     SmartDashboard.putData("Field", field);
 	}
-
-
-
 }
