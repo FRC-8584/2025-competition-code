@@ -111,6 +111,11 @@ public final class Constants {
     public static final double kDriveSpeed = 0.4;
     public static final double kTurnSpeed = 0.4;
 
+    // Motor & Sensor direction
+    public static final InvertedValue kDriveDirection = InvertedValue.CounterClockwise_Positive;
+    public static final InvertedValue kTurnDirection = InvertedValue.CounterClockwise_Positive;
+    public static final SensorDirectionValue kCANcoderDirection = SensorDirectionValue.CounterClockwise_Positive;
+
     // Motor gear ratio
     public static final double kDriveGearRatio = 8.14;
 
@@ -135,7 +140,7 @@ public final class Constants {
 
     public static final TalonFXConfiguration getDriveMotorCfg() {
       TalonFXConfiguration config = new TalonFXConfiguration();
-      config.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+      config.MotorOutput.Inverted = kDriveDirection;
       config.MotorOutput.NeutralMode = NeutralModeValue.Brake;
       return config;
     }
@@ -146,14 +151,14 @@ public final class Constants {
       config.Slot0.kP = 0.1;
       config.Slot0.kI = 0;
       config.Slot0.kD = 0;
-      config.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+      config.MotorOutput.Inverted = kTurnDirection;
       config.MotorOutput.NeutralMode = NeutralModeValue.Brake;
       return config;
     }
 
     public static final CANcoderConfiguration getCANcoderCfg(double offset) {
       CANcoderConfiguration config = new CANcoderConfiguration();
-      config.MagnetSensor.SensorDirection = SensorDirectionValue.CounterClockwise_Positive;
+      config.MagnetSensor.SensorDirection = kCANcoderDirection;
       config.MagnetSensor.MagnetOffset = offset;
       return config;
     }
@@ -181,7 +186,7 @@ public final class Constants {
     public static final double kElevatorMaxPosition = 75.0;
 
     // Motor controller closed loop control pid (Elevator)
-    public static final double kp = 0.1;
+    public static final double kp = 0.08;
     public static final double ki = 0;
     public static final double kd = 0;
 
