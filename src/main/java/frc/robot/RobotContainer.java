@@ -9,6 +9,7 @@ import frc.robot.subsystems.*;
 import frc.robot.commands.*;
 import frc.robot.commands.grabber.*;
 
+import frc.robot.Constants.Reef;
 import frc.robot.Constants.ClawState;
 import frc.robot.Constants.LimelightConstants;
 
@@ -34,11 +35,11 @@ public class RobotContainer {
     LimelightHelpers.setCameraPose_RobotSpace(
       "limelight", 
       LimelightConstants.X,    // Forward offset (meters)
-      LimelightConstants.Y,    // Side offset (meters)
-      LimelightConstants.Height,   // Height offset (meters)
-      0.0,    // Roll (degrees)
-      0.0,   // Pitch (degrees)
-      LimelightConstants.Angle    // Yaw (degrees)
+      LimelightConstants.Z,    // Side offset (meters)
+      LimelightConstants.Y,   // Height offset (meters)
+      LimelightConstants.Roll,    // Roll (degrees)
+      LimelightConstants.Pitch,   // Pitch (degrees)
+      LimelightConstants.Yaw    // Yaw (degrees)
     );
   }
 
@@ -58,6 +59,9 @@ public class RobotContainer {
       )
     );
 
+    new JoystickButton(js, 7).onTrue(new AimReef(swerve, Reef.Left).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+    new JoystickButton(js, 8).onTrue(new AimReef(swerve, Reef.Right).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+
     // Claw Grapper
     new JoystickButton(js, 5)// Grapper Forward, Button LB
       .whileTrue(new SetGrabberPower(grabber, 1)
@@ -75,8 +79,8 @@ public class RobotContainer {
     clawStateBinding(js, 3, ClawState.PUT_CORAL_L4);// Claw L4, Button X
 
     // ClawState Combinate command ALGAE Reef & Processor
-    clawStateBinding(js, 7, ClawState.GET_ALGAE_HIGH);
-    clawStateBinding(js, 8, ClawState.PUT_ALGAE_PROCESSOR);
+    // clawStateBinding(js, 7, ClawState.GET_ALGAE_HIGH);
+    // clawStateBinding(js, 8, ClawState.PUT_ALGAE_PROCESSOR);
   }
 
   // private void player2CommandList() {

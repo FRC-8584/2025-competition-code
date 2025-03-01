@@ -137,7 +137,7 @@ public final class Constants {
     // encoder offsets
     public static final double kLF_offset = 0.300049;
     public static final double kLR_offset = -0.287550;
-    public static final double kRF_offset = -0.383686;
+    public static final double kRF_offset = -0.419922;
     public static final double kRR_offset = -0.204590;
 
     public static final TalonFXConfiguration getDriveMotorCfg() {
@@ -291,7 +291,9 @@ public final class Constants {
   public static class LimelightConstants {
     public static final double X = 0.25;// m
     public static final double Y = -0.27;// m
-    public static final double Height = -0.2;// m
-    public static final double Angle = 45.0;// deg
+    public static final double Z = -0.27;// m
+    public static final double Yaw = 45.0;// deg
+    public static final double Roll = 0;// deg
+    public static final double Pitch = 0;// deg
   }
 }
