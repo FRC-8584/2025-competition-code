@@ -9,8 +9,10 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.LimelightConstants;
 import frc.robot.Constants.OperationConstant;
+import frc.robot.commands.PutCoral;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Swerve;
@@ -40,16 +42,20 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
+    new JoystickButton(js, 1).onTrue(new PutCoral(elevator, claw, OperationConstant.Levels.L1));
+    new JoystickButton(js, 2).onTrue(new PutCoral(elevator, claw, OperationConstant.Levels.L2));
+    new JoystickButton(js, 3).onTrue(new PutCoral(elevator, claw, OperationConstant.Levels.L4));
+    new JoystickButton(js, 4).onTrue(new PutCoral(elevator, claw, OperationConstant.Levels.L3));
   }
 
   private void configureLimelight(){
     LimelightHelpers.setCameraPose_RobotSpace("limelight", 
-    LimelightConstants.X,    // Forward offset (meters)
-    LimelightConstants.Y,    // Side offset (meters)
+    LimelightConstants.Y,    // Forward offset (meters)
+    LimelightConstants.X,    // Side offset (meters)
     LimelightConstants.Height,    // Height offset (meters)
-    0.0,    // Roll (degrees)
-    0.0,   // Pitch (degrees)
-    LimelightConstants.Angle    // Yaw (degrees)
+    LimelightConstants.Roll,    // Roll (degrees)
+    LimelightConstants.Pitch,   // Pitch (degrees)
+    LimelightConstants.Yaw   // Yaw (degrees)
 );
   }
 

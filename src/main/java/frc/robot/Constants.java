@@ -130,9 +130,9 @@ public class Constants {
 
         public static enum Levels {
             L1 (0),
-            L2(45.0),
-            L3(115.0),
-            Default(15.0);
+            L2(35.0),
+            L3(135.0),
+            Default(20.0);
 
             private double angle;
 
@@ -162,7 +162,7 @@ public class Constants {
                     .outputRange(MinPower, MaxPower)
                     .positionWrappingInputRange(MaxAngle, MinAngle)
                     .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-                    .pid(0.2, 0, 0);
+                    .pid(0.05, 0, 0);
                 return configs;
                 
             }
@@ -172,8 +172,8 @@ public class Constants {
     public static class ElevatorConstants{
         public static final double MaxPosition = 75.0;
         public static final double MinPosition = 0.0;
-        public static final double MaxPower = 0.5;
-        public static final double MinPower = -0.2;
+        public static final double MaxPower = 1.0;
+        public static final double MinPower = -1.0;
 
         public static final double Level_1_Height = 0;
         public static final double Level_2_Height = 30;
@@ -206,7 +206,7 @@ public class Constants {
                     .outputRange(MinPower, MaxPower)
                     .positionWrappingInputRange(MinPosition, MaxPosition)
                     .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-                    .pid(0.3, 0, 0);
+                    .pid(0.1, 0, 0);
                 return config;
             } 
             
@@ -214,10 +214,12 @@ public class Constants {
     }
 
     public static class LimelightConstants {
-        public static final double X = 0.29; //m
-        public static final double Y = 0.25; //m
+        public static final double X = 0.26; //m
+        public static final double Y = 0.24; //m
         public static final double Height = 0.2; //m
-        public static final double Angle = 45.0; //degree
+        public static final double Pitch = 10.0; //degree
+        public static final double Roll  = 0; //degree
+        public static final double Yaw = 35.0; //degree
 
         public static final double X_Distance = 0.15; //m
         public static final double Y_Distance = 0.20; //m
