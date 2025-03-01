@@ -47,19 +47,20 @@ public class SetElevatorHeight extends Command {
           return true;
         }
       case L2:
-      if(Tools.isInRange(ElevatorConstants.Level_2_Height, ElevatorConstants.Level_2_Height-1.0, ElevatorConstants.Level_2_Height+1.0)){
-        return true;
-      }
+        if(Tools.isInRange(ElevatorConstants.Level_2_Height, ElevatorConstants.Level_2_Height-1.0, ElevatorConstants.Level_2_Height+1.0)){
+          return true;
+        }
       case L3:
         if(Tools.isInRange(ElevatorConstants.Level_3_Height, ElevatorConstants.Level_3_Height-1.0, ElevatorConstants.Level_3_Height+1.0)){
           return true;
-      }
+        }
       case L4:
         if(Tools.isInRange(ElevatorConstants.Level_4_Height, ElevatorConstants.Level_4_Height-1.0, ElevatorConstants.Level_4_Height+1.0)){
           return true;
-      }
+        }
       default:
-        return true;
+        break;
     }
+    return false;
   }
 }
