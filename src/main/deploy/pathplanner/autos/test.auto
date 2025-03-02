@@ -9,6 +9,36 @@
           "data": {
             "pathName": "test_1"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "PutCoral"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "test_2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "GetCoral"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "test_3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "PutCoral"
+          }
         }
       ]
     }

@@ -22,7 +22,7 @@ public class Constants {
         }
 
         public static enum Reef {
-            Left, Right
+            Left, Right, None
         }
 
         public static final AxieOptimizer[] axieOptimizers = 
@@ -72,25 +72,25 @@ public class Constants {
     }
 
     public static class SwerveConstants{
-        public static final double WheelRadius = 0.05; //m
+        public static final double WheelRadius = 0.053; //m
         public static final double WheelPerimeter = WheelRadius * 2 * Math.PI;  //m
         public static final double MaxDriveSpeed = 100.0 / 8.14 * WheelPerimeter; //m/s
         public static final double MaxTurnSpeed = MaxDriveSpeed / 0.41; //rad/s
 
         public static final SwerveDriveKinematics kinematics = new SwerveDriveKinematics(
             new Translation2d[] {
-                new Translation2d(0.29, 0.29),
-                new Translation2d(0.29, -0.29),
-                new Translation2d(-0.29, -0.29),
-                new Translation2d(-0.29, 0.29)
+                new Translation2d(0.2825, 0.2925),
+                new Translation2d(0.2825, -0.2925),
+                new Translation2d(-0.2825, -0.2925),
+                new Translation2d(-0.2825, 0.2925)
             }
         );
 
         public static class CancoderOffsets {
             public static final double FrontLeft = 0.300537;
-            public static final double FrontRight = -0.403564;
-            public static final double BackRight = -0.210938;
-            public static final double BackLeft = -0.295166;
+            public static final double FrontRight = 0.385986;
+            public static final double BackRight = -0.204590;
+            public static final double BackLeft = -0.287550;
         }
 
         public static class Configs {
@@ -130,8 +130,9 @@ public class Constants {
 
         public static enum Levels {
             L1 (0),
-            L2(35.0),
-            L3(135.0),
+            L2(10.0),
+            L3(40.0),
+            L4(135.0),
             Default(20.0);
 
             private double angle;
@@ -145,10 +146,10 @@ public class Constants {
             }
         }
 
-        public static final double GrabberPower = 0.2;
+        public static final double GrabberPower = 0.5;
         public static final int SensorPort = 0;
         public static final double SensorThreshold = 1350;
-        public static final double SensorDelay = 0.55; //s
+        public static final double SensorDelay = 0.4; //s
 
         public static class  Configs {
             public static SparkMaxConfig getShaftConfig() {
@@ -176,14 +177,14 @@ public class Constants {
         public static final double MinPower = -1.0;
 
         public static final double Level_1_Height = 0;
-        public static final double Level_2_Height = 30;
-        public static final double Level_3_Height = 45;
+        public static final double Level_2_Height = 15;
+        public static final double Level_3_Height = 35;
         public static final double Level_4_Height = 70;
 
         public static enum Levels{
             L1(0.0),
-            L2(30.0),
-            L3(45.0),
+            L2(5.0),
+            L3(27.0),
             L4(75.0);
 
             private double height;
@@ -214,12 +215,12 @@ public class Constants {
     }
 
     public static class LimelightConstants {
-        public static final double X = 0.26; //m
-        public static final double Y = 0.24; //m
-        public static final double Height = 0.2; //m
-        public static final double Pitch = 10.0; //degree
-        public static final double Roll  = 0; //degree
-        public static final double Yaw = 35.0; //degree
+        public static final double X = 0.223; //m
+        public static final double Z = 0.20; //m
+        public static final double Y = 0.97; //m
+        public static final double Pitch = -52.0; //degree
+        public static final double Roll  = 11.6; //degree
+        public static final double Yaw = 26.1; //degree
 
         public static final double X_Distance = 0.15; //m
         public static final double Y_Distance = 0.20; //m

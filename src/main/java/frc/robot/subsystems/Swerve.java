@@ -29,7 +29,7 @@ public class Swerve extends SubsystemBase {
     private final SwerveModule front_left, front_right, back_right, back_left;
     private final AHRS gyro;
     private final SwerveDrivePoseEstimator poseEstimator;
-    private final Field2d field;
+    private Field2d field = new Field2d();
 
     private final double invert, initial_angle;
 
@@ -163,7 +163,6 @@ public class Swerve extends SubsystemBase {
                 back_left.gePosition()
             }, new Pose2d(0, 0, getGyroAngle())
         );
-        field = new Field2d();
 
         invert = DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red ? -1.0: 1.0;
         initial_angle = gyro.getAngle() + ( DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red ? 180: 0);
@@ -173,8 +172,8 @@ public class Swerve extends SubsystemBase {
 
     @Override
     public void periodic() {
-        updateOdometry();
-        field.setRobotPose(poseEstimator.getEstimatedPosition());
-        SmartDashboard.putData("Field",field);
+      updateOdometry();
+      field.setRobotPose(getPose());
+      SmartDashboard.putData("field",field);
     }
 }

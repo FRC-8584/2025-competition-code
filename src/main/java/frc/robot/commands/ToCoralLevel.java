@@ -29,7 +29,7 @@ public class ToCoralLevel extends SequentialCommandGroup {
                 break;
             case L4:
                 elevator_level = ElevatorConstants.Levels.L4;
-                claw_level = ClawConstants.Levels.L2;
+                claw_level = ClawConstants.Levels.L3;
                 break;
             default:
                 break;
