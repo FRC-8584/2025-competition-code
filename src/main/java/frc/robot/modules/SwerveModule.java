@@ -30,7 +30,7 @@ public class SwerveModule {
 
     public void setState(SwerveModuleState state) {
         double err_degree = errCalculator(state.angle.getDegrees() - getEncoderAngle().getDegrees());
-        driveMotor.set(state.speedMetersPerSecond / SwerveConstants.MaxDriveSpeed * invert);
+        driveMotor.set(state.speedMetersPerSecond / SwerveConstants.MaxDriveSpeed * invert * Math.cos(err_degree / 180.0 * Math.PI));
         turnMotor.set(pid.calculate(err_degree / 90.0));
     }
 
@@ -74,6 +74,7 @@ public class SwerveModule {
     }
 
     public void logging(String name) {
-        SmartDashboard.putNumber(name+ " enc", getEncoderAngle().getDegrees());
+        SmartDashboard.putNumber(name+ " V", getState().speedMetersPerSecond);
+        SmartDashboard.putNumber(name+ " pose", gePosition().distanceMeters);
     }
 }

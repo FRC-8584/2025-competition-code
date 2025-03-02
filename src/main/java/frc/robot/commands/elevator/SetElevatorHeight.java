@@ -30,6 +30,7 @@ public class SetElevatorHeight extends Command {
   @Override
   public void execute() {
     m_Elevator.m_L = this.m_L;
+    System.out.println("Going to "+m_L.name());
   }
 
   // Called once the command ends or is interrupted.
@@ -43,24 +44,27 @@ public class SetElevatorHeight extends Command {
   public boolean isFinished() {
     switch(this.m_L) {
       case L1:
-        if(Tools.isInRange(ElevatorConstants.Level_1_Height, ElevatorConstants.Level_1_Height-1.0, ElevatorConstants.Level_1_Height+1.0)){
+        if(Tools.isInRange(m_Elevator.getPosition(), ElevatorConstants.Level_1_Height-3.0, ElevatorConstants.Level_1_Height+3.0)){
           return true;
-        }
+        }else return false;
       case L2:
-        if(Tools.isInRange(ElevatorConstants.Level_2_Height, ElevatorConstants.Level_2_Height-1.0, ElevatorConstants.Level_2_Height+1.0)){
+
+        if(Tools.isInRange(m_Elevator.getPosition(), ElevatorConstants.Level_2_Height-3.0, ElevatorConstants.Level_2_Height+3.0)){
           return true;
-        }
+        }else return false;
+
       case L3:
-        if(Tools.isInRange(ElevatorConstants.Level_3_Height, ElevatorConstants.Level_3_Height-1.0, ElevatorConstants.Level_3_Height+1.0)){
+        if(Tools.isInRange(m_Elevator.getPosition(), ElevatorConstants.Level_3_Height-3.0, ElevatorConstants.Level_3_Height+3.0)){
           return true;
-        }
+        }else return false;
+        
       case L4:
-        if(Tools.isInRange(ElevatorConstants.Level_4_Height, ElevatorConstants.Level_4_Height-1.0, ElevatorConstants.Level_4_Height+1.0)){
+        if(Tools.isInRange(m_Elevator.getPosition(), ElevatorConstants.Level_4_Height-3.0, ElevatorConstants.Level_4_Height+3.0)){
           return true;
-        }
+        }else return false;
       default:
         break;
-    }
+      }
     return false;
   }
 }

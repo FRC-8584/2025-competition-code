@@ -17,10 +17,9 @@ public class SetGrabberPower extends Command {
     claw.setGrabberPower(power);
   }
     
-
   @Override
-  public void end(boolean interrupted) {
-    claw.setGrabberPower(0);
+  public boolean isFinished() {
+      return true;
   }
 
 }

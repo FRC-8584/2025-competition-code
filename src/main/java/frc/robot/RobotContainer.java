@@ -11,8 +11,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.Constants.LimelightConstants;
 import frc.robot.Constants.OperationConstant;
+import frc.robot.commands.swerve.ArcadeDrive;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Swerve;
 import frc.robot.utils.LimelightHelpers;
 import frc.robot.utils.Tools;
@@ -23,37 +25,47 @@ public class RobotContainer {
   private Swerve swerve = new Swerve();
   private Elevator elevator = new Elevator();
   private Claw claw  = new Claw();
+  private Intake intake = new Intake();
   
   public RobotContainer() {
     swerve.setDefaultCommand(
-      new RunCommand(
+      new ArcadeDrive(swerve, ()->-js.getY(), ()->-js.getX(), ()->-js.getRawAxis(4))
+    );
+
+    new RunCommand(
         ()->swerve.drive(
           OperationConstant.axieOptimizers[0].get(Tools.deadband(-js.getY(), 0.05)),
           OperationConstant.axieOptimizers[1].get(Tools.deadband(-js.getX(), 0.05)),
           OperationConstant.axieOptimizers[2].get(Tools.deadband(-js.getRawAxis(4), 0.05)), 
-          true),
-        swerve)
-    );
+          false),
+      swerve);
 
     configureBindings();
     configureLimelight();
+    configNamedCommands();
   }
 
   private void configureBindings() {
+    
   }
 
   private void configureLimelight(){
     LimelightHelpers.setCameraPose_RobotSpace("limelight", 
-    LimelightConstants.X,    // Forward offset (meters)
-    LimelightConstants.Y,    // Side offset (meters)
-    LimelightConstants.Height,    // Height offset (meters)
-    0.0,    // Roll (degrees)
-    0.0,   // Pitch (degrees)
-    LimelightConstants.Angle    // Yaw (degrees)
-);
+      LimelightConstants.Z,    // Forward offset (meters)
+      LimelightConstants.X,    // Side offset (meters)
+      LimelightConstants.Y,   // Height offset (meters)
+      LimelightConstants.Roll,    // Roll (degrees)
+      LimelightConstants.Pitch,   // Pitch (degrees)
+      LimelightConstants.Yaw   // Yaw (degrees)
+    );
+  }
+
+  private void configNamedCommands() {
+    // NamedCommands.registerCommand("PutCoral", new PutCoral(swerve, elevator, claw, OperationConstant.Levels.L4));
+    // NamedCommands.registerCommand("GetCoral", new GrabCoralTillGet(claw));
   }
 
   public Command getAutonomousCommand() {
-    return new PathPlannerAuto("test");
+    return new PathPlannerAuto("red_test");
   }
 }
