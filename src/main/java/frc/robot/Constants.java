@@ -69,6 +69,9 @@ public class Constants {
     
         public static final int Left_ClimberID    =  17;
         public static final int Right_ClimberID   =  18;
+
+        public static final int Intake_ShaftID    =  19;
+        public static final int Intake_GrabberID  =  20;
     }
 
     public static class SwerveConstants{
@@ -211,6 +214,40 @@ public class Constants {
                 return config;
             } 
             
+        }
+    }
+
+    public static class IntakeConstants {
+        public static final double MaxAngle = 45.0;
+        public static final double MinAngle = -10.0;
+        public static final double MinPower= -0.4;
+        public static final double MaxPower= 0.4;
+
+        public static class  Configs {
+            public static SparkMaxConfig getShaftConfig() {
+                SparkMaxConfig configs = new SparkMaxConfig();
+                configs
+                    .inverted(true)
+                    .idleMode(IdleMode.kBrake);
+                configs.encoder
+                    .positionConversionFactor(360.0 / 25.0);
+                configs.closedLoop
+                    .outputRange(MinPower, MaxPower)
+                    .positionWrappingInputRange(MaxAngle, MinAngle)
+                    .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
+                    .pid(0.05, 0, 0);
+                return configs;
+                
+            }
+
+            public static SparkMaxConfig getGrabberConfig() {
+                SparkMaxConfig configs = new SparkMaxConfig();
+                configs
+                    .inverted(false)
+                    .idleMode(IdleMode.kBrake);
+                return configs;
+                
+            }
         }
     }
 

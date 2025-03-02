@@ -13,31 +13,35 @@ import frc.robot.utils.Tools;
 public class MoveToReef extends Command {
   private Swerve swerve;
   private Reef reef;
+  private boolean f;
   
   public MoveToReef(Swerve swerve, Reef reef) {
     this.swerve = swerve;
     this.reef = reef;
+    this.f = false;
     addRequirements(this.swerve);
   }
 
   @Override
   public void execute() {
     double[] pose = LimelightHelpers.getTargetPose_RobotSpace("limelight");
-    double turn = -pose[4]/ 45.0;
     double tx;
     if(reef == Reef.Left) tx = -17.0;
     else tx = 17.0;
-    swerve.drive(
-      Tools.deadband((pose[2] - 0.53) / .8, 0.1) ,
-      Tools.deadband((tx - pose[0]) / .8, 0.1),
-      Tools.deadband(turn, 0.1),false);
+    double x = Tools.deadband((pose[2] - 0.53) / .8, 0.1);
+    double y = -Tools.deadband((tx - pose[0]) / .2, 0.1);
+    double turn = Tools.deadband(-pose[4]/ 45.0, 0.1);
+    if(x ==0 && y==0 && turn ==0) f=true;
+    else {
+      f = false;
+      swerve.drive(
+        x,y,turn,false
+      );
+    }
   }
 
   @Override
-  public void end(boolean interrupted) {}
-
-  @Override
   public boolean isFinished() {
-    return false;
+    return f;
   }
 }
