@@ -4,22 +4,17 @@
 
 package frc.robot;
 
-import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.LimelightConstants;
 import frc.robot.Constants.OperationConstant;
-import frc.robot.Constants.OperationConstant.Reef;
-import frc.robot.commands.GrabCoralTillGet;
-import frc.robot.commands.PutCoral;
 import frc.robot.commands.swerve.ArcadeDrive;
-import frc.robot.commands.swerve.MoveToReef;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Swerve;
 import frc.robot.utils.LimelightHelpers;
 import frc.robot.utils.Tools;
@@ -30,6 +25,7 @@ public class RobotContainer {
   private Swerve swerve = new Swerve();
   private Elevator elevator = new Elevator();
   private Claw claw  = new Claw();
+  private Intake intake = new Intake();
   
   public RobotContainer() {
     swerve.setDefaultCommand(
@@ -38,9 +34,9 @@ public class RobotContainer {
 
     new RunCommand(
         ()->swerve.drive(
-          OperationConstant.axieOptimizers[0].get(Tools.deadband(-js.getY(), 0.02)),
-          OperationConstant.axieOptimizers[1].get(Tools.deadband(-js.getX(), 0.02)),
-          OperationConstant.axieOptimizers[2].get(Tools.deadband(-js.getRawAxis(4), 0.02)), 
+          OperationConstant.axieOptimizers[0].get(Tools.deadband(-js.getY(), 0.05)),
+          OperationConstant.axieOptimizers[1].get(Tools.deadband(-js.getX(), 0.05)),
+          OperationConstant.axieOptimizers[2].get(Tools.deadband(-js.getRawAxis(4), 0.05)), 
           false),
       swerve);
 
@@ -50,7 +46,7 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    new JoystickButton(js, 7).and(()->(LimelightHelpers.getTargetCount("limelight") != 0)).whileTrue(new MoveToReef(swerve, Reef.Left));
+    
   }
 
   private void configureLimelight(){
@@ -65,8 +61,8 @@ public class RobotContainer {
   }
 
   private void configNamedCommands() {
-    NamedCommands.registerCommand("PutCoral", new PutCoral(swerve, elevator, claw, OperationConstant.Levels.L4));
-    NamedCommands.registerCommand("GetCoral", new GrabCoralTillGet(claw));
+    // NamedCommands.registerCommand("PutCoral", new PutCoral(swerve, elevator, claw, OperationConstant.Levels.L4));
+    // NamedCommands.registerCommand("GetCoral", new GrabCoralTillGet(claw));
   }
 
   public Command getAutonomousCommand() {
