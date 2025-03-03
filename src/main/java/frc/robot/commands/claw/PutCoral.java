@@ -25,7 +25,7 @@ public class PutCoral extends Command {
     
   @Override
   public boolean isFinished() {
-    if(counter>50) return true;
+    if(counter>10) return true;
     else return false;
   }
 

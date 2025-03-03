@@ -29,6 +29,7 @@ public class MoveToReef extends Command {
 
   @Override
   public void initialize() {
+    loss_counter = 0;
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
   }
 
@@ -66,6 +67,7 @@ public class MoveToReef extends Command {
 
   @Override
   public void end(boolean interrupted) {
+    swerve.drive(0,0,0, false);
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
   }
 

@@ -133,7 +133,7 @@ public class Constants {
 
         public static enum Levels {
             L1(0),
-            L2(10.0),
+            L2(15.0),
             L3(60.0),
             L4(135.0),
             Default(20.0);
@@ -180,8 +180,8 @@ public class Constants {
         public static final double MinPower = -1.0;
 
         public static final double Level_1_Height = 0;
-        public static final double Level_2_Height = 15;
-        public static final double Level_3_Height = 35;
+        public static final double Level_2_Height = 18;
+        public static final double Level_3_Height = 37;
         public static final double Level_4_Height = 75;
 
         public static enum Levels{
@@ -253,12 +253,12 @@ public class Constants {
     }
 
     public static class LimelightConstants {
-        public static final double X = 0.23; //m
-        public static final double Z = 0.19; //m
-        public static final double Y = 0.98; //m
-        public static final double Pitch = -48.2; //degree
-        public static final double Roll  = -3.0; //degree
-        public static final double Yaw = 22.0; //degree
+        public static final double X = 0.19; //m
+        public static final double Z = 0.14; //m
+        public static final double Y = 0.94; //m
+        public static final double Pitch = -46; //degree
+        public static final double Roll  = -5.0; //degree
+        public static final double Yaw = 18.2; //degree
 
         public static final double X_Distance = 0.15; //m
         public static final double Y_Distance = 0.20; //m

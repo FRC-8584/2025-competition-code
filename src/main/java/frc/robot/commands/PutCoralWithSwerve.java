@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.OperationConstant;
 import frc.robot.Constants.OperationConstant.Levels;
 import frc.robot.Constants.OperationConstant.Reef;
@@ -22,6 +23,7 @@ public class PutCoralWithSwerve extends SequentialCommandGroup {
                     new ToCoralLevel(elevator, claw, level),
                     new MoveToReef(swerve, reef, tx)
                 ),
+                new WaitCommand(3.0),
                 new PutCoral(claw),
                 new SetGrabberPower(0, claw),
                 new ToCoralLevel(elevator, claw, Levels.L1)
