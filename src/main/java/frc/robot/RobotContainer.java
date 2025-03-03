@@ -46,7 +46,7 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    
+
   }
 
   private void configureLimelight(){
@@ -58,7 +58,7 @@ public class RobotContainer {
       LimelightConstants.Pitch,   // Pitch (degrees)
       LimelightConstants.Yaw   // Yaw (degrees)
     );
-  }
+  }    
 
   private void configNamedCommands() {
     // NamedCommands.registerCommand("PutCoral", new PutCoral(swerve, elevator, claw, OperationConstant.Levels.L4));

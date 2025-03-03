@@ -17,8 +17,9 @@ import frc.robot.utils.AxieOptimizer;
 
 public class Constants {
     public static class OperationConstant {
-        public static enum Levels {
-            L1, L2, L3, L4
+        public static enum CoralLevels {
+            Coral_L1, Coral_L2, Coral_L3, Coral_L4,
+            Algea_L1, Algea_L2
         }
 
         public static enum Reef {
@@ -33,7 +34,8 @@ public class Constants {
             };
             
         public static final double TurnSpeed = 0.4;
-        public static final double DriveSpeed = 0.7;
+        public static final double DriveSpeed = 0.7
+        ;
 
         public static class Keys {
             public static final int ToReefL1 = 1;
@@ -77,7 +79,7 @@ public class Constants {
     public static class SwerveConstants{
         public static final double WheelRadius = 0.053; //m
         public static final double WheelPerimeter = WheelRadius * 2 * Math.PI;  //m
-        public static final double MaxDriveSpeed = 100.0 / 8.14 * WheelPerimeter; //m/s
+        public static final double MaxDriveSpeed = 1.483295; //m/s
         public static final double MaxTurnSpeed = MaxDriveSpeed / 0.41; //rad/s
 
         public static final SwerveDriveKinematics kinematics = new SwerveDriveKinematics(
@@ -133,7 +135,7 @@ public class Constants {
 
         public static enum Levels {
             L1(0),
-            L2(10.0),
+            L2(15.0),
             L3(60.0),
             L4(135.0),
             Default(20.0);
@@ -180,8 +182,8 @@ public class Constants {
         public static final double MinPower = -1.0;
 
         public static final double Level_1_Height = 0;
-        public static final double Level_2_Height = 15;
-        public static final double Level_3_Height = 35;
+        public static final double Level_2_Height = 18;
+        public static final double Level_3_Height = 37;
         public static final double Level_4_Height = 75;
 
         public static enum Levels{
@@ -253,12 +255,12 @@ public class Constants {
     }
 
     public static class LimelightConstants {
-        public static final double X = 0.23; //m
-        public static final double Z = 0.19; //m
-        public static final double Y = 0.98; //m
-        public static final double Pitch = -48.2; //degree
-        public static final double Roll  = -3.0; //degree
-        public static final double Yaw = 22.0; //degree
+        public static final double X = 0.19; //m
+        public static final double Z = 0.14; //m
+        public static final double Y = 0.94; //m
+        public static final double Pitch = -46; //degree
+        public static final double Roll  = -5.0; //degree
+        public static final double Yaw = 18.2; //degree
 
         public static final double X_Distance = 0.15; //m
         public static final double Y_Distance = 0.20; //m

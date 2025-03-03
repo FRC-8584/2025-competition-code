@@ -15,6 +15,7 @@ public class SwerveModule {
     private final TalonFX driveMotor;
     private final CANcoder turnEncoder;
     private final PIDController pid;
+    private double max = 0;
 
     private double invert;
 
@@ -74,7 +75,8 @@ public class SwerveModule {
     }
 
     public void logging(String name) {
-        SmartDashboard.putNumber(name+ " V", getState().speedMetersPerSecond);
-        SmartDashboard.putNumber(name+ " pose", gePosition().distanceMeters);
+        double v = driveMotor.getVelocity().getValueAsDouble();
+        max = v > max ? v : max;
+        SmartDashboard.putNumber(name+ " V", max);
     }
 }
