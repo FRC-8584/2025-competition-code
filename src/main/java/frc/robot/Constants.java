@@ -6,6 +6,7 @@ import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
+
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
@@ -13,6 +14,7 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+
 import frc.robot.utils.AxieOptimizer;
 
 public class Constants {
@@ -99,16 +101,16 @@ public class Constants {
 
   public static class SwerveConstants{
     public static final double kDriveGearRatio = 8.14;
-    public static final double WheelRadius = 0.053; //m
+    public static final double kWheelRadius = 0.053; // m
     public static final double kSwerveWheelDistance_x = 0.565;// m
     public static final double kSwerveWheelDistance_y = 0.585;// m
 
-    public static final double WheelPerimeter = WheelRadius * 2 * Math.PI;  //m
+    public static final double WheelPerimeter = kWheelRadius * 2 * Math.PI;  // m
     public static final double kRadian = 
       Math.sqrt(Math.pow(kSwerveWheelDistance_x/2.0, 2) + Math.pow(kSwerveWheelDistance_y/2.0, 2));// m
 
-    public static final double MaxDriveSpeed = 1.483295; //m/s
-    public static final double MaxTurnSpeed = MaxDriveSpeed / kRadian; //rad/s
+    public static final double MaxDriveSpeed = 1.483295; // m/s
+    public static final double MaxTurnSpeed = MaxDriveSpeed / kRadian; // rad/s
 
     public static final SwerveDriveKinematics kinematics = new SwerveDriveKinematics(
       new Translation2d[] {
@@ -200,21 +202,39 @@ public class Constants {
   }
 
   public static class ElevatorConstants{
-    public static final double MaxPosition = 75.0;
-    public static final double MinPosition = 0.0;
-    public static final double MaxPower = 1.0;
-    public static final double MinPower = -1.0;
+    // Elevator Move Speed
+    public static final double kElevatorUpSpeed = 1.0;
+    public static final double kElevatorDownSpeed = -1.0;
+  
+    // Motor rotate rate (cm/rotations)
+    public static final double kRotateRate = 11.43/15.0;
+  
+    // Shaft position limits (cm)
+    public static final double kElevatorMinPosition = 0.0;
+    public static final double kElevatorMaxPosition = 75.0;
+  
+    // Motor controller closed loop control pid (Elevator)
+    public static final double kp = 0.1;
+    public static final double ki = 0.0;
+    public static final double kd = 0.0;
+  
+    // Motor controller inverted settings
+    public static final boolean kLeftElevatorInverted = true;
+    public static final boolean kRightElevatorInverted = false;
 
       public static class Configs {
         public static SparkMaxConfig GetElevatorConfig(boolean inverted) {
           SparkMaxConfig config = new SparkMaxConfig();
-          config.idleMode(IdleMode.kBrake).inverted(inverted);
-          config.encoder.positionConversionFactor(11.43 / 15.0);
+          config
+            .idleMode(IdleMode.kBrake)
+            .inverted(inverted);
+          config.encoder
+            .positionConversionFactor(kRotateRate);
           config.closedLoop
-            .outputRange(MinPower, MaxPower)
-            .positionWrappingInputRange(MinPosition, MaxPosition)
             .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-            .pid(0.1, 0, 0);
+            .pid(kp, ki, kd)
+            .outputRange(kElevatorDownSpeed, kElevatorUpSpeed)
+            .positionWrappingInputRange(kElevatorMinPosition, kElevatorMaxPosition);
 
           return config;
         }

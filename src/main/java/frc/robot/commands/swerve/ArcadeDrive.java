@@ -1,16 +1,17 @@
 package frc.robot.commands.swerve;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import java.util.function.Supplier;
 
-import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.OperationConstant;
 import frc.robot.subsystems.Swerve;
+import frc.robot.Constants.OperationConstant;
 import frc.robot.utils.Tools;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class ArcadeDrive extends Command {
   private Swerve swerve;
   private Supplier<Double> x, y, turn;
+
   public ArcadeDrive(Swerve swerve, Supplier<Double> x, Supplier<Double> y, Supplier<Double> turn) {
     // Use addRequirements() here to declare subsystem ydependencies.
     this.swerve = swerve;

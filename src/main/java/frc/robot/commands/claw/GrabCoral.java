@@ -1,8 +1,8 @@
 package frc.robot.commands.claw;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.ClawConstants;
 import frc.robot.subsystems.Claw;
+import frc.robot.Constants.ClawConstants;
 
 public class GrabCoral extends Command {
   private Claw claw;
