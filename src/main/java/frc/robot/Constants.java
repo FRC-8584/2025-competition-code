@@ -17,8 +17,9 @@ import frc.robot.utils.AxieOptimizer;
 
 public class Constants {
     public static class OperationConstant {
-        public static enum Levels {
-            L1, L2, L3, L4
+        public static enum CoralLevels {
+            Coral_L1, Coral_L2, Coral_L3, Coral_L4,
+            Algea_L1, Algea_L2
         }
 
         public static enum Reef {

@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.OperationConstant;
-import frc.robot.Constants.OperationConstant.Levels;
+import frc.robot.Constants.OperationConstant.CoralLevels;
 import frc.robot.Constants.OperationConstant.Reef;
 import frc.robot.commands.claw.PutCoral;
 import frc.robot.commands.claw.SetGrabberPower;
@@ -14,9 +14,9 @@ import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Swerve;
 
 public class PutCoralWithSwerve extends SequentialCommandGroup {
-    public PutCoralWithSwerve(Swerve swerve, Elevator elevator, Claw claw, OperationConstant.Levels level, Reef reef) {
+    public PutCoralWithSwerve(Swerve swerve, Elevator elevator, Claw claw, OperationConstant.CoralLevels level, Reef reef) {
             double tx; 
-            if(level == Levels.L4) tx = 0.35;
+            if(level == CoralLevels.Coral_L4) tx = 0.35;
             else tx = 0.40; 
             addCommands(
                 new ParallelCommandGroup(
@@ -26,7 +26,7 @@ public class PutCoralWithSwerve extends SequentialCommandGroup {
                 new WaitCommand(3.0),
                 new PutCoral(claw),
                 new SetGrabberPower(0, claw),
-                new ToCoralLevel(elevator, claw, Levels.L1)
+                new ToCoralLevel(elevator, claw, CoralLevels.Coral_L1)
             );
     }
 }

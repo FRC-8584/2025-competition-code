@@ -22,6 +22,11 @@ public class PutCoral extends Command {
     if(!claw.isGet()) counter++;
     System.out.println(counter);
   }
+
+  @Override
+  public void end(boolean interrupted) {
+      claw.setGrabberPower(0);
+  }
     
   @Override
   public boolean isFinished() {
