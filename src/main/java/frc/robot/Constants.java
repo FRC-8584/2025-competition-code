@@ -16,255 +16,269 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import frc.robot.utils.AxieOptimizer;
 
 public class Constants {
-    public static class OperationConstant {
-        public static enum CoralLevels {
-            Coral_L1, Coral_L2, Coral_L3, Coral_L4,
-            Algea_L1, Algea_L2
-        }
-
-        public static enum Reef {
-            Left, Right, None
-        }
-
-        public static final AxieOptimizer[] axieOptimizers = 
-            new AxieOptimizer[] {
-                new AxieOptimizer(0.035),
-                new AxieOptimizer(0.035),
-                new AxieOptimizer(0.05)
-            };
-            
-        public static final double TurnSpeed = 0.4;
-        public static final double DriveSpeed = 0.7
-        ;
-
-        public static class Keys {
-            public static final int ToReefL1 = 1;
-            public static final int ToReefL2 = 2;
-            public static final int ToReefL3 = 4;
-            public static final int ToReefL4 = 3;
-            public static final int GetCoral = 5;
-            public static final int StopGetCoral = 6;
-        }
-    }
-    
-    public static class CAN_DeviceID {
-        public static final int FL_TurnID         =  1;
-        public static final int BL_TurnID         =  4;
-        public static final int FR_TurnID         =  2;
-        public static final int BR_TurnID         =  3;
-    
-        public static final int FL_DriveID        =  5;
-        public static final int BL_DriveID        =  8;
-        public static final int FR_DriveID        =  6;
-        public static final int BR_DriveID        =  7;
-    
-        public static final int FL_CANcoderID     =  9;
-        public static final int BL_CANcoderID     =  12;
-        public static final int FR_CANcoderID     =  10;
-        public static final int BR_CANcoderID     =  11;
-    
-        public static final int Left_ElevatorID   =  13;
-        public static final int Right_ElevatorID  =  14;
-    
-        public static final int ShaftID           =  15;
-        public static final int GrabberID         =  16;
-    
-        public static final int Left_ClimberID    =  17;
-        public static final int Right_ClimberID   =  18;
-
-        public static final int Intake_ShaftID    =  19;
-        public static final int Intake_GrabberID  =  20;
+  public static class OperationConstant {
+    public static enum CoralLevels {
+      Coral_L1, Coral_L2, Coral_L3, Coral_L4,
+      Algea_L1, Algea_L2
     }
 
-    public static class SwerveConstants{
-        public static final double WheelRadius = 0.053; //m
-        public static final double WheelPerimeter = WheelRadius * 2 * Math.PI;  //m
-        public static final double MaxDriveSpeed = 1.483295; //m/s
-        public static final double MaxTurnSpeed = MaxDriveSpeed / 0.41; //rad/s
-
-        public static final SwerveDriveKinematics kinematics = new SwerveDriveKinematics(
-            new Translation2d[] {
-                new Translation2d(0.2825, 0.2925),
-                new Translation2d(0.2825, -0.2925),
-                new Translation2d(-0.2825, -0.2925),
-                new Translation2d(-0.2825, 0.2925)
-            }
-        );
-
-        public static class CancoderOffsets {
-            public static final double FrontLeft = 0.300537;
-            public static final double FrontRight = 0.385986;
-            public static final double BackRight = -0.204590;
-            public static final double BackLeft = -0.287550;
-        }
-
-        public static class Configs {
-            public static TalonFXConfiguration driveMotorConfig() {
-                TalonFXConfiguration configs = new TalonFXConfiguration();
-                configs.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
-                configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-                return configs;
-            }
-            public static TalonFXConfiguration turnMotorConfig(int cancoderId) {
-                TalonFXConfiguration configs = new TalonFXConfiguration();
-                configs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
-                configs.Slot0.kP = 0.1;
-                configs.Slot0.kI = 0;
-                configs.Slot0.kD = 0;
-                configs.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
-                configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-                return configs;
-            }
-            public static CANcoderConfiguration turnEncoderConfig(double offset) {
-                CANcoderConfiguration configs = new CANcoderConfiguration();
-                configs.MagnetSensor.SensorDirection = SensorDirectionValue.CounterClockwise_Positive;
-                configs.MagnetSensor.MagnetOffset = offset;
-                return configs;
-            }
-        }
-
-        public static final PIDController XAutoAimPID = new PIDController(0.2, 0, 0);
-        public static final PIDController YAutoAimPID = new PIDController(0.2, 0, 0);
+    public static enum Reef {
+      Left, Right, None
     }
 
-    public static class ClawConstants {
-        public static final double MaxAngle = 135; // degree
-        public static final double MinAngle = 0; // degree
-        public static final double MaxPower = 0.5;
-        public static final double MinPower = -0.5;
+    public static final AxieOptimizer[] axieOptimizers = 
+      new AxieOptimizer[] {
+        new AxieOptimizer(0.035),
+        new AxieOptimizer(0.035),
+        new AxieOptimizer(0.05)
+    };
+          
+    public static final double TurnSpeed = 0.4;
+    public static final double DriveSpeed = 0.7;
 
-        public static enum Levels {
-            L1(0),
-            L2(15.0),
-            L3(60.0),
-            L4(135.0),
-            Default(20.0);
+    public static class Keys {
+      public static final int ToReefL1 = 1;
+      public static final int ToReefL2 = 2;
+      public static final int ToReefL3 = 4;
+      public static final int ToReefL4 = 3;
+      public static final int GetCoral = 5;
+      public static final int StopGetCoral = 6;
+    }
+  }
+  
+  public static class CAN_DeviceID {
+    public static final int FL_TurnID         =  1;
+    public static final int BL_TurnID         =  4;
+    public static final int FR_TurnID         =  2;
+    public static final int BR_TurnID         =  3;
+  
+    public static final int FL_DriveID        =  5;
+    public static final int BL_DriveID        =  8;
+    public static final int FR_DriveID        =  6;
+    public static final int BR_DriveID        =  7;
+  
+    public static final int FL_CANcoderID     =  9;
+    public static final int BL_CANcoderID     =  12;
+    public static final int FR_CANcoderID     =  10;
+    public static final int BR_CANcoderID     =  11;
+  
+    public static final int Left_ElevatorID   =  13;
+    public static final int Right_ElevatorID  =  14;
+  
+    public static final int ShaftID           =  15;
+    public static final int GrabberID         =  16;
+  
+    public static final int Left_ClimberID    =  17;
+    public static final int Right_ClimberID   =  18;
 
-            private double angle;
+    public static final int Intake_ShaftID    =  19;
+    public static final int Intake_GrabberID  =  20;
+  }
 
-            private Levels(double angle) {
-                this.angle = angle;
-            }
+  public static class SwerveConstants{
+    public static final double kDriveGearRatio = 8.14;
+    public static final double WheelRadius = 0.053; //m
+    public static final double kSwerveWheelDistance_x = 0.565;// m
+    public static final double kSwerveWheelDistance_y = 0.585;// m
 
-            public double getAngle() {
-                return angle;
-            }
-        }
+    public static final double WheelPerimeter = WheelRadius * 2 * Math.PI;  //m
+    public static final double kRadian = 
+      Math.sqrt(Math.pow(kSwerveWheelDistance_x/2.0, 2) + Math.pow(kSwerveWheelDistance_y/2.0, 2));// m
 
-        public static final double GrabberPower = 0.5;
-        public static final int SensorPort = 0;
-        public static final double SensorThreshold = 1350;
-        public static final double SensorDelay = 0.4; //s
+    public static final double MaxDriveSpeed = 1.483295; //m/s
+    public static final double MaxTurnSpeed = MaxDriveSpeed / kRadian; //rad/s
 
-        public static class  Configs {
-            public static SparkMaxConfig getShaftConfig() {
-                SparkMaxConfig configs = new SparkMaxConfig();
-                configs
-                    .inverted(true)
-                    .idleMode(IdleMode.kBrake);
-                configs.encoder
-                    .positionConversionFactor(360.0 / 80.0);
-                configs.closedLoop
-                    .outputRange(MinPower, MaxPower)
-                    .positionWrappingInputRange(MaxAngle, MinAngle)
-                    .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-                    .pid(0.05, 0, 0);
-                return configs;
-                
-            }
-        }
+    public static final SwerveDriveKinematics kinematics = new SwerveDriveKinematics(
+      new Translation2d[] {
+        new Translation2d(kSwerveWheelDistance_x/2.0, kSwerveWheelDistance_y/2.0),
+        new Translation2d(kSwerveWheelDistance_x/2.0, -kSwerveWheelDistance_y/2.0),
+        new Translation2d(-kSwerveWheelDistance_x/2.0, -kSwerveWheelDistance_y/2.0),
+        new Translation2d(-kSwerveWheelDistance_x/2.0, kSwerveWheelDistance_y/2.0)
+      }
+    );
+
+    // Motor & Sensor direction
+    public static final InvertedValue kDriveDirection = InvertedValue.CounterClockwise_Positive;
+    public static final InvertedValue kTurnDirection = InvertedValue.CounterClockwise_Positive;
+    public static final SensorDirectionValue kCANcoderDirection = SensorDirectionValue.CounterClockwise_Positive;
+
+    public static class CancoderOffsets {
+      public static final double FrontLeft = 0.300537;
+      public static final double FrontRight = 0.385986;
+      public static final double BackRight = -0.204590;
+      public static final double BackLeft = -0.287550;
     }
 
-    public static class ElevatorConstants{
-        public static final double MaxPosition = 75.0;
-        public static final double MinPosition = 0.0;
-        public static final double MaxPower = 1.0;
-        public static final double MinPower = -1.0;
+    public static class Configs {
+      public static TalonFXConfiguration driveMotorConfig() {
+        TalonFXConfiguration configs = new TalonFXConfiguration();
+        configs.MotorOutput.Inverted = kDriveDirection;
+        configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
-        public static final double Level_1_Height = 0;
-        public static final double Level_2_Height = 18;
-        public static final double Level_3_Height = 37;
-        public static final double Level_4_Height = 75;
+        return configs;
+      }
 
-        public static enum Levels{
-            L1(0.0),
-            L2(5.0),
-            L3(27.0),
-            L4(75.0);
+      public static TalonFXConfiguration turnMotorConfig() {
+        TalonFXConfiguration configs = new TalonFXConfiguration();
+        configs.MotorOutput.Inverted = kTurnDirection;
+        configs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
+        configs.Slot0.kP = 0.1;
+        configs.Slot0.kI = 0;
+        configs.Slot0.kD = 0;
+        configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
-            private double height;
+        return configs;
+      }
 
-            private Levels(double h){
-                this.height = h;
-            }
+      public static CANcoderConfiguration turnEncoderConfig(double offset) {
+        CANcoderConfiguration configs = new CANcoderConfiguration();
+        configs.MagnetSensor.SensorDirection = kCANcoderDirection;
+        configs.MagnetSensor.MagnetOffset = offset;
 
-            public double getheight() {
-                return this.height;
-            }
-          }
-
-        public static class Configs {
-            public static SparkMaxConfig GetElevatorConfig(boolean inverted) {
-                SparkMaxConfig config = new SparkMaxConfig();
-                config.idleMode(IdleMode.kBrake).inverted(inverted);
-                config.encoder.positionConversionFactor(11.43 / 15.0);
-                config.closedLoop
-                    .outputRange(MinPower, MaxPower)
-                    .positionWrappingInputRange(MinPosition, MaxPosition)
-                    .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-                    .pid(0.1, 0, 0);
-                return config;
-            } 
-            
-        }
+        return configs;
+      }
     }
 
-    public static class IntakeConstants {
-        public static final double MaxAngle = 45.0;
-        public static final double MinAngle = -10.0;
-        public static final double MinPower= -0.4;
-        public static final double MaxPower= 0.4;
-        public static final double GrabPower= 0.4;
+    public static final PIDController XAutoAimPID = new PIDController(0.2, 0, 0);
+    public static final PIDController YAutoAimPID = new PIDController(0.2, 0, 0);
+  }
 
-        public static class  Configs {
-            public static SparkMaxConfig getShaftConfig() {
-                SparkMaxConfig configs = new SparkMaxConfig();
-                configs
-                    .inverted(true)
-                    .idleMode(IdleMode.kBrake);
-                configs.encoder
-                    .positionConversionFactor(360.0 / 25.0);
-                configs.closedLoop
-                    .outputRange(MinPower, MaxPower)
-                    .positionWrappingInputRange(MaxAngle, MinAngle)
-                    .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-                    .pid(0.05, 0, 0);
-                return configs;
-                
-            }
+  public static class ClawConstants {
+    public static final double MaxAngle = 135; // degree
+    public static final double MinAngle = 0; // degree
+    public static final double MaxPower = 0.5;
+    public static final double MinPower = -0.5;
 
-            public static SparkMaxConfig getGrabberConfig() {
-                SparkMaxConfig configs = new SparkMaxConfig();
-                configs
-                    .inverted(false)
-                    .idleMode(IdleMode.kBrake);
-                return configs;
-                
-            }
-        }
+    public static enum Levels {
+      L1(0),
+      L2(15.0),
+      L3(60.0),
+      L4(135.0),
+      Default(20.0);
+
+      private double angle;
+
+      private Levels(double angle) {
+        this.angle = angle;
+      }
+
+      public double getAngle() {
+        return angle;
+      }
     }
 
-    public static class LimelightConstants {
-        public static final double X = 0.19; //m
-        public static final double Z = 0.14; //m
-        public static final double Y = 0.94; //m
-        public static final double Pitch = -46; //degree
-        public static final double Roll  = -5.0; //degree
-        public static final double Yaw = 18.2; //degree
+    public static final double GrabberPower = 0.5;
+    public static final int SensorPort = 0;
+    public static final double SensorThreshold = 1350;
+    public static final double SensorDelay = 0.4; //s
 
-        public static final double X_Distance = 0.15; //m
-        public static final double Y_Distance = 0.20; //m
-        public static final double AutoAimDeadband = 0.01; //m
-        
+    public static class  Configs {
+      public static SparkMaxConfig getShaftConfig() {
+        SparkMaxConfig configs = new SparkMaxConfig();
+        configs
+          .inverted(true)
+          .idleMode(IdleMode.kBrake);
+        configs.encoder
+          .positionConversionFactor(360.0 / 80.0);
+        configs.closedLoop
+          .outputRange(MinPower, MaxPower)
+          .positionWrappingInputRange(MaxAngle, MinAngle)
+          .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
+          .pid(0.05, 0, 0);
+
+        return configs;
+      }
     }
+  }
+
+  public static class ElevatorConstants{
+    public static final double MaxPosition = 75.0;
+    public static final double MinPosition = 0.0;
+    public static final double MaxPower = 1.0;
+    public static final double MinPower = -1.0;
+
+    public static final double Level_1_Height = 0;
+    public static final double Level_2_Height = 18;
+    public static final double Level_3_Height = 37;
+    public static final double Level_4_Height = 75;
+
+    public static enum Levels{
+      L1(0.0),
+      L2(5.0),
+      L3(27.0),
+      L4(75.0);
+
+      private double height;
+
+      private Levels(double h){
+        this.height = h;
+      }
+
+      public double getheight() {
+        return this.height;
+      }
+    }
+
+    public static class Configs {
+      public static SparkMaxConfig GetElevatorConfig(boolean inverted) {
+        SparkMaxConfig config = new SparkMaxConfig();
+        config.idleMode(IdleMode.kBrake).inverted(inverted);
+        config.encoder.positionConversionFactor(11.43 / 15.0);
+        config.closedLoop
+          .outputRange(MinPower, MaxPower)
+          .positionWrappingInputRange(MinPosition, MaxPosition)
+          .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
+          .pid(0.1, 0, 0);
+        return config;
+      }
+    }
+  }
+
+  public static class IntakeConstants {
+    public static final double MaxAngle = 45.0;
+    public static final double MinAngle = -10.0;
+    public static final double MinPower= -0.4;
+    public static final double MaxPower= 0.4;
+    public static final double GrabPower= 0.4;
+
+    public static class  Configs {
+      public static SparkMaxConfig getShaftConfig() {
+        SparkMaxConfig configs = new SparkMaxConfig();
+        configs
+          .inverted(true)
+          .idleMode(IdleMode.kBrake);
+        configs.encoder
+          .positionConversionFactor(360.0 / 25.0);
+        configs.closedLoop
+          .outputRange(MinPower, MaxPower)
+          .positionWrappingInputRange(MaxAngle, MinAngle)
+          .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
+          .pid(0.05, 0, 0);
+
+        return configs;
+      }
+
+      public static SparkMaxConfig getGrabberConfig() {
+        SparkMaxConfig configs = new SparkMaxConfig();
+        configs
+          .inverted(false)
+          .idleMode(IdleMode.kBrake);
+
+        return configs;
+      }
+    }
+  }
+
+  public static class LimelightConstants {
+    public static final double X = 0.19; //m
+    public static final double Z = 0.14; //m
+    public static final double Y = 0.94; //m
+    public static final double Pitch = -46; //degree
+    public static final double Roll  = -5.0; //degree
+    public static final double Yaw = 18.2; //degree
+
+    public static final double X_Distance = 0.15; //m
+    public static final double Y_Distance = 0.20; //m
+    public static final double AutoAimDeadband = 0.01; //m
+  }
 }

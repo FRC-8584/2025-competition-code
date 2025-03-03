@@ -11,72 +11,72 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.SwerveConstants;
 
 public class SwerveModule {
-    private final TalonFX turnMotor;
-    private final TalonFX driveMotor;
-    private final CANcoder turnEncoder;
-    private final PIDController pid;
-    private double max = 0;
+  private final TalonFX turnMotor;
+  private final TalonFX driveMotor;
+  private final CANcoder turnEncoder;
+  private final PIDController pid;
+  private double max = 0;
 
-    private double invert;
+  private double invert;
 
-    public SwerveModule(int turnMotorId, int driveMotorId, int turnEncoderId, double offset) {
-        turnMotor = new TalonFX(turnMotorId);
-        driveMotor = new TalonFX(driveMotorId);
-        turnEncoder = new CANcoder(turnEncoderId);
-        pid = new PIDController(0.5, 0, 0);
+  public SwerveModule(int turnMotorId, int driveMotorId, int turnEncoderId, double offset) {
+    turnMotor = new TalonFX(turnMotorId);
+    driveMotor = new TalonFX(driveMotorId);
+    turnEncoder = new CANcoder(turnEncoderId);
+    pid = new PIDController(0.5, 0, 0);
 
-        applyConfigs(turnEncoderId, offset);
-        invert = 1.0;
-    }
+    applyConfigs(offset);
+    invert = 1.0;
+  }
 
-    public void setState(SwerveModuleState state) {
-        double err_degree = errCalculator(state.angle.getDegrees() - getEncoderAngle().getDegrees());
-        driveMotor.set(state.speedMetersPerSecond / SwerveConstants.MaxDriveSpeed * invert * Math.cos(err_degree / 180.0 * Math.PI));
-        turnMotor.set(pid.calculate(err_degree / 90.0));
-    }
+  public void setState(SwerveModuleState state) {
+    double err_degree = errCalculator(state.angle.getDegrees() - getEncoderAngle().getDegrees());
+    driveMotor.set(state.speedMetersPerSecond / SwerveConstants.MaxDriveSpeed * invert * Math.cos(err_degree / 180.0 * Math.PI));
+    turnMotor.set(pid.calculate(err_degree / 90.0));
+  }
 
-    public SwerveModuleState getState() {
-        return new SwerveModuleState(driveMotor.getVelocity().getValueAsDouble() * SwerveConstants.WheelPerimeter, getEncoderAngle());
-    }
+  public SwerveModuleState getState() {
+    return new SwerveModuleState(driveMotor.getVelocity().getValueAsDouble() * SwerveConstants.WheelPerimeter, getEncoderAngle());
+  }
 
-    public SwerveModulePosition gePosition() {
-        return new SwerveModulePosition(driveMotor.getPosition().getValueAsDouble() / 8.14 * SwerveConstants.WheelPerimeter, getEncoderAngle());
-    }
+  public SwerveModulePosition getPosition() {
+    return new SwerveModulePosition(driveMotor.getPosition().getValueAsDouble() / SwerveConstants.kDriveGearRatio * SwerveConstants.WheelPerimeter, getEncoderAngle());
+  }
 
-    private double errCalculator(double err) {
-		if(invert == -1){
-			err -= 180;
-			err = err < -180 ? err + 360 : err;
-		}
-
-		err = err > 180 ? err - 360 : err;
+  private double errCalculator(double err) {
+	if(invert == -1){
+		err -= 180;
 		err = err < -180 ? err + 360 : err;
+	}
 
-		if(-90 <= err && err < 90){}
-		else if(90 <= err && err < 180){
-			err -= 180;
-			invert *= -1.0;
-		}
-		else if(-180 <= err && err < -90){
-			err += 180;
-			invert *= -1.0;
-		}
-        return err;
-    }
+	err = err > 180 ? err - 360 : err;
+	err = err < -180 ? err + 360 : err;
 
-    private Rotation2d getEncoderAngle() {
-        return Rotation2d.fromDegrees(turnEncoder.getAbsolutePosition().getValueAsDouble() * 360.0);
-      }
+	if(-90 <= err && err < 90){/* do nothing */}
+	else if(90 <= err && err < 180){
+		err -= 180;
+		invert *= -1.0;
+	}
+	else if(-180 <= err && err < -90){
+		err += 180;
+		invert *= -1.0;
+	}
+    return err;
+  }
 
-    private void applyConfigs(int turnEncoderId, double offset) {
-        turnMotor.getConfigurator().apply(SwerveConstants.Configs.turnMotorConfig(turnEncoderId));
-        driveMotor.getConfigurator().apply(SwerveConstants.Configs.driveMotorConfig());
-        turnEncoder.getConfigurator().apply(SwerveConstants.Configs.turnEncoderConfig(offset));
-    }
+  private Rotation2d getEncoderAngle() {
+    return Rotation2d.fromDegrees(turnEncoder.getAbsolutePosition().getValueAsDouble() * 360.0);
+  }
 
-    public void logging(String name) {
-        double v = driveMotor.getVelocity().getValueAsDouble();
-        max = v > max ? v : max;
-        SmartDashboard.putNumber(name+ " V", max);
-    }
+  private void applyConfigs(double offset) {
+    turnMotor.getConfigurator().apply(SwerveConstants.Configs.turnMotorConfig());
+    driveMotor.getConfigurator().apply(SwerveConstants.Configs.driveMotorConfig());
+    turnEncoder.getConfigurator().apply(SwerveConstants.Configs.turnEncoderConfig(offset));
+  }
+
+  public void logging(String name) {
+    double v = driveMotor.getVelocity().getValueAsDouble();
+    max = v > max ? v : max;
+    SmartDashboard.putNumber(name+ " V", max);
+  }
 }
