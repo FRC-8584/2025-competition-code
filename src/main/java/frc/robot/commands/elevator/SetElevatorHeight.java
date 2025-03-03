@@ -5,15 +5,14 @@
 package frc.robot.commands.elevator;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.ElevatorConstants;
-import frc.robot.Constants.ElevatorConstants.Levels;
 import frc.robot.subsystems.Elevator;
+import frc.robot.Constants.Levels;
 import frc.robot.utils.Tools;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class SetElevatorHeight extends Command {
   Elevator m_Elevator;
-  Levels m_L = Levels.L1;
+  Levels m_L = Levels.Default;
   /** Creates a new SetElevatorHeight. */
   public SetElevatorHeight(Elevator subsystem, Levels level) {
     m_Elevator = subsystem;
@@ -30,7 +29,6 @@ public class SetElevatorHeight extends Command {
   @Override
   public void execute() {
     m_Elevator.m_L = this.m_L;
-    System.out.println("Going to "+m_L.name());
   }
 
   // Called once the command ends or is interrupted.
@@ -42,29 +40,7 @@ public class SetElevatorHeight extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    switch(this.m_L) {
-      case L1:
-        if(Tools.isInRange(m_Elevator.getPosition(), ElevatorConstants.Level_1_Height-3.0, ElevatorConstants.Level_1_Height+3.0)){
-          return true;
-        }else return false;
-      case L2:
-
-        if(Tools.isInRange(m_Elevator.getPosition(), ElevatorConstants.Level_2_Height-3.0, ElevatorConstants.Level_2_Height+3.0)){
-          return true;
-        }else return false;
-
-      case L3:
-        if(Tools.isInRange(m_Elevator.getPosition(), ElevatorConstants.Level_3_Height-3.0, ElevatorConstants.Level_3_Height+3.0)){
-          return true;
-        }else return false;
-        
-      case L4:
-        if(Tools.isInRange(m_Elevator.getPosition(), ElevatorConstants.Level_4_Height-3.0, ElevatorConstants.Level_4_Height+3.0)){
-          return true;
-        }else return false;
-      default:
-        break;
-      }
-    return false;
+    if(Tools.isInRange(m_Elevator.getPosition(), m_L.getHeight() - 3.0, m_L.getHeight() + 3.0)) return true;
+    else return false;
   }
 }

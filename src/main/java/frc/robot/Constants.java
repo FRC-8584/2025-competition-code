@@ -16,11 +16,33 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import frc.robot.utils.AxieOptimizer;
 
 public class Constants {
-  public static class OperationConstant {
-    public static enum CoralLevels {
-      Coral_L1, Coral_L2, Coral_L3, Coral_L4,
-      Algea_L1, Algea_L2
+    public static enum Levels {
+        Coral_L1(0, 0), 
+        Coral_L2(15.0, 5.0), 
+        Coral_L3(15.0, 27.0), 
+        Coral_L4(55.0, 75.0),
+        Algea_L1(55.0, 5.0),
+        Algea_L2(55.0, 27.0),
+        Dodge(13.0, -1),
+        Default(13.0, -1);
+
+        private double claw_angle, elevator_height;
+
+        private Levels(double claw_angle, double elevator_height) {
+            this.claw_angle = claw_angle;
+            this.elevator_height = elevator_height;
+        }
+
+        public double getAngle() {
+            return claw_angle;
+        }
+
+        public double getHeight() {
+            return elevator_height;
+        }
     }
+
+    public static class OperationConstant {
 
     public static enum Reef {
       Left, Right, None
@@ -149,28 +171,12 @@ public class Constants {
     public static final double MaxPower = 0.5;
     public static final double MinPower = -0.5;
 
-    public static enum Levels {
-      L1(0),
-      L2(15.0),
-      L3(60.0),
-      L4(135.0),
-      Default(20.0);
-
-      private double angle;
-
-      private Levels(double angle) {
-        this.angle = angle;
-      }
-
-      public double getAngle() {
-        return angle;
-      }
-    }
-
-    public static final double GrabberPower = 0.5;
-    public static final int SensorPort = 0;
-    public static final double SensorThreshold = 1350;
-    public static final double SensorDelay = 0.4; //s
+        public static final double GrabPower = 0.8;
+        public static final double PutPower = 0.8;
+        public static final int SensorPort = 0;
+        public static final double SensorThreshold = 1350;
+        public static final double GrabDelay = 0.3; //s
+        public static final double PutDelay = 0.4; //s
 
     public static class  Configs {
       public static SparkMaxConfig getShaftConfig() {
@@ -197,42 +203,21 @@ public class Constants {
     public static final double MaxPower = 1.0;
     public static final double MinPower = -1.0;
 
-    public static final double Level_1_Height = 0;
-    public static final double Level_2_Height = 18;
-    public static final double Level_3_Height = 37;
-    public static final double Level_4_Height = 75;
-
-    public static enum Levels{
-      L1(0.0),
-      L2(5.0),
-      L3(27.0),
-      L4(75.0);
-
-      private double height;
-
-      private Levels(double h){
-        this.height = h;
-      }
-
-      public double getheight() {
-        return this.height;
-      }
+        public static class Configs {
+            public static SparkMaxConfig GetElevatorConfig(boolean inverted) {
+                SparkMaxConfig config = new SparkMaxConfig();
+                config.idleMode(IdleMode.kBrake).inverted(inverted);
+                config.encoder.positionConversionFactor(11.43 / 15.0);
+                config.closedLoop
+                    .outputRange(MinPower, MaxPower)
+                    .positionWrappingInputRange(MinPosition, MaxPosition)
+                    .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
+                    .pid(0.1, 0, 0);
+                return config;
+            } 
+            
+        }
     }
-
-    public static class Configs {
-      public static SparkMaxConfig GetElevatorConfig(boolean inverted) {
-        SparkMaxConfig config = new SparkMaxConfig();
-        config.idleMode(IdleMode.kBrake).inverted(inverted);
-        config.encoder.positionConversionFactor(11.43 / 15.0);
-        config.closedLoop
-          .outputRange(MinPower, MaxPower)
-          .positionWrappingInputRange(MinPosition, MaxPosition)
-          .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-          .pid(0.1, 0, 0);
-        return config;
-      }
-    }
-  }
 
   public static class IntakeConstants {
     public static final double MaxAngle = 45.0;

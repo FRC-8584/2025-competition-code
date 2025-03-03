@@ -13,15 +13,14 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Constants.ElevatorConstants;
-import frc.robot.Constants.ElevatorConstants.Levels;
+import frc.robot.Constants.Levels;
 
 public class Elevator extends SubsystemBase {
   /** Creates a new Elevator. */
   SparkMax l_motor = new SparkMax(Constants.CAN_DeviceID.Left_ElevatorID, MotorType.kBrushless);
   SparkMax r_motor = new SparkMax(Constants.CAN_DeviceID.Right_ElevatorID, MotorType.kBrushless);
 
-  public ElevatorConstants.Levels m_L = Levels.L1;
+  public Levels m_L = Levels.Default;
 
   public Elevator() {
     l_motor.configure(Constants.ElevatorConstants.Configs.GetElevatorConfig(true), ResetMode.kResetSafeParameters , PersistMode.kPersistParameters);
@@ -34,43 +33,13 @@ public class Elevator extends SubsystemBase {
   }
 
   public void SetPosition() {
-    
+    l_motor.getClosedLoopController().setReference(m_L.getHeight(), ControlType.kPosition);
+    r_motor.getClosedLoopController().setReference(m_L.getHeight(), ControlType.kPosition);
   }
   
   @Override
   public void periodic() {
-    switch (m_L) {
-      case L1:
-
-        l_motor.getClosedLoopController().setReference(ElevatorConstants.Level_1_Height, ControlType.kPosition);
-        r_motor.getClosedLoopController().setReference(ElevatorConstants.Level_1_Height, ControlType.kPosition);
-        
-        break;
-
-      case L2:
-
-        l_motor.getClosedLoopController().setReference(ElevatorConstants.Level_2_Height, ControlType.kPosition);
-        r_motor.getClosedLoopController().setReference(ElevatorConstants.Level_2_Height,ControlType.kPosition);
-        
-        break;
-
-      case L3:
-
-        l_motor.getClosedLoopController().setReference(ElevatorConstants.Level_3_Height, ControlType.kPosition);
-        r_motor.getClosedLoopController().setReference(ElevatorConstants.Level_3_Height, ControlType.kPosition);
-        
-        break;
-
-      case L4:
-
-        l_motor.getClosedLoopController().setReference(ElevatorConstants.Level_4_Height, ControlType.kPosition);
-        r_motor.getClosedLoopController().setReference(ElevatorConstants.Level_4_Height, ControlType.kPosition);
-        
-        break;
-
-      default:
-        break;
-    }
+    SetPosition();
     SmartDashboard.putNumber("The_Elevator_Height", getPosition());
   }
   public double getPosition() {

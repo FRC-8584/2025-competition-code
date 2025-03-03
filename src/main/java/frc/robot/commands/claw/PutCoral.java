@@ -1,6 +1,7 @@
 package frc.robot.commands.claw;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.ClawConstants;
 import frc.robot.subsystems.Claw;
 
 public class PutCoral extends Command {
@@ -20,7 +21,6 @@ public class PutCoral extends Command {
   public void execute() {
     claw.setGrabberPower(0.8);
     if(!claw.isGet()) counter++;
-    System.out.println(counter);
   }
 
   @Override
@@ -30,7 +30,7 @@ public class PutCoral extends Command {
     
   @Override
   public boolean isFinished() {
-    if(counter>10) return true;
+    if((counter >= ClawConstants.PutDelay / 0.05)) return true;
     else return false;
   }
 
