@@ -41,7 +41,7 @@ public class SwerveModule {
   }
 
   public SwerveModuleState getState() {
-    return new SwerveModuleState(driveMotor.getVelocity().getValueAsDouble()* SwerveConstants.kWheelPerimeter,getEncAngle());
+    return new SwerveModuleState(driveMotor.getVelocity().getValueAsDouble() * SwerveConstants.kWheelPerimeter, getEncAngle());
   }
   
   public SwerveModulePosition getPosition() {
@@ -76,7 +76,7 @@ public class SwerveModule {
     return err;
   }
 
-  public void applyCfg(double CANcoder_offset) {
+  private void applyCfg(double CANcoder_offset) {
     this.driveMotor.getConfigurator().apply(SwerveConstants.getDriveMotorCfg());
     this.turnMotor.getConfigurator().apply(SwerveConstants.getTurnMotorCfg());
     this.turnEncoder.getConfigurator().apply(SwerveConstants.getCANcoderCfg(CANcoder_offset));

@@ -7,8 +7,8 @@ public class SetShaftPosition extends Command {
   private final Shaft m_shaft;
   private final double m_setpoint;
 
-  public SetShaftPosition(Shaft claw, double setpoint) {
-    m_shaft = claw;
+  public SetShaftPosition(Shaft shaft, double setpoint) {
+    m_shaft = shaft;
     m_setpoint = setpoint;
     addRequirements(m_shaft);
   }
