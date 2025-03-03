@@ -18,7 +18,8 @@ import frc.robot.utils.Tools;
 public class MoveToReef extends Command {
   private Swerve swerve;
   private Reef reef;
-  private double y_offset;
+
+  private double x_offset, y_offset;
   private double t_angle, t_err, t_v;
   private double x_err, x_v;
   private double y_err, y_v;
@@ -27,7 +28,7 @@ public class MoveToReef extends Command {
   public MoveToReef(Swerve swerve, Reef reef, double x_offset) {
     this.swerve = swerve;
     this.reef = reef;
-    this.y_offset = x_offset;
+    this.x_offset = x_offset;
     addRequirements(this.swerve);
   }
 
@@ -35,9 +36,10 @@ public class MoveToReef extends Command {
   public void initialize() {
     pose = LimelightHelpers.getTargetPose_RobotSpace("limelight");
     // turn
-    t_angle = swerve.getGyroAngle().getDegrees()-pose[4];
+    t_angle = swerve.getGyroAngle().getDegrees() - pose[4];
+
     if(t_angle > 180.0) t_angle -= 360.0;
-    else if(t_angle <=-180.0) t_angle += 360.0;
+    else if(t_angle <= -180.0) t_angle += 360.0;
   }
 
   @Override
@@ -51,9 +53,7 @@ public class MoveToReef extends Command {
     // move
     ChassisSpeeds speeds = new ChassisSpeeds(0, 0, (t_err / 90.0) * SwerveConstants.MaxTurnSpeed);
     SwerveModuleState[] states = SwerveConstants.kinematics.toSwerveModuleStates(
-      ChassisSpeeds.fromFieldRelativeSpeeds(
-        speeds,
-        Rotation2d.fromDegrees(t_err))
+      ChassisSpeeds.fromFieldRelativeSpeeds(speeds, Rotation2d.fromDegrees(t_err))
     );
     SwerveDriveKinematics.desaturateWheelSpeeds(states, SwerveConstants.MaxDriveSpeed);
     swerve.drive(states);
