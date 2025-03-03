@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.swerve.SwerveDrivetrain.SwerveDriveState;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
@@ -82,6 +83,13 @@ public class Swerve extends SubsystemBase {
         back_left.setState(states[3]);
     }
 
+    public void drive(SwerveModuleState[] states) {
+        front_left.setState(states[0]);
+        front_right.setState(states[1]);
+        back_right.setState(states[2]);
+        back_left.setState(states[3]);
+    }
+
     private void updateOdometry() {
         poseEstimator.update(
             getGyroAngle(),
@@ -101,7 +109,7 @@ public class Swerve extends SubsystemBase {
         poseEstimator.resetPose(pose);
     }
 
-    private ChassisSpeeds getRobotRelativeSpeeds() {
+    public ChassisSpeeds getRobotRelativeSpeeds() {
         return SwerveConstants.kinematics.toChassisSpeeds(
             front_left.getState(),
             front_right.getState(),
@@ -110,7 +118,7 @@ public class Swerve extends SubsystemBase {
         );
     }
 
-    private Rotation2d getGyroAngle() {
+    public Rotation2d getGyroAngle() {
         double angle = (360 - (gyro.getAngle() - initial_angle)) % 360.0;
         if (angle > 180) angle -= 360;
         if (angle <-180) angle += 360;
@@ -175,5 +183,6 @@ public class Swerve extends SubsystemBase {
       updateOdometry();
       field.setRobotPose(getPose());
       SmartDashboard.putData("field",field);
+      front_left.logging("fl");
     }
 }

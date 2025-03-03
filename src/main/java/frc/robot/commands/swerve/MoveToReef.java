@@ -4,8 +4,13 @@
 
 package frc.robot.commands.swerve;
 
-import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.SwerveConstants;
 import frc.robot.Constants.OperationConstant.Reef;
 import frc.robot.subsystems.Swerve;
 import frc.robot.utils.LimelightHelpers;
@@ -14,66 +19,55 @@ import frc.robot.utils.Tools;
 public class MoveToReef extends Command {
   private Swerve swerve;
   private Reef reef;
-  private boolean fail;
-  private double loss_counter;
-  private double x, y, turn, tx;
+  private double y_offset;
+  private double t_angle, t_err, t_v;
+  private double x_err, x_v;
+  private double y_err, y_v;
+  private double[] pose;
   
-  public MoveToReef(Swerve swerve, Reef reef, double tx) {
+  public MoveToReef(Swerve swerve, Reef reef, double x_offset) {
     this.swerve = swerve;
     this.reef = reef;
-    this.fail = false;
-    this.loss_counter = 0;
-    this.tx = tx;
+    this.y_offset = x_offset;
     addRequirements(this.swerve);
   }
 
   @Override
   public void initialize() {
-    loss_counter = 0;
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
+    pose = LimelightHelpers.getTargetPose_RobotSpace("limelight");
+    // turn
+    t_angle = swerve.getGyroAngle().getDegrees()-pose[4];
+    if(t_angle > 180.0) t_angle -= 360.0;
+    else if(t_angle <=-180.0) t_angle += 360.0;
   }
 
   @Override
   public void execute() {
-    double[] pose = LimelightHelpers.getTargetPose_RobotSpace("limelight");
-    System.out.println(loss_counter);
-    System.out.println(fail);
-    double ty;
+    // turn
+    t_err = t_angle - swerve.getGyroAngle().getDegrees();
+    if(t_err > 180.0) t_err -= 360.0;
+    else if(t_err <=-180.0) t_err += 360.0;
+    t_v = (t_err / 90.0) * SwerveConstants.MaxTurnSpeed;
 
-    if(reef == Reef.Left) ty = 0.17;// left
-    else ty = -0.17;// right
-
-    if(LimelightHelpers.getTargetCount("limelight") == 0) {
-      loss_counter += 1;
-      return;
-    }
-    else {
-      loss_counter = 0;
-    }
-
-    if(loss_counter > 50) {
-      fail = true;
-    }
-    else {
-      fail = false;
-    }
-
-    x = Tools.deadband((pose[2] - tx) / 1.5, 0.04);
-    y = Tools.deadband((ty - pose[0]) / 0.7, 0.06);
-    turn = Tools.deadband(-pose[4] / 90.0, 0.04);
-
-    swerve.drive(x, y, turn, false);
+    // move
+    ChassisSpeeds speeds = new ChassisSpeeds(0, 0, (t_err / 90.0) * SwerveConstants.MaxTurnSpeed);
+    SwerveModuleState[] states = SwerveConstants.kinematics.toSwerveModuleStates(
+      ChassisSpeeds.fromFieldRelativeSpeeds(
+        speeds,
+        Rotation2d.fromDegrees(t_err))
+    );
+    SwerveDriveKinematics.desaturateWheelSpeeds(states, SwerveConstants.MaxDriveSpeed);
+    swerve.drive(states);
+    System.out.println(t_err);
   }
 
   @Override
   public void end(boolean interrupted) {
-    swerve.drive(0,0,0, false);
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
   }
 
   @Override
   public boolean isFinished() {
-    if(x == 0 && y == 0 && turn == 0) return true;
-    return fail;
+    if(Tools.isInRange(t_v, -0.1, 0.1)) return true;
+    else return false;
   }
 }

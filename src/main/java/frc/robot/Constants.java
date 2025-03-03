@@ -33,7 +33,8 @@ public class Constants {
             };
             
         public static final double TurnSpeed = 0.4;
-        public static final double DriveSpeed = 0.7;
+        public static final double DriveSpeed = 0.7
+        ;
 
         public static class Keys {
             public static final int ToReefL1 = 1;
@@ -77,7 +78,7 @@ public class Constants {
     public static class SwerveConstants{
         public static final double WheelRadius = 0.053; //m
         public static final double WheelPerimeter = WheelRadius * 2 * Math.PI;  //m
-        public static final double MaxDriveSpeed = 100.0 / 8.14 * WheelPerimeter; //m/s
+        public static final double MaxDriveSpeed = 1.483295; //m/s
         public static final double MaxTurnSpeed = MaxDriveSpeed / 0.41; //rad/s
 
         public static final SwerveDriveKinematics kinematics = new SwerveDriveKinematics(

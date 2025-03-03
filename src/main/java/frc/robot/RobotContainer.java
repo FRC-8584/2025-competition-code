@@ -12,8 +12,10 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.LimelightConstants;
 import frc.robot.Constants.OperationConstant;
+import frc.robot.Constants.OperationConstant.Reef;
 import frc.robot.commands.PutCoralWithSwerve;
 import frc.robot.commands.swerve.ArcadeDrive;
+import frc.robot.commands.swerve.MoveToReef;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
@@ -48,8 +50,8 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    new JoystickButton(js, 2).and(()->LimelightHelpers.getTargetCount("limelight")!=0).onTrue(new PutCoralWithSwerve(swerve, elevator, claw, OperationConstant.Levels.L4, OperationConstant.Reef.Right));
-    new JoystickButton(js, 3).and(()->LimelightHelpers.getTargetCount("limelight")!=0).onTrue(new PutCoralWithSwerve(swerve, elevator, claw, OperationConstant.Levels.L4, OperationConstant.Reef.Left));
+    new JoystickButton(js, 3).and(()->LimelightHelpers.getTargetCount("limelight")!=0).onTrue(new MoveToReef(swerve, Reef.Left, 0.20));
+    new JoystickButton(js, 2).and(()->LimelightHelpers.getTargetCount("limelight")!=0).onTrue(new MoveToReef(swerve, Reef.Right, 0.20));
   }
 
   private void configureLimelight(){
@@ -61,7 +63,7 @@ public class RobotContainer {
       LimelightConstants.Pitch,   // Pitch (degrees)
       LimelightConstants.Yaw   // Yaw (degrees)
     );
-  }
+  }    
 
   private void configNamedCommands() {
     // NamedCommands.registerCommand("PutCoral", new PutCoral(swerve, elevator, claw, OperationConstant.Levels.L4));
