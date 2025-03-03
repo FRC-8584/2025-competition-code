@@ -16,33 +16,33 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import frc.robot.utils.AxieOptimizer;
 
 public class Constants {
-    public static enum Levels {
-        Coral_L1(0, 0), 
-        Coral_L2(15.0, 5.0), 
-        Coral_L3(15.0, 27.0), 
-        Coral_L4(55.0, 75.0),
-        Algea_L1(55.0, 5.0),
-        Algea_L2(55.0, 27.0),
-        Dodge(13.0, -1),
-        Default(13.0, -1);
+  public static enum Levels {
+    Coral_L1(0, 0), 
+    Coral_L2(15.0, 5.0), 
+    Coral_L3(15.0, 27.0), 
+    Coral_L4(55.0, 75.0),
+    Algea_L1(55.0, 5.0),
+    Algea_L2(55.0, 27.0),
+    Dodge(13.0, -1),
+    Default(13.0, -1);
 
-        private double claw_angle, elevator_height;
+    private double claw_angle, elevator_height;
 
-        private Levels(double claw_angle, double elevator_height) {
-            this.claw_angle = claw_angle;
-            this.elevator_height = elevator_height;
-        }
-
-        public double getAngle() {
-            return claw_angle;
-        }
-
-        public double getHeight() {
-            return elevator_height;
-        }
+    private Levels(double claw_angle, double elevator_height) {
+      this.claw_angle = claw_angle;
+      this.elevator_height = elevator_height;
     }
 
-    public static class OperationConstant {
+    public double getAngle() {
+      return claw_angle;
+    }
+
+    public double getHeight() {
+      return elevator_height;
+    }
+  }
+
+  public static class OperationConstant {
 
     public static enum Reef {
       Left, Right, None
@@ -168,15 +168,17 @@ public class Constants {
   public static class ClawConstants {
     public static final double MaxAngle = 135; // degree
     public static final double MinAngle = 0; // degree
+
     public static final double MaxPower = 0.5;
     public static final double MinPower = -0.5;
 
-        public static final double GrabPower = 0.8;
-        public static final double PutPower = 0.8;
-        public static final int SensorPort = 0;
-        public static final double SensorThreshold = 1350;
-        public static final double GrabDelay = 0.3; //s
-        public static final double PutDelay = 0.4; //s
+    public static final double GrabPower = 0.8;
+    public static final double PutPower = 0.8;
+
+    public static final int SensorPort = 0;
+    public static final double SensorThreshold = 1350;
+    public static final double GrabDelay = 0.3; //s
+    public static final double PutDelay = 0.4; //s
 
     public static class  Configs {
       public static SparkMaxConfig getShaftConfig() {
@@ -203,20 +205,20 @@ public class Constants {
     public static final double MaxPower = 1.0;
     public static final double MinPower = -1.0;
 
-        public static class Configs {
-            public static SparkMaxConfig GetElevatorConfig(boolean inverted) {
-                SparkMaxConfig config = new SparkMaxConfig();
-                config.idleMode(IdleMode.kBrake).inverted(inverted);
-                config.encoder.positionConversionFactor(11.43 / 15.0);
-                config.closedLoop
-                    .outputRange(MinPower, MaxPower)
-                    .positionWrappingInputRange(MinPosition, MaxPosition)
-                    .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-                    .pid(0.1, 0, 0);
-                return config;
-            } 
-            
+      public static class Configs {
+        public static SparkMaxConfig GetElevatorConfig(boolean inverted) {
+          SparkMaxConfig config = new SparkMaxConfig();
+          config.idleMode(IdleMode.kBrake).inverted(inverted);
+          config.encoder.positionConversionFactor(11.43 / 15.0);
+          config.closedLoop
+            .outputRange(MinPower, MaxPower)
+            .positionWrappingInputRange(MinPosition, MaxPosition)
+            .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
+            .pid(0.1, 0, 0);
+
+          return config;
         }
+      }
     }
 
   public static class IntakeConstants {
