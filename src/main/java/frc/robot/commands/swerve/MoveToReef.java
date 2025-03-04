@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Swerve;
 
 import frc.robot.Constants.SwerveConstants;
+import frc.robot.Constants.LimelightConstants;
 import frc.robot.Constants.OperationConstant;
 import frc.robot.Constants.OperationConstant.Reef;
 
@@ -46,7 +47,7 @@ public class MoveToReef extends Command {
 
   @Override
   public void initialize() {
-    double[] pose = LimelightHelpers.getTargetPose_RobotSpace("limelight");
+    double[] pose = LimelightHelpers.getTargetPose_RobotSpace(LimelightConstants.device);
     double raw_x = pose[2];
     double raw_y = -pose[0];
     double raw_turn = -pose[4];
@@ -74,11 +75,17 @@ public class MoveToReef extends Command {
     y_isFinish = false;
     t_isFinish = false;
 
+    OperationConstant.axieOptimizers[0].reset();
+    OperationConstant.axieOptimizers[1].reset();
+    OperationConstant.axieOptimizers[2].reset();
+
     logInfo();
   }
 
   @Override
   public void execute() {
+    resetRobotPose(hasTargetTag());
+
     t_bot_pos = swerve.getGyroAngle().getDegrees();
     t_err = t_set_pos - t_bot_pos;
 
@@ -122,6 +129,24 @@ public class MoveToReef extends Command {
   public boolean isFinished() {
     if(x_isFinish && y_isFinish && t_isFinish) return true;
     else return false;
+  }
+
+  private boolean hasTargetTag() {
+    return (LimelightHelpers.getTargetCount(LimelightConstants.device) != 0);
+  }
+
+  private void resetRobotPose(boolean reset) {
+    double[] pose = LimelightHelpers.getTargetPose_RobotSpace(LimelightConstants.device);
+    double raw_x = pose[2];
+    double raw_y = -pose[0];
+    double raw_turn = -pose[4];
+
+    final double temp_sin = Math.sin(raw_turn / 180.0 * Math.PI);
+    final double temp_cos = Math.cos(raw_turn / 180.0 * Math.PI);
+
+    x_bot_pos = -(raw_x * temp_cos + raw_y * temp_sin);
+    y_bot_pos = raw_x * temp_sin - raw_y * temp_cos;
+    t_bot_pos = swerve.getGyroAngle().getDegrees();
   }
 
   private void checkIsFinished() {
