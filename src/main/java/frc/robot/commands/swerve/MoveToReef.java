@@ -38,10 +38,9 @@ public class MoveToReef extends Command {
   private boolean y_isFinish;
   private boolean t_isFinish;
   
-  public MoveToReef(Swerve swerve, Reef reef, double x_setpoint) {
+  public MoveToReef(Swerve swerve, Reef reef) {
     this.swerve = swerve;
     this.reef = reef;
-    this.x_set_pos = x_setpoint;
     addRequirements(this.swerve);
   }
 
@@ -58,6 +57,8 @@ public class MoveToReef extends Command {
     x_bot_pos = -(raw_x * temp_cos + raw_y * temp_sin);
     y_bot_pos = raw_x * temp_sin - raw_y * temp_cos;
     t_bot_pos = swerve.getGyroAngle().getDegrees();
+
+    x_set_pos = -0.53;
 
     if(reef == Reef.Left) y_set_pos = 0.17;// left
     else if(reef == Reef.Right) y_set_pos = -0.17;// right
@@ -96,9 +97,9 @@ public class MoveToReef extends Command {
     x_err = x_set_pos - x_bot_pos;
     y_err = y_set_pos - y_bot_pos;
 
-    x_velocity = OperationConstant.axieOptimizers[0].get(Tools.bounding(x_err / 0.3)) * SwerveConstants.MaxDriveSpeed * 0.25;
-    y_velocity = OperationConstant.axieOptimizers[1].get(Tools.bounding(y_err / 0.3)) * SwerveConstants.MaxDriveSpeed * 0.25;
-    t_velocity = OperationConstant.axieOptimizers[2].get(Tools.bounding(t_err / 45.0)) * SwerveConstants.MaxTurnSpeed * 0.3;
+    x_velocity = OperationConstant.axieOptimizers[0].get(Tools.bounding(x_err / 0.35)) * SwerveConstants.MaxDriveSpeed * 0.2;
+    y_velocity = OperationConstant.axieOptimizers[1].get(Tools.bounding(y_err / 0.35)) * SwerveConstants.MaxDriveSpeed * 0.2;
+    t_velocity = OperationConstant.axieOptimizers[2].get(Tools.bounding(t_err / 90.0)) * SwerveConstants.MaxTurnSpeed * 0.3;
 
     checkIsFinished();
 
