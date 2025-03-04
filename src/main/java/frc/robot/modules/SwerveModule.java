@@ -44,7 +44,7 @@ public class SwerveModule {
     double err_degree = state.angle.minus(current_angle).getDegrees();
 
     double apply_drive_output = state.speedMetersPerSecond / SwerveConstants.MaxDriveSpeed;
-    double apply_turn_output = pid.calculate(err_degree / 30.0);
+    double apply_turn_output = pid.calculate(err_degree / 90.0);
 
     driveMotor.set(apply_drive_output);
     turnMotor.set(apply_turn_output);

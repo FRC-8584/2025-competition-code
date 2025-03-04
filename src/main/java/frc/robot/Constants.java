@@ -91,12 +91,6 @@ public class Constants {
   
     public static final int ShaftID           =  15;
     public static final int GrabberID         =  16;
-  
-    public static final int Left_ClimberID    =  17;
-    public static final int Right_ClimberID   =  18;
-
-    public static final int Intake_ShaftID    =  19;
-    public static final int Intake_GrabberID  =  20;
   }
 
   public static class SwerveConstants{
