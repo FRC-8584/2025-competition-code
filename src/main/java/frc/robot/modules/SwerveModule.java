@@ -35,10 +35,10 @@ public class SwerveModule {
   public void setState(SwerveModuleState state) {
     state.optimize(getEncoderAngle());
     state.cosineScale(getEncoderAngle());
-    double err_degree = state.angle.minus(getEncoderAngle()).getDegrees();
+    double err_degree = state.angle.getDegrees() - getEncoderAngle().getDegrees();
 
     driveMotor.set(state.speedMetersPerSecond / SwerveConstants.MaxDriveSpeed);
-    turnMotor.set(err_degree / 90.0);
+    turnMotor.set(0);
   }
 
   public SwerveModuleState getState() {
@@ -50,7 +50,7 @@ public class SwerveModule {
   }
 
   private Rotation2d getEncoderAngle() {
-    return Rotation2d.fromDegrees(turnMotor.getPosition().getValueAsDouble() * 360.0);
+    return Rotation2d.fromDegrees(turnEncoder.getPosition().getValueAsDouble() * 360.0);
   }
 
   private void applyConfigs(int turnEncoderId, double offset) {
