@@ -38,7 +38,7 @@ public class SwerveModule {
     double err_degree = state.angle.getDegrees() - getEncoderAngle().getDegrees();
 
     driveMotor.set(state.speedMetersPerSecond / SwerveConstants.MaxDriveSpeed);
-    turnMotor.set(0);
+    turnMotor.set(err_degree / 90.0);
   }
 
   public SwerveModuleState getState() {
