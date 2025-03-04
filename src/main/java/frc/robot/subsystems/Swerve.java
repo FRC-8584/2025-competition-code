@@ -43,12 +43,16 @@ public class Swerve extends SubsystemBase {
    * @param turn turn value (-1 ~ 1)
    */
   public void drive(double x, double y, double turn, boolean fieldRelative) {
+    SmartDashboard.putNumber("raw speed x", x);
+    SmartDashboard.putNumber("raw speed y", y);
+    SmartDashboard.putNumber("raw speed omega", turn);
     drive(
       new ChassisSpeeds(
         x * SwerveConstants.MaxDriveSpeed * OperationConstant.DriveSpeed * invert,
         y * SwerveConstants.MaxDriveSpeed * OperationConstant.DriveSpeed * invert,
         turn * SwerveConstants.MaxTurnSpeed * OperationConstant.TurnSpeed
-      ), fieldRelative);
+      ), fieldRelative
+    );
   }
 
   /**
@@ -63,11 +67,12 @@ public class Swerve extends SubsystemBase {
         ChassisSpeeds.fromFieldRelativeSpeeds(speeds, getGyroAngle()) : speeds
     );
     SwerveDriveKinematics.desaturateWheelSpeeds(states, SwerveConstants.MaxDriveSpeed);
-
-    front_left.setState(states[0]);
-    front_right.setState(states[1]);
-    back_right.setState(states[2]);
-    back_left.setState(states[3]);
+  
+    SmartDashboard.putNumber("chassis speed x", speeds.vxMetersPerSecond);
+    SmartDashboard.putNumber("chassis speed y", speeds.vyMetersPerSecond);
+    SmartDashboard.putNumber("chassis speed omega", speeds.omegaRadiansPerSecond);
+  
+    drive(states);
   }
 
   public void drive(SwerveModuleState[] states) {

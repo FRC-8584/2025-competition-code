@@ -28,25 +28,14 @@ public class RobotContainer {
       new ArcadeDrive(swerve, ()->-js.getY(), ()->-js.getX(), ()->-js.getRawAxis(4))
     );
 
-    new RunCommand(
-      () -> swerve.drive(
-        OperationConstant.axieOptimizers[0].get(Tools.deadband(-js.getY(), 0.05)),
-        OperationConstant.axieOptimizers[1].get(Tools.deadband(-js.getX(), 0.05)),
-        OperationConstant.axieOptimizers[2].get(Tools.deadband(-js.getRawAxis(4), 0.05)), 
-        false
-      ), swerve
-    );
-
     configureBindings();
     configureLimelight();
     configNamedCommands();
   }
 
-  private void configureBindings() {
+  private void configureBindings() {}
 
-  }
-
-  private void configureLimelight(){
+  private void configureLimelight() {
     LimelightHelpers.setCameraPose_RobotSpace("limelight", 
       LimelightConstants.Z,    // Forward offset (meters)
       LimelightConstants.X,    // Side offset (meters)
