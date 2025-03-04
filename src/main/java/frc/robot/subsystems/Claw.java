@@ -18,8 +18,10 @@ public class Claw extends SubsystemBase {
   private final SparkMax grabber_motor;
   private final AnalogInput sensor;
   private Levels level = Levels.Default;
+
   private double stuck_pose;
   private boolean stuck;
+
 
   public Claw() {
     shaft_motor = new SparkMax(CAN_DeviceID.ShaftID, MotorType.kBrushless);

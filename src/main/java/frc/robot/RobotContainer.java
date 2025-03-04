@@ -32,15 +32,10 @@ public class RobotContainer {
     configNamedCommands();
   }
 
-  private void configureBindings() {
-    new JoystickButton(js, 1).onTrue(new ToLevel(claw, elevator, Levels.Algea_L1));
-    new JoystickButton(js, 2).onTrue(new ToLevel(claw, elevator, Levels.Algea_L2));
-    new JoystickButton(js, 4).onTrue(new ToLevel(claw, elevator, Levels.Default));
-    new JoystickButton(js, 5).whileTrue(new GrabAlgae(claw));
-  }
+  private void configureBindings() {}
 
-  private void configureLimelight(){
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
+  private void configureLimelight() {
+
     LimelightHelpers.setCameraPose_RobotSpace("limelight", 
       LimelightConstants.Z,    // Forward offset (meters)
       LimelightConstants.X,    // Side offset (meters)

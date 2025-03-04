@@ -146,10 +146,6 @@ public class Constants {
       public static TalonFXConfiguration turnMotorConfig() {
         TalonFXConfiguration configs = new TalonFXConfiguration();
         configs.MotorOutput.Inverted = kTurnDirection;
-        configs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
-        configs.Slot0.kP = 0.1;
-        configs.Slot0.kI = 0;
-        configs.Slot0.kD = 0;
         configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
         return configs;
