@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Swerve;
 
 import frc.robot.Constants.SwerveConstants;
@@ -32,6 +32,10 @@ public class MoveToReef extends Command {
   private double x_velocity;
   private double y_velocity;
   private double t_velocity;
+
+  private boolean x_isFinish;
+  private boolean y_isFinish;
+  private boolean t_isFinish;
   
   public MoveToReef(Swerve swerve, Reef reef, double x_setpoint) {
     this.swerve = swerve;
@@ -63,6 +67,12 @@ public class MoveToReef extends Command {
 
     if(t_set_pos > 180.0) t_set_pos -= 360.0;
     else if(t_set_pos <= -180.0) t_set_pos += 360.0;
+
+    x_isFinish = false;
+    y_isFinish = false;
+    t_isFinish = false;
+
+    logInfo();
   }
 
   @Override
@@ -85,9 +95,11 @@ public class MoveToReef extends Command {
     x_err = x_set_pos - x_bot_pos;
     y_err = y_set_pos - y_bot_pos;
 
-    x_velocity = Tools.bounding(x_err / 1.0) * SwerveConstants.MaxDriveSpeed;
-    y_velocity = Tools.bounding(y_err / 1.5) * SwerveConstants.MaxDriveSpeed; 
+    x_velocity = Tools.bounding(x_err / 1.5) * SwerveConstants.MaxDriveSpeed;
+    y_velocity = Tools.bounding(y_err / 2.0) * SwerveConstants.MaxDriveSpeed;
     t_velocity = Tools.bounding(t_err / 90.0) * SwerveConstants.MaxTurnSpeed;
+
+    checkIsFinished();
 
     // apply new chassis speed
     ChassisSpeeds apply_speeds = ChassisSpeeds.fromFieldRelativeSpeeds(
@@ -96,7 +108,7 @@ public class MoveToReef extends Command {
     );
 
     swerve.drive(apply_speeds, false);
-    System.out.println(t_err);
+    logInfo();
   }
 
   @Override
@@ -106,7 +118,37 @@ public class MoveToReef extends Command {
 
   @Override
   public boolean isFinished() {
-    if(Tools.isInRange(t_velocity, -0.1, 0.1)) return true;
+    if(x_isFinish && y_isFinish && t_isFinish) return true;
     else return false;
+  }
+
+  private void checkIsFinished() {
+    if(Tools.isInRange(x_err, -0.02, 0.02)){
+      x_velocity = 0;
+      x_isFinish = true;
+    }
+    else x_isFinish = false;
+
+    if(Tools.isInRange(y_err, -0.02, 0.02)){
+      y_velocity = 0;
+      y_isFinish = true;
+    }
+    else y_isFinish = false;
+
+    if(Tools.isInRange(t_err, -2.0, 2.0)){
+      t_velocity = 0;
+      t_isFinish = true;
+    }
+    else t_isFinish = false;
+  }
+
+  private void logInfo() {
+    SmartDashboard.putNumber("robot x position", x_bot_pos);
+    SmartDashboard.putNumber("robot y position", y_bot_pos);
+    SmartDashboard.putNumber("robot angle", t_bot_pos);
+
+    SmartDashboard.putBoolean("robot x position finished", x_isFinish);
+    SmartDashboard.putBoolean("robot y position finished", y_isFinish);
+    SmartDashboard.putBoolean("robot angle finished", t_isFinish);
   }
 }
