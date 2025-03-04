@@ -35,15 +35,6 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    new JoystickButton(js, 3)
-      .and(() -> LimelightHelpers.getTargetCount(LimelightConstants.device) != 0)
-      .onTrue(new MoveToReef(swerve, Reef.Left)
-      .withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-
-    new JoystickButton(js, 2)
-      .and(() -> LimelightHelpers.getTargetCount(LimelightConstants.device) != 0)
-      .onTrue(new MoveToReef(swerve, Reef.Right)
-      .withInterruptBehavior(InterruptionBehavior.kCancelSelf));
   }
 
 
