@@ -26,16 +26,19 @@ public class SwerveModule {
     turnEncoder = new CANcoder(turnEncoderId);
     pid = new PIDController(0.5, 0, 0);
 
+    driveMotor.set(0);
+    turnMotor.set(0);
+
     applyConfigs(turnEncoderId, offset);
   }
 
   public void setState(SwerveModuleState state) {
     state.optimize(getEncoderAngle());
     state.cosineScale(getEncoderAngle());
-    double err_degree = state.angle.getDegrees() - getEncoderAngle().getDegrees();
+    double err_degree = state.angle.minus(getEncoderAngle()).getDegrees();
 
     driveMotor.set(state.speedMetersPerSecond / SwerveConstants.MaxDriveSpeed);
-    turnMotor.setControl(null);
+    turnMotor.set(err_degree / 90.0);
   }
 
   public SwerveModuleState getState() {
