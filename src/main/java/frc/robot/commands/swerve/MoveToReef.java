@@ -40,7 +40,7 @@ public class MoveToReef extends Command {
   public MoveToReef(Swerve swerve, Reef reef, double x_setpoint) {
     this.swerve = swerve;
     this.reef = reef;
-    this.x_set_pos = x_setpoint;
+    this.x_set_pos = -x_setpoint;
     addRequirements(this.swerve);
   }
 
@@ -109,6 +109,7 @@ public class MoveToReef extends Command {
 
     swerve.drive(apply_speeds, false);
     logInfo();
+
   }
 
   @Override
@@ -119,6 +120,7 @@ public class MoveToReef extends Command {
   @Override
   public boolean isFinished() {
     if(x_isFinish && y_isFinish && t_isFinish) return true;
+
     else return false;
   }
 
