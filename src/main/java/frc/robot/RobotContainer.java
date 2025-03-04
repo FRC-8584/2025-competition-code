@@ -2,18 +2,18 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import frc.robot.commands.swerve.ArcadeDrive;
 import frc.robot.commands.swerve.MoveToReef;
 import frc.robot.subsystems.*;
-
 import frc.robot.Constants.LimelightConstants;
-import frc.robot.Constants.OperationConstant.Reef;
+import frc.robot.Constants.OperationConstant;
+
 import frc.robot.utils.LimelightHelpers;
+import frc.robot.utils.Tools;
 
 public class RobotContainer {
   private Joystick js = new Joystick(0);
@@ -60,8 +60,6 @@ public class RobotContainer {
   }
 
   private void configNamedCommands() {
-    // NamedCommands.registerCommand("PutCoral", new PutCoral(swerve, elevator, claw, OperationConstant.Levels.L4));
-    // NamedCommands.registerCommand("GetCoral", new GrabCoralTillGet(claw));
   }
 
   public Command getAutonomousCommand() {

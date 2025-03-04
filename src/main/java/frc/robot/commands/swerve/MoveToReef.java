@@ -118,6 +118,7 @@ public class MoveToReef extends Command {
 
     swerve.drive(apply_speeds, false);
     logInfo();
+
   }
 
   @Override
@@ -128,6 +129,7 @@ public class MoveToReef extends Command {
   @Override
   public boolean isFinished() {
     if(x_isFinish && y_isFinish && t_isFinish) return true;
+
     else return false;
   }
 

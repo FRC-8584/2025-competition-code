@@ -6,12 +6,12 @@ import frc.robot.Constants.Levels;
 import frc.robot.utils.Tools;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class SetElevatorHeight extends Command {
+public class SetElevatorLevel extends Command {
   Elevator m_Elevator;
   Levels m_L = Levels.Default;
 
   /** Creates a new SetElevatorHeight. */
-  public SetElevatorHeight(Elevator subsystem, Levels level) {
+  public SetElevatorLevel(Elevator subsystem, Levels level) {
     m_Elevator = subsystem;
     m_L = level;
     addRequirements(m_Elevator);
