@@ -170,9 +170,17 @@ public class Swerve extends SubsystemBase {
 
   @Override
   public void periodic() {
+    updateSwerveModuleData();
     updateOdometry();
     field.setRobotPose(getPose());
     SmartDashboard.putData("field",field);
     front_left.logging("fl");
+  }
+
+  private void updateSwerveModuleData() {
+    front_left.update();
+    front_right.update();
+    back_left.update();
+    back_right.update();
   }
 }

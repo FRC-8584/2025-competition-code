@@ -147,9 +147,9 @@ public class Constants {
         TalonFXConfiguration configs = new TalonFXConfiguration();
         configs.MotorOutput.Inverted = kTurnDirection;
         configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-        configs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.FusedCANcoder;
-        configs.Feedback.FeedbackRemoteSensorID = CANcoderID;
-        configs.Feedback.RotorToSensorRatio = 1;
+        // configs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.FusedCANcoder;
+        // configs.Feedback.FeedbackRemoteSensorID = CANcoderID;
+        // configs.Feedback.RotorToSensorRatio = 1;
         configs.Slot0.kP = 0.1;
         configs.Slot0.kI = 0;
         configs.Slot0.kD = 0;

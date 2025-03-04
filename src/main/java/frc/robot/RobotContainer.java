@@ -30,9 +30,9 @@ public class RobotContainer {
 
     new RunCommand(
       () -> swerve.drive(
-        OperationConstant.axieOptimizers[0].get(Tools.deadband(-js.getY(), 0.05)),
-        OperationConstant.axieOptimizers[1].get(Tools.deadband(-js.getX(), 0.05)),
-        OperationConstant.axieOptimizers[2].get(Tools.deadband(-js.getRawAxis(4), 0.05)), 
+        OperationConstant.axieOptimizers[0].get(Tools.deadband(-js.getY(), 0.1)),
+        OperationConstant.axieOptimizers[1].get(Tools.deadband(-js.getX(), 0.1)),
+        OperationConstant.axieOptimizers[2].get(Tools.deadband(-js.getRawAxis(4), 0.1)), 
         false
       ), swerve
     );

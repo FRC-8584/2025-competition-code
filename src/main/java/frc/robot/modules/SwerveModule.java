@@ -2,7 +2,6 @@ package frc.robot.modules;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
 
@@ -18,6 +17,10 @@ public class SwerveModule {
   private final TalonFX driveMotor;
   private final CANcoder turnEncoder;
   private final PIDController pid;
+
+  private SwerveModuleState current_state;
+  private SwerveModulePosition current_position;
+  private Rotation2d current_angle;
   private double max = 0;
 
   public SwerveModule(int turnMotorId, int driveMotorId, int turnEncoderId, double offset) {
@@ -28,35 +31,47 @@ public class SwerveModule {
 
     driveMotor.set(0);
     turnMotor.set(0);
+    current_state = new SwerveModuleState(0, getEncoderAngle());
+    current_position = new SwerveModulePosition(0, getEncoderAngle());
+    current_angle = Rotation2d.fromDegrees(turnEncoder.getPosition().getValueAsDouble() * 360.0);
 
     applyConfigs(turnEncoderId, offset);
   }
 
   public void setState(SwerveModuleState state) {
-    state.optimize(getEncoderAngle());
-    state.cosineScale(getEncoderAngle());
-    double err_degree = state.angle.getDegrees() - getEncoderAngle().getDegrees();
+    state.optimize(current_angle);
+    state.cosineScale(current_angle);
+    double err_degree = state.angle.minus(current_angle).getDegrees();
 
-    driveMotor.set(state.speedMetersPerSecond / SwerveConstants.MaxDriveSpeed);
-    turnMotor.set(err_degree / 90.0);
+    double apply_drive_output = state.speedMetersPerSecond / SwerveConstants.MaxDriveSpeed;
+    double apply_turn_output = pid.calculate(err_degree / 30.0);
+
+    driveMotor.set(apply_drive_output);
+    turnMotor.set(apply_turn_output);
   }
 
   public SwerveModuleState getState() {
-    return new SwerveModuleState(driveMotor.getVelocity().getValueAsDouble() * SwerveConstants.WheelPerimeter, getEncoderAngle());
+    return current_state;
   }
 
   public SwerveModulePosition getPosition() {
-    return new SwerveModulePosition(driveMotor.getPosition().getValueAsDouble() / SwerveConstants.kDriveGearRatio * SwerveConstants.WheelPerimeter, getEncoderAngle());
+    return current_position;
   }
 
   private Rotation2d getEncoderAngle() {
-    return Rotation2d.fromDegrees(turnEncoder.getPosition().getValueAsDouble() * 360.0);
+    return current_angle;
   }
 
   private void applyConfigs(int turnEncoderId, double offset) {
     turnMotor.getConfigurator().apply(SwerveConstants.Configs.turnMotorConfig(turnEncoderId));
     driveMotor.getConfigurator().apply(SwerveConstants.Configs.driveMotorConfig());
     turnEncoder.getConfigurator().apply(SwerveConstants.Configs.turnEncoderConfig(offset));
+  }
+
+  public void update() {
+    current_state = new SwerveModuleState(driveMotor.getVelocity().getValueAsDouble() * SwerveConstants.WheelPerimeter, getEncoderAngle());
+    current_position = new SwerveModulePosition(driveMotor.getPosition().getValueAsDouble() / SwerveConstants.kDriveGearRatio * SwerveConstants.WheelPerimeter, getEncoderAngle());
+    current_angle = Rotation2d.fromDegrees(turnEncoder.getPosition().getValueAsDouble() * 360.0);
   }
 
   public void logging(String name) {
