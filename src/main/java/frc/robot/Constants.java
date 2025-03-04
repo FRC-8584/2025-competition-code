@@ -122,7 +122,7 @@ public class Constants {
     );
 
     // Motor & Sensor direction
-    public static final InvertedValue kDriveDirection = InvertedValue.CounterClockwise_Positive;
+    public static final InvertedValue kDriveDirection = InvertedValue.Clockwise_Positive;
     public static final InvertedValue kTurnDirection = InvertedValue.CounterClockwise_Positive;
     public static final SensorDirectionValue kCANcoderDirection = SensorDirectionValue.CounterClockwise_Positive;
 
@@ -139,17 +139,20 @@ public class Constants {
         configs.MotorOutput.Inverted = kDriveDirection;
         configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
+
         return configs;
       }
 
-      public static TalonFXConfiguration turnMotorConfig() {
+      public static TalonFXConfiguration turnMotorConfig(int CANcoderID) {
         TalonFXConfiguration configs = new TalonFXConfiguration();
         configs.MotorOutput.Inverted = kTurnDirection;
-        configs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
+        configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+        configs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.FusedCANcoder;
+        configs.Feedback.FeedbackRemoteSensorID = CANcoderID;
+        configs.Feedback.RotorToSensorRatio = 360.0;
         configs.Slot0.kP = 0.1;
         configs.Slot0.kI = 0;
         configs.Slot0.kD = 0;
-        configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
         return configs;
       }

@@ -163,6 +163,8 @@ public class Swerve extends SubsystemBase {
     invert = DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red ? -1.0: 1.0;
     initial_angle = gyro.getAngle() + ( DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red ? 180: 0);
 
+    drive(0, 0, 0, false);
+
     configAuto();
   }   
 

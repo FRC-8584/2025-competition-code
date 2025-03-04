@@ -19,9 +19,9 @@ public class RobotContainer {
   private Joystick js = new Joystick(0);
   
   private Swerve swerve = new Swerve();
-  private Elevator elevator = new Elevator();
-  private Claw claw  = new Claw();
-  private Intake intake = new Intake();
+  // private Elevator elevator = new Elevator();
+  // private Claw claw  = new Claw();
+  // private Intake intake = new Intake();
   
   public RobotContainer() {
     swerve.setDefaultCommand(
