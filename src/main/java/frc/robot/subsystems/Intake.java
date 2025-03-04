@@ -17,7 +17,7 @@ public class Intake extends SubsystemBase {
   private final SparkMax grabber_motor;
   private final AnalogInput sensor;
   private boolean get;
-  private double pose;
+  private double pose; 
 
   public Intake() {
     shaft_motor = new SparkMax(CAN_DeviceID.Intake_ShaftID, MotorType.kBrushless);
