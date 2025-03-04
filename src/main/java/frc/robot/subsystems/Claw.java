@@ -17,7 +17,9 @@ public class Claw extends SubsystemBase {
   private final SparkMax shaft_motor;
   private final SparkMax grabber_motor;
   private final AnalogInput sensor;
-  private Levels level;
+  private Levels level = Levels.Default;
+  private double stuck_pose;
+  private boolean stuck;
 
   public Claw() {
     shaft_motor = new SparkMax(CAN_DeviceID.ShaftID, MotorType.kBrushless);
@@ -25,6 +27,8 @@ public class Claw extends SubsystemBase {
     sensor = new AnalogInput(ClawConstants.SensorPort);
 
     shaft_motor.configure(ClawConstants.Configs.getShaftConfig(), ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    grabber_motor.configure(ClawConstants.Configs.getGrabberConfig(), ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    stuck = true;
   }
   
   public void setShaftLevel(Levels level) {
@@ -39,9 +43,18 @@ public class Claw extends SubsystemBase {
     return shaft_motor.getEncoder().getPosition();
   }
 
-  public boolean isGet() {
+  public boolean detectCoral() {
     if (sensor.getValue() > ClawConstants.SensorThreshold) return true;
     else return false;
+  }
+
+  public boolean isStuck() {
+    return stuck;
+  }
+
+  public void stuckAlgae(boolean stuck) {
+    this.stuck = stuck;
+    stuck_pose = grabber_motor.getEncoder().getPosition();
   }
 
   private void setShaftPosition(double angle) {
@@ -51,5 +64,7 @@ public class Claw extends SubsystemBase {
   @Override
   public void periodic() {
     setShaftPosition(level.getAngle());
+    System.out.println(grabber_motor.getOutputCurrent());
+    if(stuck) grabber_motor.getClosedLoopController().setReference(stuck_pose, ControlType.kPosition);
   }
 }

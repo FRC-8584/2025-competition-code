@@ -21,7 +21,7 @@ public class GrabCoral extends Command {
   @Override
   public void execute() {
     claw.setGrabberPower(ClawConstants.GrabPower);
-    if(claw.isGet()) counter ++;
+    if(claw.detectCoral()) counter ++;
   }
 
   @Override
@@ -31,7 +31,7 @@ public class GrabCoral extends Command {
 
   @Override
   public boolean isFinished() {
-    if((counter >= ClawConstants.GrabDelay / 0.05)) return true;
+    if((counter >= ClawConstants.GrabCoralDelay / 0.05)) return true;
     else return false;
   }
 }

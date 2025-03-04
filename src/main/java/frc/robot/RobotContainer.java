@@ -1,20 +1,19 @@
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
+import frc.robot.commands.ToLevel;
+import frc.robot.commands.claw.GrabAlgae;
 import frc.robot.commands.swerve.ArcadeDrive;
 import frc.robot.subsystems.*;
-
+import frc.robot.Constants.Levels;
 import frc.robot.Constants.LimelightConstants;
-import frc.robot.Constants.OperationConstant;
-
 import frc.robot.utils.LimelightHelpers;
-import frc.robot.utils.Tools;
-
 public class RobotContainer {
   private Joystick js = new Joystick(0);
   
@@ -28,25 +27,20 @@ public class RobotContainer {
       new ArcadeDrive(swerve, ()->-js.getY(), ()->-js.getX(), ()->-js.getRawAxis(4))
     );
 
-    new RunCommand(
-      () -> swerve.drive(
-        OperationConstant.axieOptimizers[0].get(Tools.deadband(-js.getY(), 0.05)),
-        OperationConstant.axieOptimizers[1].get(Tools.deadband(-js.getX(), 0.05)),
-        OperationConstant.axieOptimizers[2].get(Tools.deadband(-js.getRawAxis(4), 0.05)), 
-        false
-      ), swerve
-    );
-
     configureBindings();
     configureLimelight();
     configNamedCommands();
   }
 
   private void configureBindings() {
-
+    new JoystickButton(js, 1).onTrue(new ToLevel(claw, elevator, Levels.Algea_L1));
+    new JoystickButton(js, 2).onTrue(new ToLevel(claw, elevator, Levels.Algea_L2));
+    new JoystickButton(js, 4).onTrue(new ToLevel(claw, elevator, Levels.Default));
+    new JoystickButton(js, 5).whileTrue(new GrabAlgae(claw));
   }
 
   private void configureLimelight(){
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
     LimelightHelpers.setCameraPose_RobotSpace("limelight", 
       LimelightConstants.Z,    // Forward offset (meters)
       LimelightConstants.X,    // Side offset (meters)
@@ -58,8 +52,6 @@ public class RobotContainer {
   }
 
   private void configNamedCommands() {
-    // NamedCommands.registerCommand("PutCoral", new PutCoral(swerve, elevator, claw, OperationConstant.Levels.L4));
-    // NamedCommands.registerCommand("GetCoral", new GrabCoralTillGet(claw));
   }
 
   public Command getAutonomousCommand() {

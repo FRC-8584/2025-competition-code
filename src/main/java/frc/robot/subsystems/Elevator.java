@@ -37,6 +37,11 @@ public class Elevator extends SubsystemBase {
     l_motor.getClosedLoopController().setReference(m_L.getHeight(), ControlType.kPosition);
     r_motor.getClosedLoopController().setReference(m_L.getHeight(), ControlType.kPosition);
   }
+
+  public void setLevel(Levels level) {
+    if(level != Levels.Dodge)
+    m_L = level;
+  }
   
   @Override
   public void periodic() {

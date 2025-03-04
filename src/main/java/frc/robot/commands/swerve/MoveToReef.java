@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Swerve;
 
 import frc.robot.Constants.SwerveConstants;
@@ -36,7 +36,7 @@ public class MoveToReef extends Command {
   public MoveToReef(Swerve swerve, Reef reef, double x_setpoint) {
     this.swerve = swerve;
     this.reef = reef;
-    this.x_set_pos = x_setpoint;
+    this.x_set_pos = -x_setpoint;
     addRequirements(this.swerve);
   }
 
@@ -85,8 +85,8 @@ public class MoveToReef extends Command {
     x_err = x_set_pos - x_bot_pos;
     y_err = y_set_pos - y_bot_pos;
 
-    x_velocity = Tools.bounding(x_err / 1.0) * SwerveConstants.MaxDriveSpeed;
-    y_velocity = Tools.bounding(y_err / 1.5) * SwerveConstants.MaxDriveSpeed; 
+    x_velocity = Tools.bounding(x_err / 2.0) * SwerveConstants.MaxDriveSpeed;
+    y_velocity = Tools.bounding(y_err / 2.0) * SwerveConstants.MaxDriveSpeed; 
     t_velocity = Tools.bounding(t_err / 90.0) * SwerveConstants.MaxTurnSpeed;
 
     // apply new chassis speed
@@ -96,7 +96,9 @@ public class MoveToReef extends Command {
     );
 
     swerve.drive(apply_speeds, false);
-    System.out.println(t_err);
+    SmartDashboard.putNumber("X", x_bot_pos);
+    SmartDashboard.putNumber("Y", y_bot_pos);
+    SmartDashboard.putNumber("T", t_bot_pos);
   }
 
   @Override
@@ -106,7 +108,7 @@ public class MoveToReef extends Command {
 
   @Override
   public boolean isFinished() {
-    if(Tools.isInRange(t_velocity, -0.1, 0.1)) return true;
+    if(Tools.isInRange(t_err, -2, 2) && Tools.isInRange(x_err, -0.02, 0.02) && Tools.isInRange(y_err, -0.02, 0.02)) return true;
     else return false;
   }
 }

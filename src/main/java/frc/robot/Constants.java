@@ -20,13 +20,13 @@ import frc.robot.utils.AxieOptimizer;
 public class Constants {
   public static enum Levels {
     Coral_L1(0, 0), 
-    Coral_L2(15.0, 5.0), 
+    Coral_L2(15.0, 15.0), 
     Coral_L3(15.0, 27.0), 
     Coral_L4(55.0, 75.0),
-    Algea_L1(55.0, 5.0),
-    Algea_L2(55.0, 27.0),
-    Dodge(13.0, -1),
-    Default(13.0, -1);
+    Algea_L1(145.0, 24.0),
+    Algea_L2(145.0, 44.0),
+    Dodge(20.0, -1),
+    Default(0, 0);
 
     private double claw_angle, elevator_height;
 
@@ -168,7 +168,7 @@ public class Constants {
   }
 
   public static class ClawConstants {
-    public static final double MaxAngle = 135; // degree
+    public static final double MaxAngle = 145.0; // degree
     public static final double MinAngle = 0; // degree
 
     public static final double MaxPower = 0.5;
@@ -179,7 +179,7 @@ public class Constants {
 
     public static final int SensorPort = 0;
     public static final double SensorThreshold = 1350;
-    public static final double GrabDelay = 0.3; //s
+    public static final double GrabCoralDelay = 0.3; //s
     public static final double PutDelay = 0.4; //s
 
     public static class  Configs {
@@ -195,6 +195,19 @@ public class Constants {
           .positionWrappingInputRange(MaxAngle, MinAngle)
           .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
           .pid(0.05, 0, 0);
+
+        return configs;
+      }
+      public static SparkMaxConfig getGrabberConfig() {
+        SparkMaxConfig configs = new SparkMaxConfig();
+        configs
+          .inverted(true)
+          .idleMode(IdleMode.kBrake);
+        configs.encoder
+          .positionConversionFactor(360.0 / 80.0);
+        configs.closedLoop
+          .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
+          .pid(0.1, 0, 0);
 
         return configs;
       }
@@ -246,7 +259,10 @@ public class Constants {
     public static final double MinAngle = -10.0;
     public static final double MinPower= -0.4;
     public static final double MaxPower= 0.4;
-    public static final double GrabPower= 0.4;
+    public static final double GrabPower= -0.4;
+    public static final double PutPower= 0.8;
+    public static final double StuckCurrent = 13.0;
+    public static final double SensorThreshold = 400;
 
     public static class  Configs {
       public static SparkMaxConfig getShaftConfig() {
@@ -255,12 +271,12 @@ public class Constants {
           .inverted(true)
           .idleMode(IdleMode.kBrake);
         configs.encoder
-          .positionConversionFactor(360.0 / 25.0);
+          .positionConversionFactor(360.0 / 100.0);
         configs.closedLoop
           .outputRange(MinPower, MaxPower)
           .positionWrappingInputRange(MaxAngle, MinAngle)
           .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-          .pid(0.05, 0, 0);
+          .pid(0.02, 0, 0);
 
         return configs;
       }
@@ -277,12 +293,12 @@ public class Constants {
   }
 
   public static class LimelightConstants {
-    public static final double X = 0.19; //m
-    public static final double Z = 0.14; //m
-    public static final double Y = 0.94; //m
-    public static final double Pitch = -46; //degree
-    public static final double Roll  = -5.0; //degree
-    public static final double Yaw = 18.2; //degree
+    public static final double X = 0.21; //m
+    public static final double Z = 0.115; //m
+    public static final double Y = 0.92; //m
+    public static final double Pitch = -45.5; //degree
+    public static final double Roll  = -7.0; //degree
+    public static final double Yaw = 13.0; //degree
 
     public static final double X_Distance = 0.15; //m
     public static final double Y_Distance = 0.20; //m
