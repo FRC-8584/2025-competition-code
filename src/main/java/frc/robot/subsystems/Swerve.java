@@ -180,4 +180,6 @@ public class Swerve extends SubsystemBase {
     back_left.update();
     back_right.update();
   }
+
+  public void logInfo() {}
 }

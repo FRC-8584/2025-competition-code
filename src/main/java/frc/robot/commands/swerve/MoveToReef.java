@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Swerve;
 
 import frc.robot.Constants.SwerveConstants;
+import frc.robot.Constants.OperationConstant;
 import frc.robot.Constants.OperationConstant.Reef;
 
 import frc.robot.utils.LimelightHelpers;
@@ -58,8 +59,8 @@ public class MoveToReef extends Command {
     y_bot_pos = raw_x * temp_sin - raw_y * temp_cos;
     t_bot_pos = swerve.getGyroAngle().getDegrees();
 
-    if(reef == Reef.Left) y_set_pos = -0.17;// left
-    else if(reef == Reef.Right) y_set_pos = 0.17;// right
+    if(reef == Reef.Left) y_set_pos = 0.17;// left
+    else if(reef == Reef.Right) y_set_pos = -0.17;// right
     else y_set_pos = 0.0;// none
 
     // turn
@@ -95,9 +96,9 @@ public class MoveToReef extends Command {
     x_err = x_set_pos - x_bot_pos;
     y_err = y_set_pos - y_bot_pos;
 
-    x_velocity = Tools.bounding(x_err / 1.5) * SwerveConstants.MaxDriveSpeed;
-    y_velocity = Tools.bounding(y_err / 2.0) * SwerveConstants.MaxDriveSpeed;
-    t_velocity = Tools.bounding(t_err / 90.0) * SwerveConstants.MaxTurnSpeed;
+    x_velocity = OperationConstant.axieOptimizers[0].get(Tools.bounding(x_err / 0.3)) * SwerveConstants.MaxDriveSpeed * 0.25;
+    y_velocity = OperationConstant.axieOptimizers[1].get(Tools.bounding(y_err / 0.3)) * SwerveConstants.MaxDriveSpeed * 0.25;
+    t_velocity = OperationConstant.axieOptimizers[2].get(Tools.bounding(t_err / 45.0)) * SwerveConstants.MaxTurnSpeed * 0.3;
 
     checkIsFinished();
 
@@ -143,9 +144,17 @@ public class MoveToReef extends Command {
   }
 
   private void logInfo() {
+    SmartDashboard.putNumber("x set position", x_set_pos);
+    SmartDashboard.putNumber("y set position", y_set_pos);
+    SmartDashboard.putNumber("set angle", t_set_pos);
+
     SmartDashboard.putNumber("robot x position", x_bot_pos);
     SmartDashboard.putNumber("robot y position", y_bot_pos);
     SmartDashboard.putNumber("robot angle", t_bot_pos);
+
+    SmartDashboard.putNumber("robot x error", x_err);
+    SmartDashboard.putNumber("robot y error", y_err);
+    SmartDashboard.putNumber("robot angle error", t_err);
 
     SmartDashboard.putBoolean("robot x position finished", x_isFinish);
     SmartDashboard.putBoolean("robot y position finished", y_isFinish);

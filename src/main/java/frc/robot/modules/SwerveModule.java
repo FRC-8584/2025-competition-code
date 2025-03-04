@@ -69,7 +69,7 @@ public class SwerveModule {
   }
 
   public void update() {
-    current_state = new SwerveModuleState(driveMotor.getVelocity().getValueAsDouble() * SwerveConstants.WheelPerimeter, getEncoderAngle());
+    current_state = new SwerveModuleState(driveMotor.getVelocity().getValueAsDouble() / SwerveConstants.kDriveGearRatio * SwerveConstants.WheelPerimeter, getEncoderAngle());
     current_position = new SwerveModulePosition(driveMotor.getPosition().getValueAsDouble() / SwerveConstants.kDriveGearRatio * SwerveConstants.WheelPerimeter, getEncoderAngle());
     current_angle = Rotation2d.fromDegrees(turnEncoder.getPosition().getValueAsDouble() * 360.0);
   }
