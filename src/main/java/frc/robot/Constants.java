@@ -2,7 +2,6 @@ package frc.robot;
 
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
@@ -91,12 +90,6 @@ public class Constants {
   
     public static final int ShaftID           =  15;
     public static final int GrabberID         =  16;
-  
-    public static final int Left_ClimberID    =  17;
-    public static final int Right_ClimberID   =  18;
-
-    public static final int Intake_ShaftID    =  19;
-    public static final int Intake_GrabberID  =  20;
   }
 
   public static class SwerveConstants{
@@ -139,10 +132,11 @@ public class Constants {
         configs.MotorOutput.Inverted = kDriveDirection;
         configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
+
         return configs;
       }
 
-      public static TalonFXConfiguration turnMotorConfig() {
+      public static TalonFXConfiguration turnMotorConfig(int CANcoderID) {
         TalonFXConfiguration configs = new TalonFXConfiguration();
         configs.MotorOutput.Inverted = kTurnDirection;
         configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
@@ -273,6 +267,10 @@ public class Constants {
   }
 
   public static class LimelightConstants {
+    /* device name */
+    public static final String device = "limelight";
+
+    /* config limelight offsets */
     public static final double X = 0.19; //m
     public static final double Z = 0.14; //m
     public static final double Y = 0.94; //m

@@ -67,11 +67,7 @@ public class Swerve extends SubsystemBase {
         ChassisSpeeds.fromFieldRelativeSpeeds(speeds, getGyroAngle()) : speeds
     );
     SwerveDriveKinematics.desaturateWheelSpeeds(states, SwerveConstants.MaxDriveSpeed);
-  
-    SmartDashboard.putNumber("chassis speed x", speeds.vxMetersPerSecond);
-    SmartDashboard.putNumber("chassis speed y", speeds.vyMetersPerSecond);
-    SmartDashboard.putNumber("chassis speed omega", speeds.omegaRadiansPerSecond);
-  
+
     drive(states);
   }
 
@@ -168,14 +164,26 @@ public class Swerve extends SubsystemBase {
     invert = DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red ? -1.0: 1.0;
     initial_angle = gyro.getAngle() + ( DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red ? 180: 0);
 
+    drive(0, 0, 0, false);
+
     configAuto();
   }   
 
   @Override
   public void periodic() {
+    updateSwerveModuleData();
     updateOdometry();
     field.setRobotPose(getPose());
     SmartDashboard.putData("field",field);
     front_left.logging("fl");
   }
+
+  private void updateSwerveModuleData() {
+    front_left.update();
+    front_right.update();
+    back_left.update();
+    back_right.update();
+  }
+
+  public void logInfo() {}
 }
