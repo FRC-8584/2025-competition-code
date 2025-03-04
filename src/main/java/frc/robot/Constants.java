@@ -268,7 +268,7 @@ public class Constants {
           .positionConversionFactor(360.0 / 100.0);
         configs.closedLoop
           .outputRange(MinPower, MaxPower)
-          .positionWrappingInputRange(MaxAngle, MinAngle)
+          .positionWrappingInputRange(MinAngle, MaxAngle)
           .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
           .pid(0.02, 0, 0);
 
