@@ -22,7 +22,7 @@ public class PutAlgae extends Command {
     @Override
     public void execute() {
         intake.setGrabberPower(IntakeConstants.PutPower);
-        counter++;
+        if(intake.isDetected()) counter++;
     }
 
     @Override
@@ -34,7 +34,7 @@ public class PutAlgae extends Command {
 
     @Override
     public boolean isFinished() {
-        if(counter > 50) return true;
+        if(counter > 20) return true;
         return false;
     }
 }
