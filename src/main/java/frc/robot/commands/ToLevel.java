@@ -13,12 +13,22 @@ public class ToLevel extends SequentialCommandGroup {
         Levels claw_level = level;
         Levels elevator_level = level;
 
-        addCommands(
-            new ParallelCommandGroup(
-                new SetElevatorLevel(elevator, elevator_level),
-                new SetClawLevel(Levels.Dodge, claw)
-            ),
-            new SetClawLevel(claw_level, claw)
-        );
+        if(level == Levels.DefaultWithAlgae)
+            addCommands(
+                new ParallelCommandGroup(
+                    new SetElevatorLevel(elevator, elevator_level),
+                    new SetClawLevel(level, claw)
+                ),
+                new SetClawLevel(claw_level, claw)
+            );
+        
+        else
+            addCommands(
+                new ParallelCommandGroup(
+                    new SetElevatorLevel(elevator, elevator_level),
+                    new SetClawLevel(Levels.Dodge, claw)
+                ),
+                new SetClawLevel(claw_level, claw)
+            );
     }
 }
