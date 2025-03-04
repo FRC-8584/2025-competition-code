@@ -91,12 +91,6 @@ public class Constants {
   
     public static final int ShaftID           =  15;
     public static final int GrabberID         =  16;
-  
-    public static final int Left_ClimberID    =  17;
-    public static final int Right_ClimberID   =  18;
-
-    public static final int Intake_ShaftID    =  19;
-    public static final int Intake_GrabberID  =  20;
   }
 
   public static class SwerveConstants{
@@ -139,10 +133,11 @@ public class Constants {
         configs.MotorOutput.Inverted = kDriveDirection;
         configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
+
         return configs;
       }
 
-      public static TalonFXConfiguration turnMotorConfig() {
+      public static TalonFXConfiguration turnMotorConfig(int CANcoderID) {
         TalonFXConfiguration configs = new TalonFXConfiguration();
         configs.MotorOutput.Inverted = kTurnDirection;
         configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
@@ -289,12 +284,16 @@ public class Constants {
   }
 
   public static class LimelightConstants {
-    public static final double X = 0.21; //m
-    public static final double Z = 0.115; //m
-    public static final double Y = 0.92; //m
-    public static final double Pitch = -45.5; //degree
-    public static final double Roll  = -7.0; //degree
-    public static final double Yaw = 13.0; //degree
+    /* device name */
+    public static final String device = "limelight";
+
+    /* config limelight offsets */
+    public static final double X = 0.19; //m
+    public static final double Z = 0.14; //m
+    public static final double Y = 0.94; //m
+    public static final double Pitch = -46; //degree
+    public static final double Roll  = -5.0; //degree
+    public static final double Yaw = 18.2; //degree
 
     public static final double X_Distance = 0.15; //m
     public static final double Y_Distance = 0.20; //m
