@@ -10,7 +10,7 @@ import frc.robot.subsystems.Swerve;
 import frc.robot.Constants.SwerveConstants;
 import frc.robot.Constants.LimelightConstants;
 import frc.robot.Constants.OperationConstant;
-import frc.robot.Constants.OperationConstant.Reef;
+import frc.robot.Constants.Reef;
 
 import frc.robot.utils.LimelightHelpers;
 import frc.robot.utils.Tools;
@@ -59,13 +59,8 @@ public class MoveToReef extends Command {
     y_bot_pos = raw_x * temp_sin - raw_y * temp_cos;
     t_bot_pos = swerve.getGyroAngle().getDegrees();
 
-    x_set_pos = -0.53;
-
-    if(reef == Reef.Left) y_set_pos = 0.17;// left
-    else if(reef == Reef.Right) y_set_pos = -0.17;// right
-    else y_set_pos = 0.0;// none
-
-    // turn
+    x_set_pos = reef.getPosX();
+    y_set_pos = reef.getPosY();
     t_set_pos = t_bot_pos + raw_turn;
 
     if(t_set_pos > 180.0) t_set_pos -= 360.0;
@@ -74,6 +69,10 @@ public class MoveToReef extends Command {
     x_isFinish = false;
     y_isFinish = false;
     t_isFinish = false;
+
+    x_velocity = 0;
+    y_velocity = 0;
+    t_velocity = 0;
 
     OperationConstant.axieOptimizers[0].reset();
     OperationConstant.axieOptimizers[1].reset();

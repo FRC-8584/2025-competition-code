@@ -44,12 +44,28 @@ public class Constants {
     }
   }
 
-  public static class OperationConstant {
+  public static enum Reef {
+    Left       (-0.53, 0.17),
+    Right      (-0.53, -0.17),
+    Medium     (-0.53, 0.0);
 
-    public static enum Reef {
-      Left, Right, None
+    private double x, y;
+
+    Reef(double x, double y) {
+      this.x = x;
+      this.y = y;
     }
 
+    public double getPosX() {
+      return x;
+    }
+
+    public double getPosY() {
+      return y;
+    }
+  }
+
+  public static class OperationConstant {
     public static final AxieOptimizer[] axieOptimizers = 
       new AxieOptimizer[] {
         new AxieOptimizer(0.035),
