@@ -24,8 +24,8 @@ public class Claw extends SubsystemBase {
 
 
   public Claw() {
-    shaft_motor = new SparkMax(CAN_DeviceID.ShaftID, MotorType.kBrushless);
-    grabber_motor = new SparkMax(CAN_DeviceID.GrabberID, MotorType.kBrushless);
+    shaft_motor = new SparkMax(CAN_DeviceID.Claw_ShaftID, MotorType.kBrushless);
+    grabber_motor = new SparkMax(CAN_DeviceID.Claw_GrabberID, MotorType.kBrushless);
     sensor = new AnalogInput(ClawConstants.SensorPort);
 
     shaft_motor.configure(ClawConstants.Configs.getShaftConfig(), ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
