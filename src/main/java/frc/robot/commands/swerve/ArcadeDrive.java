@@ -33,9 +33,9 @@ public class ArcadeDrive extends Command {
   @Override
   public void execute() {
     swerve.drive(
-      OperationConstant.axieOptimizers[0].get(Tools.deadband(x.get(), 0.02)),
-      OperationConstant.axieOptimizers[1].get(Tools.deadband(y.get(), 0.02)),
-      OperationConstant.axieOptimizers[2].get(Tools.deadband(turn.get(), 0.02)), 
+      OperationConstant.axieOptimizers[0].get(Tools.deadband(x.get(), 0.1)),
+      OperationConstant.axieOptimizers[1].get(Tools.deadband(y.get(), 0.1)),
+      OperationConstant.axieOptimizers[2].get(Tools.deadband(turn.get(), 0.1)), 
       false);
   }
 

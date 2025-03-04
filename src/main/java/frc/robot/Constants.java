@@ -122,7 +122,7 @@ public class Constants {
     );
 
     // Motor & Sensor direction
-    public static final InvertedValue kDriveDirection = InvertedValue.Clockwise_Positive;
+    public static final InvertedValue kDriveDirection = InvertedValue.CounterClockwise_Positive;
     public static final InvertedValue kTurnDirection = InvertedValue.CounterClockwise_Positive;
     public static final SensorDirectionValue kCANcoderDirection = SensorDirectionValue.CounterClockwise_Positive;
 
