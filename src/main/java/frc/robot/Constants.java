@@ -26,6 +26,7 @@ public class Constants {
     Algea_L1(145.0, 24.0),
     Algea_L2(145.0, 44.0),
     Dodge(20.0, -1),
+    WithAlgae(135.0, 0),
     Default(0, 0);
 
     private double claw_angle, elevator_height;
