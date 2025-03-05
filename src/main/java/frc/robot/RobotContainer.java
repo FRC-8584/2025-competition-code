@@ -7,25 +7,38 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
+import frc.robot.commands.PutCoralWithSwerve;
+import frc.robot.commands.ToLevel;
+import frc.robot.commands.claw.ClawGrabAlgae;
+import frc.robot.commands.claw.ClawPutAlgae;
+import frc.robot.commands.claw.GrabCoral;
+import frc.robot.commands.claw.PutCoral;
+import frc.robot.commands.intake.IntakeGrabAlgae;
+import frc.robot.commands.intake.IntakePutAlgae;
 import frc.robot.commands.swerve.ArcadeDrive;
 import frc.robot.commands.swerve.MoveToReef;
 import frc.robot.subsystems.*;
-
+import frc.robot.Constants.Levels;
 import frc.robot.Constants.LimelightConstants;
+import frc.robot.Constants.Reef;
 import frc.robot.utils.LimelightHelpers;
 
 public class RobotContainer {
-  private Joystick js = new Joystick(0);
+  private Joystick js1 = new Joystick(0);
+  private Joystick js2 = new Joystick(1);
   
   private Swerve swerve = new Swerve();
+  private Claw claw = new Claw();
+  private Intake intake = new Intake();
+  private Elevator elevator = new Elevator();
   
   public RobotContainer() {
     swerve.setDefaultCommand(
       new ArcadeDrive(
         swerve,
-        ()->-js.getY(),
-        ()->-js.getX(),
-        ()->-js.getRawAxis(4)
+        ()->-js1.getY(),
+        ()->-js1.getX(),
+        ()->-js1.getRawAxis(4)
       )
     );
 
@@ -35,6 +48,12 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
+    new JoystickButton(js1, 1).onTrue(new GrabCoral(claw).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+    new JoystickButton(js1, 2).whileTrue(new ClawGrabAlgae(claw).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+    new JoystickButton(js1, 3).whileTrue(new ClawPutAlgae(claw).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+    new JoystickButton(js1, 4).onTrue(new ToLevel(claw, elevator, Levels.DefaultWithAlgae).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+    new JoystickButton(js1, 5).onTrue(new IntakeGrabAlgae(intake).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+    new JoystickButton(js1, 6).onTrue(new IntakePutAlgae(intake).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
   }
 
 

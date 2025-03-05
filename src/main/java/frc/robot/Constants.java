@@ -108,8 +108,8 @@ public class Constants {
     public static final int Claw_ShaftID           =  15;
     public static final int Claw_GrabberID         =  16;
 
-    public static final int Intake_ShaftID        =  15;
-    public static final int Intake_GrabberID        =  16;
+    public static final int Intake_ShaftID        =  19;
+    public static final int Intake_GrabberID        =  20;
   }
 
   public static class SwerveConstants{

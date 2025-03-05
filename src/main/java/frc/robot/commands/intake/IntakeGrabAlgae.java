@@ -1,14 +1,14 @@
 package frc.robot.commands.intake;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Intake;
 import frc.robot.Constants.IntakeConstants;
+import frc.robot.subsystems.Intake;
 
-public class PutAlgae extends Command {
+public class GrabAlgae extends Command {
     private Intake intake;
     private double counter;
 
-    public PutAlgae(Intake intake) {
+    public GrabAlgae(Intake intake) {
         this.intake = intake;
         addRequirements(this.intake);
     }
@@ -16,25 +16,25 @@ public class PutAlgae extends Command {
     @Override
     public void initialize() {
         counter = 0;
-        intake.setShaftPosition(20.0);
     }
 
     @Override
     public void execute() {
-        intake.setGrabberPower(IntakeConstants.PutPower);
-        if(intake.isDetected()) counter++;
+        intake.setGrabberPower(IntakeConstants.GrabPower);
+        intake.setShaftPosition(52.0);
+        if(intake.isDetected() && intake.getGrabberCurrent() > IntakeConstants.StuckCurrent) counter ++;
     }
 
     @Override
     public void end(boolean interrupted) {
+        intake.setShaftPosition(0);
         intake.setGrabberPower(0);
-        intake.setShaftPosition(0.0);
-        intake.setState(false);
     }
 
     @Override
     public boolean isFinished() {
-        if(counter > 20) return true;
+        System.out.println(counter);
+        if(counter > 15) return true;
         return false;
     }
 }
