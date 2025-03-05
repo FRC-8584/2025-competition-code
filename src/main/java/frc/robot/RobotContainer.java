@@ -10,6 +10,7 @@ import java.lang.System.Logger.Level;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import frc.robot.commands.ToLevel;
+import frc.robot.commands.claw.ControlGrabber;
 import frc.robot.commands.claw.GrabCoral;
 import frc.robot.commands.claw.PutCoral;
 import frc.robot.commands.intake.IntakeGrabAlgae;
@@ -38,6 +39,10 @@ public class RobotContainer {
         ()->-js1.getX(),
         ()->-js1.getRawAxis(4)
       )
+    );
+
+    claw.setDefaultCommand(
+      new ControlGrabber(claw, ()->js1.getRawAxis(5), ()->js1.getRawAxis(6))
     );
 
     configureBindings();
