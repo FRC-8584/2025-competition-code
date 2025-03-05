@@ -176,6 +176,7 @@ public class Swerve extends SubsystemBase {
     field.setRobotPose(getPose());
     SmartDashboard.putData("field",field);
     front_left.logging("fl");
+    logInfo();;
   }
 
   private void updateSwerveModuleData() {
@@ -185,5 +186,10 @@ public class Swerve extends SubsystemBase {
     back_right.update();
   }
 
-  public void logInfo() {}
+  public void logInfo() {
+    ChassisSpeeds speeds = getRobotRelativeSpeeds();
+    SmartDashboard.putNumber("X Current Velocity", speeds.vxMetersPerSecond);
+    SmartDashboard.putNumber("Y Current Velocity", speeds.vyMetersPerSecond);
+    SmartDashboard.putNumber("Omega Current Velocity", speeds.omegaRadiansPerSecond);
+  }
 }

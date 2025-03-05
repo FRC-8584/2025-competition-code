@@ -99,13 +99,15 @@ public class MoveToReef extends Command {
 
     x_bot_pos += current_speeds.vxMetersPerSecond * 0.02;// (vx)m/s * 0.02s
     y_bot_pos += current_speeds.vyMetersPerSecond * 0.02;// (vy)m/s * 0.02s
+    SmartDashboard.putNumber("v x", current_speeds.vxMetersPerSecond);
+    SmartDashboard.putNumber("v y", current_speeds.vyMetersPerSecond);
 
     x_err = x_set_pos - x_bot_pos;
     y_err = y_set_pos - y_bot_pos;
 
-    x_velocity = OperationConstant.axieOptimizers[0].get(Tools.bounding(x_err / 0.35)) * SwerveConstants.MaxDriveSpeed * 0.2;
-    y_velocity = OperationConstant.axieOptimizers[1].get(Tools.bounding(y_err / 0.35)) * SwerveConstants.MaxDriveSpeed * 0.2;
-    t_velocity = OperationConstant.axieOptimizers[2].get(Tools.bounding(t_err / 90.0)) * SwerveConstants.MaxTurnSpeed * 0.3;
+    x_velocity = OperationConstant.axieOptimizers[0].get(Tools.bounding(x_err / 0.2)) * SwerveConstants.MaxDriveSpeed * 0.15;
+    y_velocity = OperationConstant.axieOptimizers[1].get(Tools.bounding(y_err / 0.2)) * SwerveConstants.MaxDriveSpeed * 0.15;
+    t_velocity = OperationConstant.axieOptimizers[2].get(Tools.bounding(t_err / 45.0)) * SwerveConstants.MaxTurnSpeed * 0.2;
 
     checkIsFinished();
 
