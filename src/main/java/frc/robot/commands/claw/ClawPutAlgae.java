@@ -4,10 +4,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.ClawConstants;
 import frc.robot.subsystems.Claw;
 
-public class PutAlgae extends Command {
+public class ClawPutAlgae extends Command {
   private Claw claw;
 
-  public PutAlgae(Claw claw) {
+  public ClawPutAlgae(Claw claw) {
     this.claw = claw;
     addRequirements(this.claw);
   }

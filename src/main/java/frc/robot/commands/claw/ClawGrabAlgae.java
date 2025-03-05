@@ -4,10 +4,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.ClawConstants;
 import frc.robot.subsystems.Claw;
 
-public class GrabAlgae extends Command {
+public class ClawGrabAlgae extends Command {
   private Claw claw;
 
-  public GrabAlgae(Claw claw) {
+  public ClawGrabAlgae(Claw claw) {
     this.claw = claw;
     addRequirements(this.claw);
   }
