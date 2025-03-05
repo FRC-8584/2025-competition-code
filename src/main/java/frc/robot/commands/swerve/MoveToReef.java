@@ -105,9 +105,9 @@ public class MoveToReef extends Command {
     x_err = x_set_pos - x_bot_pos;
     y_err = y_set_pos - y_bot_pos;
 
-    x_velocity = OperationConstant.axieOptimizers[0].get(Tools.bounding(x_err / 0.2)) * SwerveConstants.MaxDriveSpeed * 0.15;
-    y_velocity = OperationConstant.axieOptimizers[1].get(Tools.bounding(y_err / 0.2)) * SwerveConstants.MaxDriveSpeed * 0.15;
-    t_velocity = OperationConstant.axieOptimizers[2].get(Tools.bounding(t_err / 45.0)) * SwerveConstants.MaxTurnSpeed * 0.2;
+    x_velocity = OperationConstant.axieOptimizers[0].get(Tools.bounding(x_err / 0.5)) * SwerveConstants.MaxDriveSpeed * 0.3;
+    y_velocity = OperationConstant.axieOptimizers[1].get(Tools.bounding(y_err / 0.5)) * SwerveConstants.MaxDriveSpeed * 0.3;
+    t_velocity = OperationConstant.axieOptimizers[2].get(Tools.bounding(t_err / 45.0)) * SwerveConstants.MaxTurnSpeed * 0.3;
 
     checkIsFinished();
 
@@ -139,6 +139,7 @@ public class MoveToReef extends Command {
   }
 
   private void resetRobotPose(boolean reset) {
+    if(!reset) return;
     double[] pose = LimelightHelpers.getTargetPose_RobotSpace(LimelightConstants.device);
     double raw_x = pose[2];
     double raw_y = -pose[0];

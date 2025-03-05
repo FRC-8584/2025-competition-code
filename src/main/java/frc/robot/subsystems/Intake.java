@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.revrobotics.spark.SparkMax;
@@ -57,6 +58,6 @@ public class Intake extends SubsystemBase {
   @Override
   public void periodic() {
     shaft_motor.getClosedLoopController().setReference(pose ,ControlType.kPosition);
-    System.out.println(isGet());
+    SmartDashboard.getBoolean("Intake : Is get ALGAE", isGet());
   }
 }
