@@ -13,7 +13,7 @@ import frc.robot.Constants.GrabberConstants;
 import frc.robot.utils.Tools;
 
 public class Grabber extends SubsystemBase {
-  private final SparkMax Grapper_motor = new SparkMax(CAN_DeviceID.GrabberID, MotorType.kBrushless);
+  private final SparkMax Grabber_motor = new SparkMax(CAN_DeviceID.GrabberID, MotorType.kBrushless);
 
   private boolean isGetCoral;
   private boolean isGetAlgae;
@@ -22,7 +22,7 @@ public class Grabber extends SubsystemBase {
     isGetCoral = false;
     isGetAlgae = false;
 
-    Grapper_motor.configure(
+    Grabber_motor.configure(
       GrabberConstants.getGrabberCfg(),
       ResetMode.kResetSafeParameters,
       PersistMode.kPersistParameters);
@@ -41,6 +41,6 @@ public class Grabber extends SubsystemBase {
    */
   public void setPower(double input) {
     input = Tools.bounding(input);
-    Grapper_motor.set(input * GrabberConstants.kGrabberSpeed);
+    Grabber_motor.set(input * GrabberConstants.kGrabberSpeed);
   }
 }
