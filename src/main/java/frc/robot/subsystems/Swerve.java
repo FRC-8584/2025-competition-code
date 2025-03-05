@@ -90,9 +90,10 @@ public class Swerve extends SubsystemBase {
 
   @Override
   public void periodic() {
-	  updateLoggingValue();
-    updateOdometry();
+    updateSwerveModuleData();
     field.setRobotPose(poseEstimator.getEstimatedPosition());
+    updateOdometry();
+	  logInfo();
   }
 
 	/**
@@ -123,6 +124,10 @@ public class Swerve extends SubsystemBase {
         ChassisSpeeds.fromFieldRelativeSpeeds(speeds, getGyroAngle()) : speeds
     );
 
+    drive(states);
+  }
+
+  public void drive(SwerveModuleState[] states) {
     SwerveDriveKinematics.desaturateWheelSpeeds(states, SwerveConstants.kMaxDriveSpeed);
 
     LF.setState(states[0]);
@@ -150,7 +155,14 @@ public class Swerve extends SubsystemBase {
 		);
   }
 
-	private void updateLoggingValue() {
+  private void updateSwerveModuleData() {
+    LF.update();
+    LR.update();
+    RF.update();
+    RR.update();
+  }
+
+	private void logInfo() {
     SmartDashboard.putData("Field", field);
 	}
 }

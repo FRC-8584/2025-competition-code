@@ -33,7 +33,7 @@ public class RobotContainer {
 
   private void configureLimelight(){
     LimelightHelpers.setCameraPose_RobotSpace(
-      "limelight", 
+      LimelightConstants.device, 
       LimelightConstants.X,    // Forward offset (meters)
       LimelightConstants.Z,    // Side offset (meters)
       LimelightConstants.Y,   // Height offset (meters)

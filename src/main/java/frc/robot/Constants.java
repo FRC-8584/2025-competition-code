@@ -135,9 +135,9 @@ public final class Constants {
     public static final double kMaxTurnSpeed = kMaxDriveSpeed / kRadian; // rad/s
 
     // encoder offsets
-    public static final double kLF_offset = 0.300049;
+    public static final double kLF_offset = 0.300537;
     public static final double kLR_offset = -0.287550;
-    public static final double kRF_offset = -0.419922;
+    public static final double kRF_offset = 0.385986;
     public static final double kRR_offset = -0.204590;
 
     public static final TalonFXConfiguration getDriveMotorCfg() {
@@ -289,11 +289,19 @@ public final class Constants {
   }
 
   public static class LimelightConstants {
-    public static final double X = 0.25;// m
-    public static final double Y = -0.27;// m
-    public static final double Z = -0.27;// m
-    public static final double Yaw = 45.0;// deg
-    public static final double Roll = 0;// deg
-    public static final double Pitch = 0;// deg
+    /* device name */
+    public static final String device = "limelight";
+
+    /* config limelight offsets */
+    public static final double X      = 0.19; //m
+    public static final double Z      = 0.25; //m
+    public static final double Y      = 0.92; //m
+    public static final double Pitch  = -41.26; //degree
+    public static final double Roll   = -6.46; //degree
+    public static final double Yaw    = 18.37; //degree
+
+    public static final double X_Distance = 0.15; //m
+    public static final double Y_Distance = 0.20; //m
+    public static final double AutoAimDeadband = 0.01; //m
   }
 }
