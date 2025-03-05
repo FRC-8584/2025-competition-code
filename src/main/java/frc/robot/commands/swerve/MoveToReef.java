@@ -99,8 +99,6 @@ public class MoveToReef extends Command {
 
     x_bot_pos += current_speeds.vxMetersPerSecond * 0.02;// (vx)m/s * 0.02s
     y_bot_pos += current_speeds.vyMetersPerSecond * 0.02;// (vy)m/s * 0.02s
-    SmartDashboard.putNumber("v x", current_speeds.vxMetersPerSecond);
-    SmartDashboard.putNumber("v y", current_speeds.vyMetersPerSecond);
 
     x_err = x_set_pos - x_bot_pos;
     y_err = y_set_pos - y_bot_pos;
@@ -119,7 +117,6 @@ public class MoveToReef extends Command {
 
     swerve.drive(apply_speeds, false);
     logInfo();
-
   }
 
   @Override

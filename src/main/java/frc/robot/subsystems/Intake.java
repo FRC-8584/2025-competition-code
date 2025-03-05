@@ -36,7 +36,7 @@ public class Intake extends SubsystemBase {
   }
 
   public void setGrabberPower(double power) {
-      grabber_motor.set(power);
+    grabber_motor.set(power);
   }
 
   public double getGrabberCurrent() {
