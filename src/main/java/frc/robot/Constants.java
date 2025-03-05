@@ -298,12 +298,12 @@ public class Constants {
     public static final String device = "limelight";
 
     /* config limelight offsets */
-    public static final double X = 0.19; //m
-    public static final double Z = 0.14; //m
-    public static final double Y = 0.94; //m
-    public static final double Pitch = -46; //degree
-    public static final double Roll  = -5.0; //degree
-    public static final double Yaw = 18.2; //degree
+    public static final double X      = 0.19; //m
+    public static final double Z      = 0.25; //m
+    public static final double Y      = 0.92; //m
+    public static final double Pitch  = -40.98; //degree
+    public static final double Roll   = -14.14; //degree
+    public static final double Yaw    = 7.30; //degree
 
     public static final double X_Distance = 0.15; //m
     public static final double Y_Distance = 0.20; //m

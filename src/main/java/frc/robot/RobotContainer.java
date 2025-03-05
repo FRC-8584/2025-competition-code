@@ -57,7 +57,7 @@ public class RobotContainer {
       .withInterruptBehavior(InterruptionBehavior.kCancelSelf));
     new JoystickButton(js1, 5).onTrue   (new IntakeGrabAlgae(intake) 
       .withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-    new JoystickButton(js1, 6).onTrue   (new IntakePutAlgae(intake)
+    new JoystickButton(js1, 6).whileTrue   (new IntakePutAlgae(intake)
       .withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
     new JoystickButton(js2, 1).and(()->js2.getPOV() == 90).and(()->LimelightHelpers.getTargetCount(LimelightConstants.device)!=0).onTrue(new PutCoralWithSwerve(claw, elevator, swerve, Reef.Right, Levels.Coral_L1));
@@ -70,6 +70,7 @@ public class RobotContainer {
     new JoystickButton(js2, 4).and(()->js2.getPOV() == 270).and(()->LimelightHelpers.getTargetCount(LimelightConstants.device)!=0).onTrue(new PutCoralWithSwerve(claw, elevator, swerve, Reef.Left, Levels.Coral_L3));
     new JoystickButton(js2, 6).and(()->js2.getPOV() == 0).and(()->LimelightHelpers.getTargetCount(LimelightConstants.device)!=0).onTrue(new AimReefAlgae(claw, elevator, swerve, Levels.Algea_L2));
     new JoystickButton(js2, 6).and(()->js2.getPOV() == 180).and(()->LimelightHelpers.getTargetCount(LimelightConstants.device)!=0).onTrue(new AimReefAlgae(claw, elevator, swerve, Levels.Algea_L1));
+    
   }
 
 

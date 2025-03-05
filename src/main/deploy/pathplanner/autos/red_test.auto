@@ -3,7 +3,44 @@
   "command": {
     "type": "sequential",
     "data": {
-      "commands": []
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "New New Path"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "PutCoral"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "New New New Path"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "GetCoral"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "New New New New Path"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "PutCoral"
+          }
+        }
+      ]
     }
   },
   "resetOdom": true,

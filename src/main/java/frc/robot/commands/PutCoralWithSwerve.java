@@ -21,12 +21,8 @@ public class PutCoralWithSwerve extends SequentialCommandGroup {
   /** Creates a new PutCoralWithSwerve. */
   public PutCoralWithSwerve(Claw claw, Elevator elevator, Swerve swerve, Reef reef, Levels level) {
     addCommands(
-      new ParallelCommandGroup(
-        new MoveToReef(swerve, reef),
-        new ToLevel(claw, elevator, level)
-      ),
-      new PutCoral(claw),
-      new ToLevel(claw, elevator, Levels.Default)
+      new MoveToReef(swerve, reef)
+      // new ToLevel(claw, elevator, Levels.Default)
     );
   }
 }

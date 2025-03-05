@@ -83,7 +83,7 @@ public class MoveToReef extends Command {
 
   @Override
   public void execute() {
-    resetRobotPose(hasTargetTag());
+    resetRobotPose(false);
 
     t_bot_pos = swerve.getGyroAngle().getDegrees();
     t_err = t_set_pos - t_bot_pos;
