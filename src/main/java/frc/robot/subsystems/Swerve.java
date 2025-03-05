@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import com.ctre.phoenix6.Orchestra;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
@@ -33,7 +34,7 @@ public class Swerve extends SubsystemBase {
   private final AHRS gyro;
   private final SwerveDrivePoseEstimator poseEstimator;
   private Field2d field = new Field2d();
-
+  public final Orchestra RickAstley = new Orchestra(); 
   private final double invert, initial_angle;
 
   /**
@@ -159,13 +160,18 @@ public class Swerve extends SubsystemBase {
         back_right.getPosition(),
         back_left.getPosition()
       }, new Pose2d(0, 0, getGyroAngle())
-    );
-
-    invert = DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red ? -1.0: 1.0;
-    initial_angle = gyro.getAngle() + ( DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red ? 180: 0);
-
-    drive(0, 0, 0, false);
-
+      );
+      
+      invert = DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red ? -1.0: 1.0;
+      initial_angle = gyro.getAngle() + ( DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red ? 180: 0);
+      
+      drive(0, 0, 0, false);
+      
+    front_left.SetOrchestra(RickAstley);
+    front_right.SetOrchestra(RickAstley);
+    back_left.SetOrchestra(RickAstley);
+    back_right.SetOrchestra(RickAstley);
+    
     configAuto();
   }   
 
@@ -177,6 +183,7 @@ public class Swerve extends SubsystemBase {
     SmartDashboard.putData("field",field);
     front_left.logging("fl");
     logInfo();;
+    RickAstley.play();
   }
 
   private void updateSwerveModuleData() {
@@ -192,4 +199,5 @@ public class Swerve extends SubsystemBase {
     SmartDashboard.putNumber("Y Current Velocity", speeds.vyMetersPerSecond);
     SmartDashboard.putNumber("Omega Current Velocity", speeds.omegaRadiansPerSecond);
   }
+
 }

@@ -2,6 +2,7 @@ package frc.robot.modules;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import com.ctre.phoenix6.Orchestra;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
 
@@ -78,5 +79,10 @@ public class SwerveModule {
     double v = driveMotor.getVelocity().getValueAsDouble();
     max = v > max ? v : max;
     SmartDashboard.putNumber(name+ " V", max);
+  }
+  public void SetOrchestra(Orchestra m_Orchestra) {
+    m_Orchestra.addInstrument(driveMotor);
+    m_Orchestra.addInstrument(turnMotor);
+    return;
   }
 }
