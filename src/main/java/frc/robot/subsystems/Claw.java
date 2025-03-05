@@ -30,6 +30,7 @@ public class Claw extends SubsystemBase {
 
     shaft_motor.configure(ClawConstants.Configs.getShaftConfig(), ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     grabber_motor.configure(ClawConstants.Configs.getGrabberConfig(), ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    stuck_pose = grabber_motor.getEncoder().getPosition();
     stuck = true;
 
     grabber_motor.set(0);
@@ -69,5 +70,6 @@ public class Claw extends SubsystemBase {
   public void periodic() {
     setShaftPosition(level.getAngle());
     if(stuck) grabber_motor.getClosedLoopController().setReference(stuck_pose, ControlType.kPosition);
+    System.out.println(sensor.getValue());
   }
 }

@@ -5,14 +5,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
+import java.lang.System.Logger.Level;
+
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
-import frc.robot.commands.AimReefAlgae;
-import frc.robot.commands.PutCoralWithSwerve;
 import frc.robot.commands.ToLevel;
-import frc.robot.commands.claw.ClawGrabAlgae;
-import frc.robot.commands.claw.ClawPutAlgae;
 import frc.robot.commands.claw.GrabCoral;
+import frc.robot.commands.claw.PutCoral;
 import frc.robot.commands.intake.IntakeGrabAlgae;
 import frc.robot.commands.intake.IntakePutAlgae;
 import frc.robot.commands.swerve.ArcadeDrive;
@@ -47,30 +46,16 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    new JoystickButton(js1, 1).onTrue   (new GrabCoral(claw)         
-      .withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-    new JoystickButton(js1, 2).whileTrue(new ClawGrabAlgae(claw)     
-      .withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-    new JoystickButton(js1, 3).whileTrue(new ClawPutAlgae(claw)      
-      .withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-    new JoystickButton(js1, 4).onTrue   (new ToLevel(claw, elevator, Levels.DefaultWithAlgae)
-      .withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-    new JoystickButton(js1, 5).onTrue   (new IntakeGrabAlgae(intake) 
-      .withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-    new JoystickButton(js1, 6).whileTrue   (new IntakePutAlgae(intake)
-      .withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+    new JoystickButton(js1, 5).and(()->!claw.detectCoral()).whileTrue(new GrabCoral(claw));
+    new JoystickButton(js1, 6).whileTrue(new PutCoral(claw));
 
-    new JoystickButton(js2, 1).and(()->js2.getPOV() == 90).and(()->LimelightHelpers.getTargetCount(LimelightConstants.device)!=0).onTrue(new PutCoralWithSwerve(claw, elevator, swerve, Reef.Right, Levels.Coral_L1));
-    new JoystickButton(js2, 2).and(()->js2.getPOV() == 90).and(()->LimelightHelpers.getTargetCount(LimelightConstants.device)!=0).onTrue(new PutCoralWithSwerve(claw, elevator, swerve, Reef.Right, Levels.Coral_L2));
-    new JoystickButton(js2, 3).and(()->js2.getPOV() == 90).and(()->LimelightHelpers.getTargetCount(LimelightConstants.device)!=0).onTrue(new PutCoralWithSwerve(claw, elevator, swerve, Reef.Right, Levels.Coral_L4));
-    new JoystickButton(js2, 4).and(()->js2.getPOV() == 90).and(()->LimelightHelpers.getTargetCount(LimelightConstants.device)!=0).onTrue(new PutCoralWithSwerve(claw, elevator, swerve, Reef.Right, Levels.Coral_L3));
-    new JoystickButton(js2, 1).and(()->js2.getPOV() == 270).and(()->LimelightHelpers.getTargetCount(LimelightConstants.device)!=0).onTrue(new PutCoralWithSwerve(claw, elevator, swerve, Reef.Left, Levels.Coral_L1));
-    new JoystickButton(js2, 2).and(()->js2.getPOV() == 270).and(()->LimelightHelpers.getTargetCount(LimelightConstants.device)!=0).onTrue(new PutCoralWithSwerve(claw, elevator, swerve, Reef.Left, Levels.Coral_L2));
-    new JoystickButton(js2, 3).and(()->js2.getPOV() == 270).and(()->LimelightHelpers.getTargetCount(LimelightConstants.device)!=0).onTrue(new PutCoralWithSwerve(claw, elevator, swerve, Reef.Left, Levels.Coral_L4));
-    new JoystickButton(js2, 4).and(()->js2.getPOV() == 270).and(()->LimelightHelpers.getTargetCount(LimelightConstants.device)!=0).onTrue(new PutCoralWithSwerve(claw, elevator, swerve, Reef.Left, Levels.Coral_L3));
-    new JoystickButton(js2, 6).and(()->js2.getPOV() == 0).and(()->LimelightHelpers.getTargetCount(LimelightConstants.device)!=0).onTrue(new AimReefAlgae(claw, elevator, swerve, Levels.Algea_L2));
-    new JoystickButton(js2, 6).and(()->js2.getPOV() == 180).and(()->LimelightHelpers.getTargetCount(LimelightConstants.device)!=0).onTrue(new AimReefAlgae(claw, elevator, swerve, Levels.Algea_L1));
-    
+    new JoystickButton(js2, 1).onTrue(new ToLevel(claw, elevator, Levels.Coral_L1));
+    new JoystickButton(js2, 2).onTrue(new ToLevel(claw, elevator, Levels.Coral_L2));
+    new JoystickButton(js2, 3).onTrue(new ToLevel(claw, elevator, Levels.Coral_L4));
+    new JoystickButton(js2, 4).onTrue(new ToLevel(claw, elevator, Levels.Coral_L3));
+    new JoystickButton(js2, 5).and(()->js2.getPOV() == 0).onTrue(new ToLevel(claw, elevator, Levels.Algea_L2));
+    new JoystickButton(js2, 5).and(()->js2.getPOV() == 180).onTrue(new ToLevel(claw, elevator, Levels.Algea_L1));
+    new JoystickButton(js2, 6).onTrue(new ToLevel(claw, elevator, Levels.DefaultWithAlgae));
   }
 
 

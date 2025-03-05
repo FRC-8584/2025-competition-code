@@ -15,6 +15,7 @@ public class GrabCoral extends Command {
 
   @Override
   public void initialize() {
+    claw.stuckAlgae(false);
     counter = 0;
   }
 
@@ -26,11 +27,13 @@ public class GrabCoral extends Command {
 
   @Override
   public void end(boolean interrupted) {
+    claw.stuckAlgae(true);
     claw.setGrabberPower(0);
   }
 
   @Override
   public boolean isFinished() {
+    System.out.println(counter);
     if((counter >= ClawConstants.GrabCoralDelay / 0.05)) return true;
     else return false;
   }

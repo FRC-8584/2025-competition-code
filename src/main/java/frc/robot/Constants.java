@@ -19,8 +19,8 @@ import frc.robot.utils.AxieOptimizer;
 public class Constants {
   public static enum Levels {
     Coral_L1(0, 0), 
-    Coral_L2(15.0, 15.0), 
-    Coral_L3(15.0, 27.0), 
+    Coral_L2(20.0, 18.0), 
+    Coral_L3(15.0, 37.0), 
     Coral_L4(55.0, 75.0),
     Algea_L1(145.0, 24.0),
     Algea_L2(145.0, 44.0),
@@ -45,9 +45,9 @@ public class Constants {
   }
 
   public static enum Reef {
-    Left       (-0.53, 0.17),
-    Right      (-0.53, -0.17),
-    Medium     (-0.53, 0.0);
+    Left       (0.53, 0.17),
+    Right      (0.53, -0.17),
+    Medium     (0.53, 0.0);
 
     private double x, y;
 
@@ -105,7 +105,7 @@ public class Constants {
 
   public static class SwerveConstants{
     public static final double kDriveGearRatio = 8.14;
-    public static final double kWheelRadius = 0.053; // m
+    public static final double kWheelRadius = 0.052; // m
     public static final double kSwerveWheelDistance_x = 0.565;// m
     public static final double kSwerveWheelDistance_y = 0.585;// m
 
@@ -175,13 +175,13 @@ public class Constants {
     public static final double MaxPower = 0.5;
     public static final double MinPower = -0.5;
 
-    public static final double GrabPower = 0.8;
-    public static final double PutPower = 0.8;
+    public static final double GrabPower = -0.8;
+    public static final double PutPower = -0.8;
 
     public static final int SensorPort = 0;
-    public static final double SensorThreshold = 1350;
-    public static final double GrabCoralDelay = 0.3; //s
-    public static final double PutDelay = 0.4; //s
+    public static final double SensorThreshold = 1100;
+    public static final double GrabCoralDelay = 0.1; //s
+    public static final double PutDelay = 0.8; //s
 
     public static class  Configs {
       public static SparkMaxConfig getShaftConfig() {
@@ -193,7 +193,7 @@ public class Constants {
           .positionConversionFactor(360.0 / 80.0);
         configs.closedLoop
           .outputRange(MinPower, MaxPower)
-          .positionWrappingInputRange(MaxAngle, MinAngle)
+          .positionWrappingInputRange(MinAngle, MaxAngle)
           .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
           .pid(0.05, 0, 0);
 
@@ -204,8 +204,6 @@ public class Constants {
         configs
           .inverted(true)
           .idleMode(IdleMode.kBrake);
-        configs.encoder
-          .positionConversionFactor(360.0 / 80.0);
         configs.closedLoop
           .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
           .pid(0.1, 0, 0);
@@ -301,9 +299,9 @@ public class Constants {
     public static final double X      = 0.19; //m
     public static final double Z      = 0.25; //m
     public static final double Y      = 0.92; //m
-    public static final double Pitch  = -40.98; //degree
-    public static final double Roll   = -14.14; //degree
-    public static final double Yaw    = 7.30; //degree
+    public static final double Pitch  = -41.26; //degree
+    public static final double Roll   = -6.46; //degree
+    public static final double Yaw    = 18.37; //degree
 
     public static final double X_Distance = 0.15; //m
     public static final double Y_Distance = 0.20; //m

@@ -175,8 +175,6 @@ public class Swerve extends SubsystemBase {
     updateOdometry();
     field.setRobotPose(getPose());
     SmartDashboard.putData("field",field);
-    front_left.logging("fl");
-    logInfo();;
   }
 
   private void updateSwerveModuleData() {
