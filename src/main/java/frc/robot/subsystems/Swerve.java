@@ -145,6 +145,8 @@ public class Swerve extends SubsystemBase {
   }
 
   public Swerve() {
+    RickAstley.loadMusic("");
+
     front_left = new SwerveModule(CAN_DeviceID.FL_TurnID, CAN_DeviceID.FL_DriveID, CAN_DeviceID.FL_CANcoderID, CancoderOffsets.FrontLeft);
     front_right = new SwerveModule(CAN_DeviceID.FR_TurnID, CAN_DeviceID.FR_DriveID, CAN_DeviceID.FR_CANcoderID, CancoderOffsets.FrontRight);
     back_right = new SwerveModule(CAN_DeviceID.BR_TurnID, CAN_DeviceID.BR_DriveID, CAN_DeviceID.BR_CANcoderID, CancoderOffsets.BackRight);
@@ -171,7 +173,7 @@ public class Swerve extends SubsystemBase {
     front_right.SetOrchestra(RickAstley);
     back_left.SetOrchestra(RickAstley);
     back_right.SetOrchestra(RickAstley);
-    
+
     configAuto();
   }   
 
