@@ -25,12 +25,14 @@ public class Claw extends SubsystemBase {
 
   public Claw() {
     shaft_motor = new SparkMax(CAN_DeviceID.Claw_ShaftID, MotorType.kBrushless);
-    grabber_motor = new SparkMax(CAN_DeviceID.Claw_GrabberID, MotorType.kBrushless);
+    grabber_motor = new SparkMax(CAN_DeviceID.Claw_GrabberID, MotorType.kBrushed);
     sensor = new AnalogInput(ClawConstants.SensorPort);
 
     shaft_motor.configure(ClawConstants.Configs.getShaftConfig(), ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     grabber_motor.configure(ClawConstants.Configs.getGrabberConfig(), ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     stuck = true;
+
+    grabber_motor.set(0);
   }
   
   public void setShaftLevel(Levels level) {
@@ -66,7 +68,6 @@ public class Claw extends SubsystemBase {
   @Override
   public void periodic() {
     setShaftPosition(level.getAngle());
-    System.out.println(grabber_motor.getOutputCurrent());
     if(stuck) grabber_motor.getClosedLoopController().setReference(stuck_pose, ControlType.kPosition);
   }
 }

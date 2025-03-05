@@ -75,15 +75,6 @@ public class Constants {
           
     public static final double TurnSpeed = 0.4;
     public static final double DriveSpeed = 0.7;
-
-    public static class Keys {
-      public static final int ToReefL1 = 1;
-      public static final int ToReefL2 = 2;
-      public static final int ToReefL3 = 4;
-      public static final int ToReefL4 = 3;
-      public static final int GetCoral = 5;
-      public static final int StopGetCoral = 6;
-    }
   }
   
   public static class CAN_DeviceID {
@@ -108,8 +99,8 @@ public class Constants {
     public static final int Claw_ShaftID           =  15;
     public static final int Claw_GrabberID         =  16;
 
-    public static final int Intake_ShaftID        =  15;
-    public static final int Intake_GrabberID        =  16;
+    public static final int Intake_ShaftID        =  19;
+    public static final int Intake_GrabberID        =  20;
   }
 
   public static class SwerveConstants{
