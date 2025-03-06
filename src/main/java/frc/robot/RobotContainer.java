@@ -74,6 +74,10 @@ public class RobotContainer {
         },
         intake));
 
+    claw.setDefaultCommand(
+      new ControlGrabber(claw, ()->js1.getRawAxis(5), ()->js1.getRawAxis(6))
+    );
+
     configureBindings();
     configureLimelight();
     configNamedCommands();
