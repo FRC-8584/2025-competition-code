@@ -1,7 +1,7 @@
 package frc.robot.utils;
 
 public class AxieOptimizer {
-  private final double weight;
+  private double weight;
   private double c, t;
   
   public AxieOptimizer(double weight) {
@@ -22,5 +22,9 @@ public class AxieOptimizer {
   public void reset() {
     c = 0;
     t = 0;
+  }
+
+  public void setWeight(double weight) {
+    this.weight = weight;
   }
 }

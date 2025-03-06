@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 9.95,
-        "y": 6.1
+        "x": 16.360500000000002,
+        "y": 7.07675
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.592787609686539,
-        "y": 5.333955556881022
+        "x": 15.980250000000002,
+        "y": 6.8135
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "End_1-2R"
     },
     {
       "anchor": {
-        "x": 11.59275,
-        "y": 4.0249999999999995
+        "x": 13.679250000000001,
+        "y": 5.38025
       },
       "prevControl": {
-        "x": 10.94996239031346,
-        "y": 4.791044443118978
+        "x": 14.313000000000002,
+        "y": 5.78
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -121.1593045083444
   },
   "reversed": false,
-  "folder": "Test",
+  "folder": "Competition-pre",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": -126.6070748126074
   },
   "useDefaultConstraints": true
 }
