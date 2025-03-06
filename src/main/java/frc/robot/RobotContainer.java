@@ -1,13 +1,19 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.commands.PathPlannerAuto;
 
+import frc.robot.commands.ResetToAlgaeDefault;
+import frc.robot.commands.ResetToDefault;
 import frc.robot.commands.ToLevel;
 import frc.robot.commands.claw.ControlGrabber;
 import frc.robot.commands.claw.GrabCoral;
@@ -29,8 +35,14 @@ public class RobotContainer {
   private Claw claw = new Claw();
   private Intake intake = new Intake();
   private Elevator elevator = new Elevator();
+
+  private SendableChooser<Command> autoChooser;
   
   public RobotContainer() {
+
+    autoChooser = AutoBuilder.buildAutoChooser();
+    SmartDashboard.putData("Auto Chooser", autoChooser);
+
     swerve.setDefaultCommand(
       new ArcadeDrive(
         swerve,
@@ -72,6 +84,8 @@ public class RobotContainer {
     new JoystickButton(js1, 4).and(()->LimelightHelpers.getTargetCount(LimelightConstants.device)!=0).onTrue(new MoveToReef(swerve,Reef.Medium));
     new JoystickButton(js1, 5).and(()->!claw.detectCoral()).whileTrue(new GrabCoral(claw));
     new JoystickButton(js1, 6).and(()->claw.detectCoral()).onTrue(new PutCoral(claw));
+    new JoystickButton(js1, 7).onTrue(new ResetToDefault(claw, elevator, intake).withInterruptBehavior(InterruptionBehavior.kCancelIncoming));
+    new JoystickButton(js1, 8).onTrue(new ResetToAlgaeDefault(claw, elevator, intake).withInterruptBehavior(InterruptionBehavior.kCancelIncoming));
 
     new JoystickButton(js2, 1).onTrue(new ToLevel(claw, elevator, Levels.Coral_L1));
     new JoystickButton(js2, 2).onTrue(new ToLevel(claw, elevator, Levels.Coral_L2));
@@ -80,6 +94,8 @@ public class RobotContainer {
     new JoystickButton(js2, 5).and(()->js2.getPOV() == 0).onTrue(new ToLevel(claw, elevator, Levels.Algea_L2));
     new JoystickButton(js2, 5).and(()->js2.getPOV() == 180).onTrue(new ToLevel(claw, elevator, Levels.Algea_L1));
     new JoystickButton(js2, 6).onTrue(new ToLevel(claw, elevator, Levels.DefaultWithAlgae));
+    new JoystickButton(js2, 7).onTrue(new ResetToDefault(claw, elevator, intake).withInterruptBehavior(InterruptionBehavior.kCancelIncoming));
+    new JoystickButton(js2, 8).onTrue(new ResetToAlgaeDefault(claw, elevator, intake).withInterruptBehavior(InterruptionBehavior.kCancelIncoming));
   }
 
 
@@ -96,13 +112,18 @@ public class RobotContainer {
   }
 
   private void configNamedCommands() {
-    NamedCommands.registerCommand("PutCoral", null);
-    NamedCommands.registerCommand("GetCoral", null);
-    NamedCommands.registerCommand("GrabAlgae_L1", null);
-    NamedCommands.registerCommand("GrabAlgae_L2", null);
+    NamedCommands.registerCommand("PutCoral",
+      new SequentialCommandGroup(
+        new ToLevel(claw, elevator, Levels.Coral_L4),
+        new ToLevel(claw, elevator, Levels.Default)
+      )
+    );
+    NamedCommands.registerCommand("GetCoral",
+      new GrabCoral(claw)
+    );
   }
 
   public Command getAutonomousCommand() {
-    return new PathPlannerAuto("red_test");
+    return autoChooser.getSelected();
   }
 }
