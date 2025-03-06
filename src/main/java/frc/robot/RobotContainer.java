@@ -49,7 +49,8 @@ public class RobotContainer {
         ()->-js1.getY(),
         ()->-js1.getX(),
         ()->-js1.getRawAxis(4),
-        ()->js1.getRawButton(1)
+        ()->js1.getRawButton(1),
+        ()->js1.getRawButtonPressed(8)
       )
     );
     claw.setDefaultCommand(
@@ -85,7 +86,6 @@ public class RobotContainer {
     new JoystickButton(js1, 5).and(()->!claw.detectCoral()).whileTrue(new GrabCoral(claw));
     new JoystickButton(js1, 6).and(()->claw.detectCoral()).onTrue(new PutCoral(claw));
     new JoystickButton(js1, 7).onTrue(new ResetToDefault(claw, elevator, intake).withInterruptBehavior(InterruptionBehavior.kCancelIncoming));
-    new JoystickButton(js1, 8).onTrue(new ResetToAlgaeDefault(claw, elevator, intake).withInterruptBehavior(InterruptionBehavior.kCancelIncoming));
 
     new JoystickButton(js2, 1).onTrue(new ToLevel(claw, elevator, Levels.Coral_L1));
     new JoystickButton(js2, 2).onTrue(new ToLevel(claw, elevator, Levels.Coral_L2));
