@@ -1,0 +1,49 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Path_Blue_2-1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "PutCoral"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Path_blue_2-2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "GetCoral"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Path_Blue_2-3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "PutCoral"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "Competition-pre",
+  "choreoAuto": false
+}
