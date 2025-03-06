@@ -34,7 +34,7 @@ public class IntakeGrabAlgae extends Command {
     @Override
     public boolean isFinished() {
         System.out.println(counter);
-        if(counter > 15) return true;
+        if(counter > 20) return true;
         return false;
     }
 }

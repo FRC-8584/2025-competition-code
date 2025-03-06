@@ -2,24 +2,25 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
-import java.lang.System.Logger.Level;
 
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
+import frc.robot.commands.ResetToDefault;
 import frc.robot.commands.ToLevel;
 import frc.robot.commands.claw.GrabCoral;
 import frc.robot.commands.claw.PutCoral;
 import frc.robot.commands.intake.IntakeGrabAlgae;
-import frc.robot.commands.intake.IntakePutAlgae;
 import frc.robot.commands.swerve.ArcadeDrive;
+import frc.robot.commands.swerve.MoveToReef;
 import frc.robot.subsystems.*;
 import frc.robot.Constants.Levels;
 import frc.robot.Constants.LimelightConstants;
 import frc.robot.Constants.Reef;
 import frc.robot.utils.LimelightHelpers;
+import frc.robot.utils.Tools;
 
 public class RobotContainer {
   private Joystick js1 = new Joystick(0);
@@ -39,6 +40,20 @@ public class RobotContainer {
         ()->-js1.getRawAxis(4)
       )
     );
+    intake.setDefaultCommand(
+      new RunCommand(
+        ()->{
+          double power = Tools.deadband(js2.getRawAxis(5), 0.2);
+          if(power != 0) {
+            intake.setGrabberPower(power);
+            intake.setShaftPosition(20);
+          }
+          else{
+            intake.setGrabberPower(0);
+            intake.setShaftPosition(0);
+          }
+        },
+        intake));
 
     configureBindings();
     configureLimelight();
@@ -46,6 +61,10 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
+    new JoystickButton(js1, 1).onTrue(new IntakeGrabAlgae(intake));
+    new JoystickButton(js1, 2).and(()->LimelightHelpers.getTargetCount(LimelightConstants.device)!=0).onTrue(new MoveToReef(swerve,Reef.Right));
+    new JoystickButton(js1, 3).and(()->LimelightHelpers.getTargetCount(LimelightConstants.device)!=0).onTrue(new MoveToReef(swerve,Reef.Left));
+    new JoystickButton(js1, 4).and(()->LimelightHelpers.getTargetCount(LimelightConstants.device)!=0).onTrue(new MoveToReef(swerve,Reef.Medium));
     new JoystickButton(js1, 5).and(()->!claw.detectCoral()).whileTrue(new GrabCoral(claw));
     new JoystickButton(js1, 6).whileTrue(new PutCoral(claw));
 
@@ -56,6 +75,9 @@ public class RobotContainer {
     new JoystickButton(js2, 5).and(()->js2.getPOV() == 0).onTrue(new ToLevel(claw, elevator, Levels.Algea_L2));
     new JoystickButton(js2, 5).and(()->js2.getPOV() == 180).onTrue(new ToLevel(claw, elevator, Levels.Algea_L1));
     new JoystickButton(js2, 6).onTrue(new ToLevel(claw, elevator, Levels.DefaultWithAlgae));
+
+    new JoystickButton(js1, 8).onTrue(new ResetToDefault(claw, intake, swerve, elevator));
+    new JoystickButton(js2, 8).onTrue(new ResetToDefault(claw, intake, swerve, elevator));
   }
 
 

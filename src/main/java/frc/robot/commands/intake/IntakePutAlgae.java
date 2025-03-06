@@ -30,7 +30,6 @@ public class IntakePutAlgae extends Command {
 
     @Override
     public boolean isFinished() {
-        
         return false;
     }
 }
