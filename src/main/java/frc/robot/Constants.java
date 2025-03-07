@@ -68,9 +68,9 @@ public class Constants {
   public static class OperationConstant {
     public static final AxieOptimizer[] axieOptimizers = 
       new AxieOptimizer[] {
-        new AxieOptimizer(0.035),
-        new AxieOptimizer(0.035),
-        new AxieOptimizer(0.05)
+        new AxieOptimizer(0.1),
+        new AxieOptimizer(0.1),
+        new AxieOptimizer(0.15)
     };
           
     public static final double TurnSpeed = 0.4;
@@ -172,15 +172,15 @@ public class Constants {
     public static final double MaxAngle = 150.0; // degree
     public static final double MinAngle = 0; // degree
 
-    public static final double MaxPower = 0.8;
-    public static final double MinPower = -0.8;
+    public static final double MaxPower = 0.5;
+    public static final double MinPower = -0.5;
 
-    public static final double GrabPower = -0.3;
+    public static final double GrabPower = -0.6;
     public static final double PutPower = -0.8;
 
     public static final int SensorPort = 0;
     public static final double SensorThreshold = 1100;
-    public static final double GrabCoralDelay = 0.25; //s
+    public static final double GrabCoralDelay = 0.15; //s
     public static final double PutDelay = 0.8; //s
 
     public static class  Configs {
@@ -297,14 +297,18 @@ public class Constants {
 
     /* config limelight offsets */
     public static final double X      = 0.19; //m
-    public static final double Z      = 0.25; //m
-    public static final double Y      = 0.92; //m
-    public static final double Pitch  = -41.26; //degree
-    public static final double Roll   = -6.46; //degree
-    public static final double Yaw    = 18.37; //degree
+    public static final double Z      = 0.23; //m
+    public static final double Y      = 0.99; //m
+    public static final double Pitch  = -45.0; //degree
+    public static final double Roll   = 2.0; //degree
+    public static final double Yaw    = 22.12; //degree
 
-    public static final double X_Distance = 0.15; //m
-    public static final double Y_Distance = 0.20; //m
-    public static final double AutoAimDeadband = 0.01; //m
+    public static final double RightTxInCameraSpace = -0.10;
+    public static final double RightTzInCameraSpace = 0.5;
+    public static final double LeftTxInCameraSpace = 0.10;
+    public static final double LeftTzInCameraSpace = 0.10;
+    public static final double MiddleTxInCameraSpace = 0;
+    public static final double MiddleTzInCameraSpace = 0;
+    public static final double HorizontalYawInCameraSpace = 23.0;
   }
 }

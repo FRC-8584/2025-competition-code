@@ -20,9 +20,11 @@ import frc.robot.commands.claw.ControlGrabber;
 import frc.robot.commands.claw.GetCoral;
 import frc.robot.commands.claw.PutCoral;
 import frc.robot.commands.swerve.ArcadeDrive;
+import frc.robot.commands.swerve.MoveToReef_V2;
 import frc.robot.subsystems.*;
 import frc.robot.Constants.Levels;
 import frc.robot.Constants.LimelightConstants;
+import frc.robot.Constants.Reef;
 import frc.robot.utils.LimelightHelpers;
 import frc.robot.utils.Tools;
 
@@ -38,9 +40,6 @@ public class RobotContainer {
   private SendableChooser<Command> autoChooser;
   
   public RobotContainer() {
-
-    autoChooser = AutoBuilder.buildAutoChooser();
-
     swerve.setDefaultCommand(
       new ArcadeDrive(
         swerve,
@@ -86,9 +85,9 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    // new JoystickButton(js1, 2).and(()->LimelightHelpers.getTargetCount(LimelightConstants.device)!=0).onTrue(new MoveToReef(swerve,Reef.Right));
-    // new JoystickButton(js1, 3).and(()->LimelightHelpers.getTargetCount(LimelightConstants.device)!=0).onTrue(new MoveToReef(swerve,Reef.Left));
-    // new JoystickButton(js1, 4).and(()->LimelightHelpers.getTargetCount(LimelightConstants.device)!=0).onTrue(new MoveToReef(swerve,Reef.Medium));
+    new JoystickButton(js1, 2).and(()->LimelightHelpers.getTargetCount(LimelightConstants.device)!=0).onTrue(new MoveToReef_V2(swerve,Reef.Right));
+    new JoystickButton(js1, 3).and(()->LimelightHelpers.getTargetCount(LimelightConstants.device)!=0).onTrue(new MoveToReef_V2(swerve,Reef.Left));
+    new JoystickButton(js1, 4).and(()->LimelightHelpers.getTargetCount(LimelightConstants.device)!=0).onTrue(new MoveToReef_V2(swerve,Reef.Medium));
     new JoystickButton(js1, 5).and(()->!claw.detectCoral()).onTrue(new GetCoral(claw));
     new JoystickButton(js1, 6).and(()->claw.detectCoral()).onTrue(new PutCoral(claw));
     new JoystickButton(js1, 7).onTrue(new ResetToDefault(claw, elevator, intake, swerve).withInterruptBehavior(InterruptionBehavior.kCancelIncoming));
@@ -132,6 +131,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("GrabAlgae_L1",
     new PrintCommand("a")
     );
+    autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
   }
 

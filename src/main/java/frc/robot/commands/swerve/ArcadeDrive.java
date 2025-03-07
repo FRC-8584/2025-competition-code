@@ -38,14 +38,15 @@ public class ArcadeDrive extends Command {
       fieldRelative = !fieldRelative;
     }
     if(isSlowDown.get()) {
+      fieldRelative = false;
       OperationConstant.axieOptimizers[0].setWeight(0.2);
       OperationConstant.axieOptimizers[1].setWeight(0.2);
       OperationConstant.axieOptimizers[2].setWeight(0.3);
     }
     else {
-      OperationConstant.axieOptimizers[0].setWeight(0.035);
-      OperationConstant.axieOptimizers[1].setWeight(0.035);
-      OperationConstant.axieOptimizers[2].setWeight(0.05);
+      OperationConstant.axieOptimizers[0].setWeight(0.1);
+      OperationConstant.axieOptimizers[1].setWeight(0.1);
+      OperationConstant.axieOptimizers[2].setWeight(0.15);
     }
     swerve.drive(
       OperationConstant.axieOptimizers[0].get(Tools.deadband(x.get() * (isSlowDown.get()?0.2:1.0), isSlowDown.get()?0.02:0.1)),
