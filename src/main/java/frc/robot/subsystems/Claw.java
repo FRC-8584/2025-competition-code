@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.ControlType;
@@ -70,6 +71,6 @@ public class Claw extends SubsystemBase {
   public void periodic() {
     setShaftPosition(level.getAngle());
     if(stuck) grabber_motor.getClosedLoopController().setReference(stuck_pose, ControlType.kPosition);
-    System.out.println(sensor.getValue());
+    SmartDashboard.putBoolean("Is stuck", stuck);
   }
 }

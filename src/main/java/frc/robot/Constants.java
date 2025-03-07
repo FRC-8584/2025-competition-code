@@ -175,12 +175,12 @@ public class Constants {
     public static final double MaxPower = 0.5;
     public static final double MinPower = -0.5;
 
-    public static final double GrabPower = -0.8;
+    public static final double GrabPower = -0.3;
     public static final double PutPower = -0.8;
 
     public static final int SensorPort = 0;
     public static final double SensorThreshold = 1100;
-    public static final double GrabCoralDelay = 0.1; //s
+    public static final double GrabCoralDelay = 0.25; //s
     public static final double PutDelay = 0.8; //s
 
     public static class  Configs {

@@ -4,11 +4,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Claw;
 import frc.robot.Constants.ClawConstants;
 
-public class GrabCoral extends Command {
+public class GetCoral extends Command {
   private Claw claw;
   private double counter;
 
-  public GrabCoral(Claw claw) {
+  public GetCoral(Claw claw) {
     this.claw = claw;
     addRequirements(this.claw);
   }
@@ -27,13 +27,12 @@ public class GrabCoral extends Command {
 
   @Override
   public void end(boolean interrupted) {
-    claw.stuckAlgae(true);
     claw.setGrabberPower(0);
+    claw.stuckAlgae(true);
   }
 
   @Override
   public boolean isFinished() {
-    System.out.println(counter);
     if((counter >= ClawConstants.GrabCoralDelay / 0.05)) return true;
     else return false;
   }

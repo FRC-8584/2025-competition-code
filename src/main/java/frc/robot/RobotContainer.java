@@ -16,7 +16,7 @@ import frc.robot.commands.ResetToAlgaeDefault;
 import frc.robot.commands.ResetToDefault;
 import frc.robot.commands.ToLevel;
 import frc.robot.commands.claw.ControlGrabber;
-import frc.robot.commands.claw.GrabCoral;
+import frc.robot.commands.claw.GetCoral;
 import frc.robot.commands.claw.PutCoral;
 import frc.robot.commands.swerve.ArcadeDrive;
 import frc.robot.commands.swerve.MoveToReef;
@@ -87,9 +87,9 @@ public class RobotContainer {
     new JoystickButton(js1, 2).and(()->LimelightHelpers.getTargetCount(LimelightConstants.device)!=0).onTrue(new MoveToReef(swerve,Reef.Right));
     new JoystickButton(js1, 3).and(()->LimelightHelpers.getTargetCount(LimelightConstants.device)!=0).onTrue(new MoveToReef(swerve,Reef.Left));
     new JoystickButton(js1, 4).and(()->LimelightHelpers.getTargetCount(LimelightConstants.device)!=0).onTrue(new MoveToReef(swerve,Reef.Medium));
-    new JoystickButton(js1, 5).and(()->!claw.detectCoral()).whileTrue(new GrabCoral(claw));
+    new JoystickButton(js1, 5).and(()->!claw.detectCoral()).onTrue(new GetCoral(claw));
     new JoystickButton(js1, 6).and(()->claw.detectCoral()).onTrue(new PutCoral(claw));
-    new JoystickButton(js1, 7).onTrue(new ResetToDefault(claw, elevator, intake).withInterruptBehavior(InterruptionBehavior.kCancelIncoming));
+    new JoystickButton(js1, 7).onTrue(new ResetToDefault(claw, elevator, intake, swerve).withInterruptBehavior(InterruptionBehavior.kCancelIncoming));
 
     new JoystickButton(js2, 1).onTrue(new ToLevel(claw, elevator, Levels.Coral_L1));
     new JoystickButton(js2, 2).onTrue(new ToLevel(claw, elevator, Levels.Coral_L2));
@@ -98,7 +98,7 @@ public class RobotContainer {
     new JoystickButton(js2, 5).and(()->js2.getPOV() == 0).onTrue(new ToLevel(claw, elevator, Levels.Algea_L2));
     new JoystickButton(js2, 5).and(()->js2.getPOV() == 180).onTrue(new ToLevel(claw, elevator, Levels.Algea_L1));
     new JoystickButton(js2, 6).onTrue(new ToLevel(claw, elevator, Levels.DefaultWithAlgae));
-    new JoystickButton(js2, 7).onTrue(new ResetToDefault(claw, elevator, intake).withInterruptBehavior(InterruptionBehavior.kCancelIncoming));
+    new JoystickButton(js2, 7).onTrue(new ResetToDefault(claw, elevator, intake, swerve).withInterruptBehavior(InterruptionBehavior.kCancelIncoming));
     new JoystickButton(js2, 8).onTrue(new ResetToAlgaeDefault(claw, elevator, intake).withInterruptBehavior(InterruptionBehavior.kCancelIncoming));
   }
 
@@ -123,7 +123,7 @@ public class RobotContainer {
       )
     );
     NamedCommands.registerCommand("GetCoral",
-      new GrabCoral(claw)
+      new GetCoral(claw)
     );
   }
 
