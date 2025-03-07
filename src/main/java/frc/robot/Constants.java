@@ -25,7 +25,7 @@ public class Constants {
     Algea_L1(145.0, 24.0),
     Algea_L2(145.0, 44.0),
     Dodge(20.0, -1),
-    DefaultWithAlgae(135.0, 0),
+    DefaultWithAlgae(150.0, 0),
     Default(0, 0);
 
     private double claw_angle, elevator_height;
@@ -169,11 +169,11 @@ public class Constants {
   }
 
   public static class ClawConstants {
-    public static final double MaxAngle = 145.0; // degree
+    public static final double MaxAngle = 150.0; // degree
     public static final double MinAngle = 0; // degree
 
-    public static final double MaxPower = 0.5;
-    public static final double MinPower = -0.5;
+    public static final double MaxPower = 0.8;
+    public static final double MinPower = -0.8;
 
     public static final double GrabPower = -0.3;
     public static final double PutPower = -0.8;

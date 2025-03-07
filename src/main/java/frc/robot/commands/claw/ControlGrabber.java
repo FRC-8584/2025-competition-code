@@ -28,7 +28,7 @@ public class ControlGrabber extends Command {
             claw.setGrabberPower(0);
             claw.stuckAlgae(true);
         }
-        else {
+        else if(power !=0 && claw.isStuck()){
             claw.stuckAlgae(false);
             claw.setGrabberPower(power);
         }

@@ -4,13 +4,16 @@
   "holonomicMode": true,
   "pathFolders": [
     "Blue_Right",
-    "Competition-pre",
+    "Competition-pre-coral",
     "Competition-temp",
+    "Competition-pre-Algae",
     "Test"
   ],
   "autoFolders": [
-    "Competition-pre",
-    "Competition-temp"
+    "Competition-pre-Algae",
+    "Competition-pre-Coral",
+    "Competition-temp",
+    "test"
   ],
   "defaultMaxVel": 4.091,
   "defaultMaxAccel": 3.0,

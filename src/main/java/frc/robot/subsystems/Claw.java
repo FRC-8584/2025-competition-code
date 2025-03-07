@@ -72,5 +72,6 @@ public class Claw extends SubsystemBase {
     setShaftPosition(level.getAngle());
     if(stuck) grabber_motor.getClosedLoopController().setReference(stuck_pose, ControlType.kPosition);
     SmartDashboard.putBoolean("Is stuck", stuck);
+    SmartDashboard.putNumber("Claw angle", shaft_motor.getEncoder().getPosition());
   }
 }

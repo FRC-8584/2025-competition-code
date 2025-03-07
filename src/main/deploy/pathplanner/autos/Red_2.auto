@@ -44,6 +44,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "Competition-pre",
+  "folder": "Competition-pre-Coral",
   "choreoAuto": false
 }

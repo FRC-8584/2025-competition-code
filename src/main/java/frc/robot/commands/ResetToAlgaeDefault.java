@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.Levels;
 import frc.robot.commands.claw.SetClawLevel;
@@ -11,6 +12,7 @@ import frc.robot.commands.elevator.SetElevatorLevel;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Swerve;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -18,11 +20,19 @@ import frc.robot.subsystems.Intake;
 public class ResetToAlgaeDefault extends SequentialCommandGroup {
   /** Creates a new ResetToDefault. */
   public ResetToAlgaeDefault(
+    Swerve swerve,
     Claw claw,
     Elevator elevator,
     Intake intake
   ) {
     addCommands(
+       new FunctionalCommand(
+        ()->swerve.drive(0,0,0,false),
+        ()->{},
+        (isFinished)->{},
+        ()->{return true;},
+        swerve
+      ),
       new SetClawLevel(Levels.DefaultWithAlgae, claw),
       new SetElevatorLevel(elevator, Levels.Default)
     );

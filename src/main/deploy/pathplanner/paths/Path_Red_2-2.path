@@ -21,7 +21,7 @@
       },
       "prevControl": {
         "x": 15.31725,
-        "y": 0.5442499999999997
+        "y": 0.5442499999999998
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,7 +45,7 @@
     "rotation": 125.94211187138252
   },
   "reversed": false,
-  "folder": "Competition-pre",
+  "folder": "Competition-pre-coral",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 59.26451229807999

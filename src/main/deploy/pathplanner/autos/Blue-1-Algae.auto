@@ -7,19 +7,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Path_Blue_1-1"
+            "pathName": "Blue-1-Algae"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "PutCoral"
+            "name": "GrabAlgae_L1"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "Competition-pre-Coral",
+  "folder": "Competition-pre-Algae",
   "choreoAuto": false
 }

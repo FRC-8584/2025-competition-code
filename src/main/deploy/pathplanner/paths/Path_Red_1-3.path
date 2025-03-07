@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 15.980250000000002,
-        "y": 6.8135
+        "x": 15.991598360655736,
+        "y": 6.81813524590164
       },
       "isLocked": false,
       "linkedName": "End_1-2R"
     },
     {
       "anchor": {
-        "x": 13.679250000000001,
-        "y": 5.38025
+        "x": 13.953688524590163,
+        "y": 5.175819672131147
       },
       "prevControl": {
-        "x": 14.313000000000002,
-        "y": 5.78
+        "x": 14.577049180327867,
+        "y": 5.65532786885246
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,7 +45,7 @@
     "rotation": -121.1593045083444
   },
   "reversed": false,
-  "folder": "Competition-pre",
+  "folder": "Competition-pre-coral",
   "idealStartingState": {
     "velocity": 0,
     "rotation": -126.6070748126074
