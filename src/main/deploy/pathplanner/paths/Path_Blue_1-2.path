@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.3527499999999995,
-        "y": 5.253499999999999
+        "x": 5.094774590163934,
+        "y": 5.451536885245901
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.894500000000001,
-        "y": 7.07675
+        "x": 4.636524590163935,
+        "y": 7.274786885245903
       },
       "isLocked": false,
       "linkedName": "End_1-1B"
@@ -48,7 +48,7 @@
   "folder": "Competition-pre-coral",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -119.99999999999999
+    "rotation": -118.61045966596518
   },
   "useDefaultConstraints": true
 }

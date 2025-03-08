@@ -1,6 +1,5 @@
 package frc.robot.commands.swerve;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import java.util.function.Supplier;
 
@@ -38,23 +37,27 @@ public class ArcadeDrive extends Command {
       fieldRelative = !fieldRelative;
     }
     if(isSlowDown.get()) {
-      fieldRelative = false;
       OperationConstant.axieOptimizers[0].setWeight(0.2);
       OperationConstant.axieOptimizers[1].setWeight(0.2);
       OperationConstant.axieOptimizers[2].setWeight(0.3);
+      swerve.drive(
+        OperationConstant.axieOptimizers[0].get(Tools.deadband(x.get() * (isSlowDown.get()?0.2:1.0), isSlowDown.get()?0.02:0.1)),
+        OperationConstant.axieOptimizers[1].get(Tools.deadband(y.get() * (isSlowDown.get()?0.2:1.0), isSlowDown.get()?0.02:0.1)),
+        OperationConstant.axieOptimizers[2].get(Tools.deadband(turn.get() * (isSlowDown.get()?0.2:1.0), isSlowDown.get()?0.02:0.1)), 
+        false
+      );
     }
     else {
       OperationConstant.axieOptimizers[0].setWeight(0.1);
       OperationConstant.axieOptimizers[1].setWeight(0.1);
       OperationConstant.axieOptimizers[2].setWeight(0.15);
+      swerve.drive(
+        OperationConstant.axieOptimizers[0].get(Tools.deadband(x.get() * (isSlowDown.get()?0.2:1.0), isSlowDown.get()?0.02:0.1)),
+        OperationConstant.axieOptimizers[1].get(Tools.deadband(y.get() * (isSlowDown.get()?0.2:1.0), isSlowDown.get()?0.02:0.1)),
+        OperationConstant.axieOptimizers[2].get(Tools.deadband(turn.get() * (isSlowDown.get()?0.2:1.0), isSlowDown.get()?0.02:0.1)), 
+        fieldRelative
+      );
     }
-    swerve.drive(
-      OperationConstant.axieOptimizers[0].get(Tools.deadband(x.get() * (isSlowDown.get()?0.2:1.0), isSlowDown.get()?0.02:0.1)),
-      OperationConstant.axieOptimizers[1].get(Tools.deadband(y.get() * (isSlowDown.get()?0.2:1.0), isSlowDown.get()?0.02:0.1)),
-      OperationConstant.axieOptimizers[2].get(Tools.deadband(turn.get() * (isSlowDown.get()?0.2:1.0), isSlowDown.get()?0.02:0.1)), 
-      fieldRelative
-    );
-    SmartDashboard.putBoolean("Swerve : Is FeildRelative", fieldRelative);
   }
 
   @Override

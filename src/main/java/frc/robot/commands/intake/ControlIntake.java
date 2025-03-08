@@ -26,11 +26,11 @@ public class ControlIntake extends Command {
             intake.setGrabberPower(0);
         }
         else if(power > 0) {
-            intake.setShaftPosition(53);
+            intake.setShaftPosition(90);
             intake.setGrabberPower(IntakeConstants.GrabPower);
         }
         else {
-            intake.setShaftPosition(20);
+            intake.setShaftPosition(30);
             intake.setGrabberPower(IntakeConstants.PutPower);
         }
     }

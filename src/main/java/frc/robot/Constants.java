@@ -181,7 +181,7 @@ public class Constants {
     public static final int SensorPort = 0;
     public static final double SensorThreshold = 1100;
     public static final double GrabCoralDelay = 0.15; //s
-    public static final double PutDelay = 0.8; //s
+    public static final double PutDelay = 0.5; //s
 
     public static class  Configs {
       public static SparkMaxConfig getShaftConfig() {
@@ -254,8 +254,8 @@ public class Constants {
     }
 
   public static class IntakeConstants {
-    public static final double MaxAngle = 45.0;
-    public static final double MinAngle = -10.0;
+    public static final double MaxAngle = 90.0;
+    public static final double MinAngle = 0.0;
     public static final double MinPower= -0.4;
     public static final double MaxPower= 0.4;
     public static final double GrabPower= -0.4;
@@ -296,19 +296,22 @@ public class Constants {
     public static final String device = "limelight";
 
     /* config limelight offsets */
-    public static final double X      = 0.19; //m
-    public static final double Z      = 0.23; //m
-    public static final double Y      = 0.99; //m
-    public static final double Pitch  = -45.0; //degree
-    public static final double Roll   = 2.0; //degree
-    public static final double Yaw    = 22.12; //degree
+    // public static final double X      = 0.19; //m
+    // public static final double Z      = 0.23; //m
+    // public static final double Y      = 0.99; //m
+    // public static final double Pitch  = -45.0; //degree
+    // public static final double Roll   = 2.0; //degree
+    // public static final double Yaw    = 22.12; //degree
 
-    public static final double RightTxInCameraSpace = -0.10;
-    public static final double RightTzInCameraSpace = 0.5;
-    public static final double LeftTxInCameraSpace = 0.10;
-    public static final double LeftTzInCameraSpace = 0.10;
-    public static final double MiddleTxInCameraSpace = 0;
-    public static final double MiddleTzInCameraSpace = 0;
-    public static final double HorizontalYawInCameraSpace = 23.0;
+    // public static final double RightTxInCameraSpace = -0.24;
+    // public static final double RightTzInCameraSpace = 0.75;
+    // public static final double RightYawInCameraSpace = 23.0;
+    // public static final double LeftTxInCameraSpace = 0.08;
+    // public static final double LeftTzInCameraSpace = 0.69;
+    // public static final double LeftYawInCameraSpace = 23.0;
+    // public static final double MiddleTxInCameraSpace = -0.05;
+    // public static final double MiddleTzInCameraSpace = 0.8;
+    // public static final double MiddleYawInCameraSpace = 23.0;
+    
   }
 }

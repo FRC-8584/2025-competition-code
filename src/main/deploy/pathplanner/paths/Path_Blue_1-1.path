@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.737090163934426,
-        "y": 6.494467213114754
+        "x": 6.761065573777055,
+        "y": 7.249692622951466
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.3527499999999995,
-        "y": 5.253499999999999
+        "x": 5.094774590163934,
+        "y": 5.451536885245901
       },
       "prevControl": {
-        "x": 6.317520491803278,
-        "y": 6.122848360655737
+        "x": 5.8140368852459,
+        "y": 6.362602459016393
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -119.99999999999999
+    "rotation": -118.61045966596518
   },
   "reversed": false,
   "folder": "Competition-pre-coral",

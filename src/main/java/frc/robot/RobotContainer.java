@@ -1,5 +1,6 @@
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -20,12 +21,11 @@ import frc.robot.commands.claw.ControlGrabber;
 import frc.robot.commands.claw.GetCoral;
 import frc.robot.commands.claw.PutCoral;
 import frc.robot.commands.swerve.ArcadeDrive;
-import frc.robot.commands.swerve.MoveToReef_V2;
+import frc.robot.commands.swerve.MoveToReef_V3;
 import frc.robot.subsystems.*;
 import frc.robot.Constants.Levels;
 import frc.robot.Constants.LimelightConstants;
 import frc.robot.Constants.Reef;
-import frc.robot.utils.LimelightHelpers;
 import frc.robot.utils.Tools;
 
 public class RobotContainer {
@@ -85,16 +85,16 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    new JoystickButton(js1, 2).and(()->LimelightHelpers.getTargetCount(LimelightConstants.device)!=0).onTrue(new MoveToReef_V2(swerve,Reef.Right));
-    new JoystickButton(js1, 3).and(()->LimelightHelpers.getTargetCount(LimelightConstants.device)!=0).onTrue(new MoveToReef_V2(swerve,Reef.Left));
-    new JoystickButton(js1, 4).and(()->LimelightHelpers.getTargetCount(LimelightConstants.device)!=0).onTrue(new MoveToReef_V2(swerve,Reef.Medium));
-    new JoystickButton(js1, 5).and(()->!claw.detectCoral()).onTrue(new GetCoral(claw));
-    new JoystickButton(js1, 6).and(()->claw.detectCoral()).onTrue(new PutCoral(claw));
+    new JoystickButton(js1, 2).whileTrue(new MoveToReef_V3(swerve, Reef.Right, ()->-js1.getY()));
+    new JoystickButton(js1, 3).whileTrue(new MoveToReef_V3(swerve, Reef.Left, ()->-js1.getY()));
+    new JoystickButton(js1, 4).whileTrue(new MoveToReef_V3(swerve, Reef.Medium, ()->-js1.getY()));
+    new JoystickButton(js1, 5).and(()->!claw.detectCoral()).onTrue(new GetCoral(claw, ()->js1.getRawButtonPressed(5)));
+    new JoystickButton(js1, 6).and(()->claw.detectCoral()).onTrue(new PutCoral(claw, ()->js1.getRawButtonPressed(6)));
     new JoystickButton(js1, 7).onTrue(new ResetToDefault(claw, elevator, intake, swerve).withInterruptBehavior(InterruptionBehavior.kCancelIncoming));
 
     new JoystickButton(js2, 1).onTrue(new ToLevel(claw, elevator, Levels.Coral_L1));
     new JoystickButton(js2, 2).onTrue(new ToLevel(claw, elevator, Levels.Coral_L2));
-    new JoystickButton(js2, 3).onTrue(new ToLevel(claw, elevator, Levels.Coral_L4));
+    // new JoystickButton(js2, 3).onTrue(new ToLevel(claw, elevator, Levels.Coral_L4));
     new JoystickButton(js2, 4).onTrue(new ToLevel(claw, elevator, Levels.Coral_L3));
 
     new JoystickButton(js2, 5).and(()->js2.getPOV() == 0).onTrue(new ToLevel(claw, elevator, Levels.Algea_L2));
@@ -105,17 +105,11 @@ public class RobotContainer {
     new JoystickButton(js2, 8).onTrue(new ResetToAlgaeDefault(swerve, claw, elevator, intake).withInterruptBehavior(InterruptionBehavior.kCancelIncoming));
   }
 
-
   private void configureLimelight(){
-    LimelightHelpers.setCameraPose_RobotSpace(
-      LimelightConstants.device,  // Device name
-      LimelightConstants.Z,       // Forward offset (meters)
-      LimelightConstants.X,       // Side offset (meters)
-      LimelightConstants.Y,       // Height offset (meters)
-      LimelightConstants.Roll,    // Roll (degrees)
-      LimelightConstants.Pitch,   // Pitch (degrees)
-      LimelightConstants.Yaw      // Yaw (degrees)
-    );
+    // NetworkTableInstance.getDefault().getTable(LimelightConstants.device).getEntry("pipeline").setNumber(
+    //   DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red ? 1 : 0
+    // );
+    NetworkTableInstance.getDefault().getTable(LimelightConstants.device).getEntry("ledMode").setNumber(1);
   }
 
   private void configNamedCommands() {
@@ -123,7 +117,7 @@ public class RobotContainer {
       new AutoPutCoral(claw, elevator)
     );
     NamedCommands.registerCommand("GetCoral",
-      new GetCoral(claw)
+      new GetCoral(claw, ()->{return false;})
     );
     NamedCommands.registerCommand("abcde",
       new PrintCommand("a")

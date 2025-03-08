@@ -20,12 +20,12 @@
         "y": 5.451536885245901
       },
       "prevControl": {
-        "x": 6.029815573770492,
-        "y": 6.5544057377049185
+        "x": 6.029607523266108,
+        "y": 6.55411126622179
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "End_1-1B-Algae"
+      "linkedName": "End_Algae_B_1-1"
     }
   ],
   "rotationTargets": [],

@@ -7,7 +7,31 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue-1-Algae"
+            "pathName": "Blue-Mid-Algae-1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "PutCoral"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blue-Mid-Algae-2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": null
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blue-Mid-Algae-3"
           }
         },
         {
