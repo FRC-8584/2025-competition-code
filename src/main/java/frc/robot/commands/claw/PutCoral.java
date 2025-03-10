@@ -42,7 +42,7 @@ public class PutCoral extends Command {
     
   @Override
   public boolean isFinished() {
-    if((counter >= ClawConstants.PutDelay / 0.05) || (condition_counter >= 6 && condition.get())) return true;
+    if((counter >= ClawConstants.PutDelay / 0.05)) return true;
     else return false;
   }
 

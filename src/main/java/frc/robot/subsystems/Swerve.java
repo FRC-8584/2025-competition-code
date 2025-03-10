@@ -31,7 +31,7 @@ public class Swerve extends SubsystemBase {
   private final AHRS gyro;
   private final SwerveDrivePoseEstimator poseEstimator;
 
-  private final double invert, initial_angle;
+  private final double invert;
 
   /**
    * Drive by "Axie"
@@ -102,7 +102,7 @@ public class Swerve extends SubsystemBase {
   }
 
   public Rotation2d getGyroAngle() {
-    double angle = (360 - (gyro.getAngle() - initial_angle)) % 360.0;
+    double angle = (360 - (gyro.getAngle() + OperationConstant.GyroOffset)) % 360.0;
     if (angle > 180) angle -= 360;
     if (angle <-180) angle += 360;
     return Rotation2d.fromDegrees(angle);
@@ -156,7 +156,6 @@ public class Swerve extends SubsystemBase {
     );
 
     invert = DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red ? -1.0: 1.0;
-    initial_angle = gyro.getAngle() + ( DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red ? 180: 0);
 
     drive(0, 0, 0, false);
 

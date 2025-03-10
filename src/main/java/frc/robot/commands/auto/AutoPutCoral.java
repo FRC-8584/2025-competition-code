@@ -20,9 +20,7 @@ public class AutoPutCoral extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ToLevel(claw, elevator, Levels.Coral_L4),
-      new PutCoral(claw, ()->{return false;}),
-      new ToLevel(claw, elevator, Levels.Default)
+      new ToLevel(claw, elevator, Levels.Coral_L4)
     );
   }
 }

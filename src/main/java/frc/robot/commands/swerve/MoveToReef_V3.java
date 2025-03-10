@@ -18,6 +18,7 @@ public class MoveToReef_V3 extends Command {
 
     public MoveToReef_V3(Swerve swerve, Reef reef, Supplier<Double> z_power) {
         this.z_power = z_power;
+        this.swerve = swerve;
         if(reef == Reef.Right) x_c = -0.18;
         else if(reef == Reef.Left) x_c = 0.16; 
         else x_c = 0;
@@ -25,19 +26,19 @@ public class MoveToReef_V3 extends Command {
 
     @Override
     public void initialize() {
-        NetworkTableInstance.getDefault().getTable(LimelightConstants.device).getEntry("ledMode").setNumber(3);
     }
 
     @Override
     public void execute() {
         if(LimelightHelpers.getTargetCount(LimelightConstants.device) != 0){
+            NetworkTableInstance.getDefault().getTable(LimelightConstants.device).getEntry("ledMode").setNumber(3);
             double[] pose = LimelightHelpers.getTargetPose_CameraSpace(LimelightConstants.device);
-            turn_power = Tools.deadband(-pose[4]/20.0, 0.05);
-            x_power = -Tools.deadband((x_c - pose[0])/1.5, 0.15);
-            swerve.drive(z_power.get(), x_power, turn_power, false);
+            turn_power = Tools.deadband(-pose[4]/25.0, 0.25);
+            x_power = -Tools.deadband((x_c - pose[0]) / 1.0, 0.02);
+            swerve.drive(-z_power.get() * 0.1, x_power, turn_power, false);
         }
         else {
-            swerve.drive(z_power.get(), 0, 0, false);
+            swerve.drive(-z_power.get() * 0.1, 0, 0, false);
         }
     }
 
