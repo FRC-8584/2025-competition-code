@@ -8,19 +8,16 @@ import frc.robot.Constants.ClawConstants;
 
 public class GetCoral extends Command {
   private Claw claw;
-  private double counter, condition_counter;
-  private Supplier<Boolean> condition;
+  private double counter;
 
-  public GetCoral(Claw claw, Supplier<Boolean> condition) {
+  public GetCoral(Claw claw) {
     this.claw = claw;
-    this.condition = condition;
     addRequirements(this.claw);
   }
 
   @Override
   public void initialize() {
     claw.stuckAlgae(false);
-    condition_counter = 0;
     counter = 0;
   }
 
@@ -28,7 +25,6 @@ public class GetCoral extends Command {
   public void execute() {
     claw.setGrabberPower(ClawConstants.GrabPower);
     if(claw.detectCoral()) counter ++;
-    if(condition_counter < 6) condition_counter ++;
   }
 
   @Override
@@ -39,7 +35,7 @@ public class GetCoral extends Command {
 
   @Override
   public boolean isFinished() {
-    if((counter >= ClawConstants.GrabCoralDelay / 0.05)) return true;
+    if((counter >= ClawConstants.PutDelay / 0.05)) return true;
     else return false;
   }
 }

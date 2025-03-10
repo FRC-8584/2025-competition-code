@@ -71,6 +71,7 @@ public class Claw extends SubsystemBase {
   public void periodic() {
     setShaftPosition(level.getAngle());
     if(stuck) grabber_motor.getClosedLoopController().setReference(stuck_pose, ControlType.kPosition);
-    SmartDashboard.putBoolean("Is stuck", stuck);
+    SmartDashboard.putNumber("A", sensor.getValue())
+    ;
   }
 }

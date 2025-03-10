@@ -13,17 +13,17 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-
 import frc.robot.utils.AxieOptimizer;
 
 public class Constants {
   public static enum Levels {
     Coral_L1(0, 0), 
     Coral_L2(20.0, 18.0), 
-    Coral_L3(20.0, 37.0), 
+    Coral_L3(20.0, 38.5), 
     Coral_L4(55.0, 75.0),
     Algea_L1(145.0, 24.0),
     Algea_L2(145.0, 44.0),
+    Net(80.0, 75.0),
     Dodge(20.0, -1),
     DefaultWithAlgae(150.0, 0),
     Default(0, 0);
@@ -45,9 +45,9 @@ public class Constants {
   }
 
   public static enum Reef {
-    Left       (0.53, -0.17),
-    Right      (0.53, 0.17),
-    Medium     (0.53, 0.0);
+    Left       (0.40, 0.18),
+    Right      (0.40, -0.17),
+    Medium     (0.40, 0.0);
 
     private double x, y;
 
@@ -74,8 +74,7 @@ public class Constants {
     };
           
     public static final double TurnSpeed = 0.4;
-    public static final double DriveSpeed = 0.7;
-    public static final double GyroOffset = 10.0;
+    public static final double DriveSpeed = 0.5;
   }
   
   public static class CAN_DeviceID {
@@ -179,7 +178,7 @@ public class Constants {
     public static final double GrabPower = -0.6;
     public static final double PutPower = -0.8;
 
-    public static final int SensorPort = 1;
+    public static final int SensorPort = 0;
     public static final double SensorThreshold = 1100;
     public static final double GrabCoralDelay = 0.15; //s
     public static final double PutDelay = 0.5; //s

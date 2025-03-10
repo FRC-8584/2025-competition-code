@@ -1,7 +1,5 @@
 package frc.robot.modules;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
 
@@ -77,6 +75,5 @@ public class SwerveModule {
   public void logging(String name) {
     double v = driveMotor.getVelocity().getValueAsDouble();
     max = v > max ? v : max;
-    SmartDashboard.putNumber(name+ " V", max);
   }
 }
