@@ -12,10 +12,20 @@ import frc.robot.subsystems.Swerve;
 
 public class AutoPut extends SequentialCommandGroup {
     public AutoPut(Swerve swerve, Elevator elevator, Claw claw, Reef reef, Levels levels) {
-        addCommands(
-            new MoveToReef(swerve, reef),
-            new ToLevel(claw, elevator, levels),
-            new PutCoral(claw)
-        );
+        if(levels == Levels.Coral_L4) {
+            addCommands(
+                new MoveToReef(swerve, reef),
+                new MoveForaward(swerve, 0.5),
+                new ToLevel(claw, elevator, levels),
+                new PutCoral(claw)
+            );
+        }
+        else {
+            addCommands(
+                new MoveToReef(swerve, reef),
+                new ToLevel(claw, elevator, levels),
+                new PutCoral(claw)
+            );
+        }
     }       
 }

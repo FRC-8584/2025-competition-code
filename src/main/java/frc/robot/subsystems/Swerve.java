@@ -40,13 +40,24 @@ public class Swerve extends SubsystemBase {
    * @param turn turn value (-1 ~ 1)
    */
   public void drive(double x, double y, double turn, boolean fieldRelative) {
-    drive(
-      new ChassisSpeeds(
-        x * SwerveConstants.MaxDriveSpeed * OperationConstant.DriveSpeed * invert,
-        y * SwerveConstants.MaxDriveSpeed * OperationConstant.DriveSpeed * invert,
-        turn * SwerveConstants.MaxTurnSpeed * OperationConstant.TurnSpeed
-      ), fieldRelative
-    );
+    if(fieldRelative) {
+      drive(
+        new ChassisSpeeds(
+          x * SwerveConstants.MaxDriveSpeed * OperationConstant.DriveSpeed * invert,
+          y * SwerveConstants.MaxDriveSpeed * OperationConstant.DriveSpeed * invert,
+          turn * SwerveConstants.MaxTurnSpeed * OperationConstant.TurnSpeed
+        ), true);
+    }
+    else {
+      drive(
+        new ChassisSpeeds(
+          x * SwerveConstants.MaxDriveSpeed * OperationConstant.DriveSpeed,
+          y * SwerveConstants.MaxDriveSpeed * OperationConstant.DriveSpeed,
+          turn * SwerveConstants.MaxTurnSpeed * OperationConstant.TurnSpeed
+        ), false
+      );
+    }
+    
   }
 
   /**
@@ -62,14 +73,14 @@ public class Swerve extends SubsystemBase {
     );
     SwerveDriveKinematics.desaturateWheelSpeeds(states, SwerveConstants.MaxDriveSpeed);
 
-    drive(states);
-  }
-
-  public void drive(SwerveModuleState[] states) {
     front_left.setState(states[0]);
     front_right.setState(states[1]);
     back_right.setState(states[2]);
     back_left.setState(states[3]);
+  }
+  
+  public boolean isInvert() {
+    return  DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red ? true: false;
   }
 
   private void updateOdometry() {
@@ -92,7 +103,7 @@ public class Swerve extends SubsystemBase {
     poseEstimator.resetPose(pose);
   }
 
-  public ChassisSpeeds getRobotRelativeSpeeds() {
+  private ChassisSpeeds getRobotRelativeSpeeds() {
     return SwerveConstants.kinematics.toChassisSpeeds(
       front_left.getState(),
       front_right.getState(),
@@ -101,7 +112,7 @@ public class Swerve extends SubsystemBase {
     );
   }
 
-  public Rotation2d getGyroAngle() {
+  private Rotation2d getGyroAngle() {
     double angle = (360 - (gyro.getAngle()  - initial_angle)) % 360.0;
     if (angle > 180) angle -= 360;
     if (angle <-180) angle += 360;
