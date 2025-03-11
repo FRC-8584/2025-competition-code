@@ -1,7 +1,5 @@
 package frc.robot.commands;
 
-import org.opencv.dnn.Net;
-
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.Levels;
 import frc.robot.commands.claw.SetClawLevel;

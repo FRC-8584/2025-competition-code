@@ -45,8 +45,8 @@ public class Constants {
   }
 
   public static enum Reef {
-    Left       (0.40, 0.18),
-    Right      (0.40, -0.17),
+    Left       (0.40, 0.19),
+    Right      (0.40, -0.18),
     Medium     (0.40, 0.0);
 
     private double x, y;
@@ -134,7 +134,7 @@ public class Constants {
       public static final double FrontLeft = 0.300537;
       public static final double FrontRight = 0.385986;
       public static final double BackRight = -0.204590;
-      public static final double BackLeft = -0.287550;
+      public static final double BackLeft = -0.237550;
     }
 
     public static class Configs {
@@ -179,9 +179,9 @@ public class Constants {
     public static final double PutPower = -0.8;
 
     public static final int SensorPort = 0;
-    public static final double SensorThreshold = 1100;
+    public static final double SensorThreshold = 2.5;
     public static final double GrabCoralDelay = 0.15; //s
-    public static final double PutDelay = 0.5; //s
+    public static final double PutDelay = 0.4; //s
 
     public static class  Configs {
       public static SparkMaxConfig getShaftConfig() {

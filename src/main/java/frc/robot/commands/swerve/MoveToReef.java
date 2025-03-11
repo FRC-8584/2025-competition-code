@@ -27,7 +27,7 @@ public class MoveToReef extends Command {
     public void execute() {
         NetworkTableInstance.getDefault().getTable(LimelightConstants.device).getEntry("ledMode").setNumber(3);
         double[] pose = LimelightHelpers.getTargetPose_CameraSpace(LimelightConstants.device);
-        turn_power = Tools.deadband(-pose[4]/25.0, 1.0/25.0); 
+        turn_power = Tools.deadband(-pose[4]/70.0, 1.0/70.0); 
         x_power = Tools.deadband((x_c - pose[0]) / 1.2, 0.01/1.2);
         z_power = -Tools.deadband((z_c - pose[2]) / 1.2, 0.01/1.2);
         swerve.drive(z_power , x_power, turn_power, false);

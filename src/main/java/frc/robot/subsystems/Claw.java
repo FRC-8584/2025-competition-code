@@ -1,8 +1,6 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.ControlType;
@@ -17,7 +15,6 @@ import frc.robot.Constants.Levels;
 public class Claw extends SubsystemBase {
   private final SparkMax shaft_motor;
   private final SparkMax grabber_motor;
-  private final AnalogInput sensor;
   private Levels level = Levels.Default;
 
   private double stuck_pose;
@@ -27,7 +24,6 @@ public class Claw extends SubsystemBase {
   public Claw() {
     shaft_motor = new SparkMax(CAN_DeviceID.Claw_ShaftID, MotorType.kBrushless);
     grabber_motor = new SparkMax(CAN_DeviceID.Claw_GrabberID, MotorType.kBrushless);
-    sensor = new AnalogInput(ClawConstants.SensorPort);
 
     shaft_motor.configure(ClawConstants.Configs.getShaftConfig(), ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     grabber_motor.configure(ClawConstants.Configs.getGrabberConfig(), ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
@@ -50,7 +46,7 @@ public class Claw extends SubsystemBase {
   }
 
   public boolean detectCoral() {
-    if (sensor.getValue() > ClawConstants.SensorThreshold) return true;
+    if (grabber_motor.getAnalog().getVoltage() > ClawConstants.SensorThreshold) return true;
     else return false;
   }
 
@@ -71,7 +67,6 @@ public class Claw extends SubsystemBase {
   public void periodic() {
     setShaftPosition(level.getAngle());
     if(stuck) grabber_motor.getClosedLoopController().setReference(stuck_pose, ControlType.kPosition);
-    SmartDashboard.putNumber("A", sensor.getValue())
-    ;
+    System.out.println(detectCoral());
   }
 }
