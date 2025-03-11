@@ -3,8 +3,6 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import edu.wpi.first.wpilibj.smartdashboard.Field2d;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.PIDConstants;
@@ -32,7 +30,6 @@ public class Swerve extends SubsystemBase {
   private final SwerveModule front_left, front_right, back_right, back_left;
   private final AHRS gyro;
   private final SwerveDrivePoseEstimator poseEstimator;
-  private Field2d field = new Field2d();
 
   private final double invert, initial_angle;
 
@@ -43,9 +40,6 @@ public class Swerve extends SubsystemBase {
    * @param turn turn value (-1 ~ 1)
    */
   public void drive(double x, double y, double turn, boolean fieldRelative) {
-    SmartDashboard.putNumber("raw speed x", x);
-    SmartDashboard.putNumber("raw speed y", y);
-    SmartDashboard.putNumber("raw speed omega", turn);
     drive(
       new ChassisSpeeds(
         x * SwerveConstants.MaxDriveSpeed * OperationConstant.DriveSpeed * invert,
@@ -108,7 +102,7 @@ public class Swerve extends SubsystemBase {
   }
 
   public Rotation2d getGyroAngle() {
-    double angle = (360 - (gyro.getAngle() - initial_angle)) % 360.0;
+    double angle = (360 - (gyro.getAngle()  - initial_angle)) % 360.0;
     if (angle > 180) angle -= 360;
     if (angle <-180) angle += 360;
     return Rotation2d.fromDegrees(angle);
@@ -173,8 +167,6 @@ public class Swerve extends SubsystemBase {
   public void periodic() {
     updateSwerveModuleData();
     updateOdometry();
-    field.setRobotPose(getPose());
-    SmartDashboard.putData("field",field);
   }
 
   private void updateSwerveModuleData() {
@@ -182,12 +174,5 @@ public class Swerve extends SubsystemBase {
     front_right.update();
     back_left.update();
     back_right.update();
-  }
-
-  public void logInfo() {
-    ChassisSpeeds speeds = getRobotRelativeSpeeds();
-    SmartDashboard.putNumber("X Current Velocity", speeds.vxMetersPerSecond);
-    SmartDashboard.putNumber("Y Current Velocity", speeds.vyMetersPerSecond);
-    SmartDashboard.putNumber("Omega Current Velocity", speeds.omegaRadiansPerSecond);
   }
 }

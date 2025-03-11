@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.6,
-        "y": 1.9
+        "x": 11.56813524590164,
+        "y": 4.216803278688525
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.95721239031346,
-        "y": 2.6660444431189783
+        "x": 11.353762014473505,
+        "y": 4.088179339831644
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Red_Middle_End1"
     },
     {
       "anchor": {
-        "x": 5.957249999999999,
-        "y": 3.8787499999999993
+        "x": 11.112602459016394,
+        "y": 4.0
       },
       "prevControl": {
-        "x": 6.600037609686539,
-        "y": 3.1127055568810214
+        "x": 11.361394081317227,
+        "y": 4.024550533047556
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,19 +33,19 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 4.091,
+    "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
-    "maxAngularVelocity": 520.0,
-    "maxAngularAcceleration": 420.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 0.0
   },
   "reversed": false,
-  "folder": "Test",
+  "folder": "Red_Middle",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

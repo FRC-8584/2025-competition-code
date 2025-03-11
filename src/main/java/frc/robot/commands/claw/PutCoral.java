@@ -24,7 +24,8 @@ public class PutCoral extends Command {
   @Override
   public void execute() {
     claw.setGrabberPower(ClawConstants.PutPower);
-    if(!claw.detectCoral()) counter++;
+    if(!claw.detectCoral())start_count = true;
+    if(start_count) counter ++;
   }
 
   @Override
@@ -35,8 +36,6 @@ public class PutCoral extends Command {
     
   @Override
   public boolean isFinished() {
-    if(!claw.detectCoral())start_count = true;
-    if(start_count) counter ++;
     if((counter >= ClawConstants.PutDelay / 0.05)) return true;
     else return false;
   }

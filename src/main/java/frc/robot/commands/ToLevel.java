@@ -12,7 +12,7 @@ public class ToLevel extends SequentialCommandGroup {
         Levels claw_level = level;
         Levels elevator_level = level;
 
-        if(level == Levels.DefaultWithAlgae)
+        if(level == Levels.DefaultWithAlgae || level == Levels.Net)
             addCommands(
                 new SetClawLevel(level, claw),
                 new SetElevatorLevel(elevator, elevator_level),

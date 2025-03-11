@@ -13,17 +13,17 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-
 import frc.robot.utils.AxieOptimizer;
 
 public class Constants {
   public static enum Levels {
     Coral_L1(0, 0), 
-    Coral_L2(20.0, 18.0), 
-    Coral_L3(15.0, 37.0), 
+    Coral_L2(15.0, 18.0), 
+    Coral_L3(15.0, 39.5), 
     Coral_L4(55.0, 75.0),
     Algea_L1(145.0, 24.0),
     Algea_L2(145.0, 44.0),
+    Net(80.0, 75.0),
     Dodge(20.0, -1),
     DefaultWithAlgae(135.0, 0),
     Default(0, 0);
@@ -45,9 +45,9 @@ public class Constants {
   }
 
   public static enum Reef {
-    Left       (0.53, 0.17),
-    Right      (0.53, -0.17),
-    Medium     (0.53, 0.0);
+    Left       (0.40, 0.195),
+    Right      (0.40, -0.195),
+    Medium     (0.40, 0.0);
 
     private double x, y;
 
@@ -68,13 +68,13 @@ public class Constants {
   public static class OperationConstant {
     public static final AxieOptimizer[] axieOptimizers = 
       new AxieOptimizer[] {
-        new AxieOptimizer(0.035),
-        new AxieOptimizer(0.035),
-        new AxieOptimizer(0.05)
+        new AxieOptimizer(0.1),
+        new AxieOptimizer(0.1),
+        new AxieOptimizer(0.15)
     };
           
     public static final double TurnSpeed = 0.4;
-    public static final double DriveSpeed = 0.7;
+    public static final double DriveSpeed = 0.5;
   }
   
   public static class CAN_DeviceID {
@@ -134,7 +134,7 @@ public class Constants {
       public static final double FrontLeft = 0.300537;
       public static final double FrontRight = 0.385986;
       public static final double BackRight = -0.204590;
-      public static final double BackLeft = -0.287550;
+      public static final double BackLeft = -0.237550;
     }
 
     public static class Configs {
@@ -169,19 +169,19 @@ public class Constants {
   }
 
   public static class ClawConstants {
-    public static final double MaxAngle = 145.0; // degree
+    public static final double MaxAngle = 150.0; // degree
     public static final double MinAngle = 0; // degree
 
     public static final double MaxPower = 0.5;
     public static final double MinPower = -0.5;
 
-    public static final double GrabPower = -0.8;
+    public static final double GrabPower = -0.6;
     public static final double PutPower = -0.8;
 
     public static final int SensorPort = 0;
-    public static final double SensorThreshold = 1100;
-    public static final double GrabCoralDelay = 0.1; //s
-    public static final double PutDelay = 0.8; //s
+    public static final double SensorThreshold = 2.5;
+    public static final double GrabCoralDelay = 0.15; //s
+    public static final double PutDelay = 0.4; //s
 
     public static class  Configs {
       public static SparkMaxConfig getShaftConfig() {
@@ -254,8 +254,8 @@ public class Constants {
     }
 
   public static class IntakeConstants {
-    public static final double MaxAngle = 45.0;
-    public static final double MinAngle = -10.0;
+    public static final double MaxAngle = 90.0;
+    public static final double MinAngle = 0.0;
     public static final double MinPower= -0.4;
     public static final double MaxPower= 0.4;
     public static final double GrabPower= -0.4;
@@ -296,15 +296,22 @@ public class Constants {
     public static final String device = "limelight";
 
     /* config limelight offsets */
-    public static final double X      = 0.19; //m
-    public static final double Z      = 0.25; //m
-    public static final double Y      = 0.92; //m
-    public static final double Pitch  = -41.26; //degree
-    public static final double Roll   = -6.46; //degree
-    public static final double Yaw    = 18.37; //degree
+    // public static final double X      = 0.19; //m
+    // public static final double Z      = 0.23; //m
+    // public static final double Y      = 0.99; //m
+    // public static final double Pitch  = -45.0; //degree
+    // public static final double Roll   = 2.0; //degree
+    // public static final double Yaw    = 22.12; //degree
 
-    public static final double X_Distance = 0.15; //m
-    public static final double Y_Distance = 0.20; //m
-    public static final double AutoAimDeadband = 0.01; //m
+    // public static final double RightTxInCameraSpace = -0.24;
+    // public static final double RightTzInCameraSpace = 0.75;
+    // public static final double RightYawInCameraSpace = 23.0;
+    // public static final double LeftTxInCameraSpace = 0.08;
+    // public static final double LeftTzInCameraSpace = 0.69;
+    // public static final double LeftYawInCameraSpace = 23.0;
+    // public static final double MiddleTxInCameraSpace = -0.05;
+    // public static final double MiddleTzInCameraSpace = 0.8;
+    // public static final double MiddleYawInCameraSpace = 23.0;
+    
   }
 }

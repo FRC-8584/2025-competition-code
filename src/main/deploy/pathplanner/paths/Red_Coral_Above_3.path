@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.29675,
-        "y": 7.07675
+        "x": 16.291290983606558,
+        "y": 7.153790983606557
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.3497500000000002,
-        "y": 6.3942499999999995
+        "x": 15.691905737704918,
+        "y": 6.626331967213115
       },
       "isLocked": false,
-      "linkedName": "End_1-2B"
+      "linkedName": "Red_Coral_Above_End2"
     },
     {
       "anchor": {
-        "x": 3.9195000000000007,
-        "y": 5.4095
+        "x": 13.953688524590163,
+        "y": 5.18780737704918
       },
       "prevControl": {
-        "x": 3.0614999999999997,
-        "y": 5.94575
+        "x": 14.696926229508195,
+        "y": 5.775204918032787
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,22 +33,22 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 4.091,
+    "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
-    "maxAngularVelocity": 520.0,
-    "maxAngularAcceleration": 420.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -59.981632572391014
+    "rotation": -119.99999999999999
   },
   "reversed": false,
-  "folder": "Competition-pre",
+  "folder": "Red_Coral_Above",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -53.13010235415596
+    "rotation": -125.00000000000001
   },
   "useDefaultConstraints": true
 }

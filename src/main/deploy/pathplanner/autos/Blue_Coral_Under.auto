@@ -7,43 +7,43 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Path_Red_1-1"
+            "pathName": "Blue_Coral_Under_1"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "PutCoral"
+            "name": null
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Path_Red_1-2"
+            "pathName": "Blue_Coral_Under_2"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "GetCoral"
+            "name": null
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Path_Red_1-3"
+            "pathName": "Blue_Coral_Under_3"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "PutCoral"
+            "name": null
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "Competition-pre",
+  "folder": null,
   "choreoAuto": false
 }
