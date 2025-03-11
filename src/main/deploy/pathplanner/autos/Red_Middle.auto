@@ -13,19 +13,7 @@
         {
           "type": "named",
           "data": {
-            "name": null
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red_Middle_2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": null
+            "name": "PutCoralL3"
           }
         }
       ]

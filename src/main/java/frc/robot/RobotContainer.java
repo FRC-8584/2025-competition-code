@@ -1,13 +1,18 @@
 package frc.robot;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
+
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.commands.ToLevel;
+import frc.robot.commands.auto.AutoPut;
 import frc.robot.commands.claw.ControlGrabber;
 import frc.robot.commands.claw.GetCoral;
 import frc.robot.commands.claw.PutCoral;
@@ -106,7 +111,18 @@ public class RobotContainer {
   }
 
   private void configNamedCommands() {
-    // our auto is a bicetrash
+    NamedCommands.registerCommand(
+      "PutCoralL3",
+      new AutoPut(
+        swerve, 
+        elevator, 
+        claw, 
+        Reef.Right, 
+        Levels.Coral_L3
+      )
+    );
+    autoChooser =  AutoBuilder.buildAutoChooser();
+    SmartDashboard.putData("Auto Chooser", autoChooser);
   }
 
   public Command getAutonomousCommand() {

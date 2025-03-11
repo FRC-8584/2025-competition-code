@@ -18,14 +18,14 @@ import frc.robot.utils.AxieOptimizer;
 public class Constants {
   public static enum Levels {
     Coral_L1(0, 0), 
-    Coral_L2(20.0, 18.0), 
-    Coral_L3(20.0, 38.5), 
+    Coral_L2(15.0, 18.0), 
+    Coral_L3(15.0, 39.5), 
     Coral_L4(55.0, 75.0),
     Algea_L1(145.0, 24.0),
     Algea_L2(145.0, 44.0),
     Net(80.0, 75.0),
     Dodge(20.0, -1),
-    DefaultWithAlgae(150.0, 0),
+    DefaultWithAlgae(135.0, 0),
     Default(0, 0);
 
     private double claw_angle, elevator_height;
@@ -45,8 +45,8 @@ public class Constants {
   }
 
   public static enum Reef {
-    Left       (0.40, 0.19),
-    Right      (0.40, -0.18),
+    Left       (0.40, 0.195),
+    Right      (0.40, -0.195),
     Medium     (0.40, 0.0);
 
     private double x, y;
