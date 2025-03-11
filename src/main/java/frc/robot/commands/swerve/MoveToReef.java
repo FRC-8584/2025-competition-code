@@ -13,6 +13,11 @@ public class MoveToReef extends Command {
     private final double x_c, z_c;
     private double x_power,z_power, turn_power;
 
+    /**
+     * Move to reef
+     * @param swerve swerve subsystem
+     * @param reef reef u want to go
+     */
     public MoveToReef(Swerve swerve, Reef reef) {
         this.swerve = swerve;
         x_c = reef.getPosY();
