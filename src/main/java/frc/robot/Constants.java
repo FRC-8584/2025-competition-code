@@ -18,14 +18,14 @@ import frc.robot.utils.AxieOptimizer;
 public class Constants {
   public static enum Levels {
     Coral_L1(0, 0), 
-    Coral_L2(15.0, 18.0), 
-    Coral_L3(15.0, 39.5), 
+    Coral_L2(25.0, 17.8), 
+    Coral_L3(25.0, 39.5), 
     Coral_L4(55.0, 75.0),
     Algea_L1(145.0, 24.0),
     Algea_L2(145.0, 44.0),
     Net(80.0, 75.0),
     Dodge(20.0, -1),
-    DefaultWithAlgae(135.0, 0),
+    DefaultWithAlgae(145.0, 0),
     Default(0, 0);
 
     private double claw_angle, elevator_height;
@@ -45,8 +45,8 @@ public class Constants {
   }
 
   public static enum Reef {
-    Left       (0.40, 0.195),
-    Right      (0.40, -0.195),
+    Left       (0.40, 0.225),
+    Right      (0.40, -0.19),
     Medium     (0.40, 0.0);
 
     private double x, y;
@@ -74,7 +74,7 @@ public class Constants {
     };
           
     public static final double TurnSpeed = 0.4;
-    public static final double DriveSpeed = 0.5;
+    public static final double DriveSpeed = 0.6;
   }
   
   public static class CAN_DeviceID {
@@ -176,7 +176,7 @@ public class Constants {
     public static final double MinPower = -0.5;
 
     public static final double GrabPower = -0.6;
-    public static final double PutPower = -0.8;
+    public static final double PutPower = -1.0;
 
     public static final int SensorPort = 0;
     public static final double SensorThreshold = 2.5;
@@ -314,4 +314,25 @@ public class Constants {
     // public static final double MiddleYawInCameraSpace = 23.0;
     
   }
+  /*     
+   *        8888888
+   *       888888888
+   *      88888888888
+   *     8888888888888
+   *    888888888888888
+   *   888888888888888888
+   *  88888888888888888888
+   * 
+   * 
+   * 
+   * 
+   * 
+   * 
+   * 
+   * 
+   * 
+   * 
+   * 
+   * 
+   */
 }

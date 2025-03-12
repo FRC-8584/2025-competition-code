@@ -107,7 +107,7 @@ public class RobotContainer {
     // NetworkTableInstance.getDefault().getTable(LimelightConstants.device).getEntry("pipeline").setNumber(
     //   DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red ? 1 : 0
     // );
-    NetworkTableInstance.getDefault().getTable(LimelightConstants.device).getEntry("ledMode").setNumber(1);
+    NetworkTableInstance.getDefault().getTable(LimelightConstants.device).getEntry("ledMode").setNumber(3);
   }
 
   private void configNamedCommands() {
@@ -119,6 +119,16 @@ public class RobotContainer {
         claw, 
         Reef.Right, 
         Levels.Coral_L3
+      )
+    );
+    NamedCommands.registerCommand(
+      "PutCoralL4",
+      new AutoPut(
+        swerve, 
+        elevator, 
+        claw, 
+        Reef.Right, 
+        Levels.Coral_L4
       )
     );
     autoChooser =  AutoBuilder.buildAutoChooser();

@@ -1,5 +1,6 @@
 package frc.robot.commands.auto;
 
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.Levels;
 import frc.robot.Constants.Reef;
@@ -14,9 +15,11 @@ public class AutoPut extends SequentialCommandGroup {
     public AutoPut(Swerve swerve, Elevator elevator, Claw claw, Reef reef, Levels levels) {
         if(levels == Levels.Coral_L4) {
             addCommands(
-                new MoveToReef(swerve, reef),
-                new MoveForaward(swerve, 0.5),
-                new ToLevel(claw, elevator, levels),
+                new ParallelCommandGroup(
+                    new MoveToReef(swerve, reef),
+                    new ToLevel(claw, elevator, levels)
+                ),
+                new MoveForaward(swerve, 1.0),
                 new PutCoral(claw)
             );
         }

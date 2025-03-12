@@ -1,8 +1,8 @@
 package frc.robot.commands.swerve;
 
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.LimelightConstants;
+import frc.robot.Constants.OperationConstant;
 import frc.robot.Constants.Reef;
 import frc.robot.subsystems.Swerve;
 import frc.robot.utils.LimelightHelpers;
@@ -26,27 +26,26 @@ public class MoveToReef extends Command {
 
     @Override
     public void initialize() {
+
     }
 
     @Override
     public void execute() {
-        NetworkTableInstance.getDefault().getTable(LimelightConstants.device).getEntry("ledMode").setNumber(3);
         if(LimelightHelpers.getTargetCount(LimelightConstants.device) != 0) {
             double[] pose = LimelightHelpers.getTargetPose_CameraSpace(LimelightConstants.device);
-            turn_power = Tools.deadband(-pose[4]/70.0, 0.1); 
-            x_power = Tools.deadband((x_c - pose[0]) / 0.8, 0.1);
-            z_power = -Tools.deadband((z_c - pose[2]) / 0.8, 0.1);
+            turn_power = Tools.deadband(-pose[4]/50.0, 0.1) * 0.5 / OperationConstant.DriveSpeed; 
+            x_power = Tools.deadband((x_c - pose[0]) / 0.8, 0.1)* 0.5 / OperationConstant.DriveSpeed;
+            z_power = -Tools.deadband((z_c - pose[2]) / 0.8, 0.1)* 0.5 / OperationConstant.DriveSpeed;
             swerve.drive(z_power , x_power, turn_power, false);
         }
         else {
             swerve.drive(0 , 0, 0, false);   
         }
-        System.out.println(z_power+", "+x_power+", "+turn_power);
     }
 
     @Override
     public void end(boolean interrupted) {
-        NetworkTableInstance.getDefault().getTable(LimelightConstants.device).getEntry("ledMode").setNumber(1);
+        swerve.drive(0 , 0, 0, false);  
     }
 
     @Override
