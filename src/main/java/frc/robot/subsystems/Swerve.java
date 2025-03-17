@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 
+import com.ctre.phoenix6.Orchestra;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
@@ -30,7 +31,7 @@ public class Swerve extends SubsystemBase {
   private final SwerveModule front_left, front_right, back_right, back_left;
   private final AHRS gyro;
   private final SwerveDrivePoseEstimator poseEstimator;
-
+  public final Orchestra Rick = new Orchestra();  
   private final double invert, initial_angle;
 
   /**
@@ -155,6 +156,7 @@ public class Swerve extends SubsystemBase {
     back_left = new SwerveModule(CAN_DeviceID.BL_TurnID, CAN_DeviceID.BL_DriveID, CAN_DeviceID.BL_CANcoderID, CancoderOffsets.BackLeft);
 
     gyro = new AHRS(NavXComType.kMXP_SPI);
+    Rick.loadMusic("rick.chrp");
     poseEstimator = new SwerveDrivePoseEstimator(
       SwerveConstants.kinematics,
       getGyroAngle(),
@@ -172,12 +174,19 @@ public class Swerve extends SubsystemBase {
     drive(0, 0, 0, false);
 
     configAuto();
+
+    front_left.SetSinging(Rick);
+    front_right.SetSinging(Rick);
+    back_left.SetSinging(Rick);
+    back_left.SetSinging(Rick);
   }   
 
   @Override
   public void periodic() {
     updateSwerveModuleData();
     updateOdometry();
+    Rick.play(); 
+    
   }
 
   private void updateSwerveModuleData() {
