@@ -1,8 +1,8 @@
 package frc.robot.commands.swerve;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.LimelightConstants;
-import frc.robot.Constants.OperationConstant;
 import frc.robot.Constants.Reef;
 import frc.robot.subsystems.Swerve;
 import frc.robot.utils.LimelightHelpers;
@@ -12,6 +12,7 @@ public class MoveToReef extends Command {
     private Swerve swerve;
     private final double x_c, z_c;
     private double x_power,z_power, turn_power;
+    private double[] pose;
 
     /**
      * Move to reef
@@ -22,25 +23,35 @@ public class MoveToReef extends Command {
         this.swerve = swerve;
         x_c = reef.getPosY();
         z_c = reef.getPosX();
+        LimelightConstants.PIDs.turn_pid.setIZone(0.5);
+        LimelightConstants.PIDs.x_pid.setIZone(0.5);
+        LimelightConstants.PIDs.y_pid.setIZone(0.5);
     }
 
     @Override
     public void initialize() {
-
+        LimelightConstants.PIDs.turn_pid.reset();
+        LimelightConstants.PIDs.x_pid.reset();
+        LimelightConstants.PIDs.y_pid.reset();
     }
 
     @Override
     public void execute() {
+        if(Tools.isInRange(pose[4], -1.0, 1.0)) LimelightConstants.PIDs.turn_pid.reset();
+        if(Tools.isInRange(pose[0], -0.01, 0.01)) LimelightConstants.PIDs.y_pid.reset();
+        if(Tools.isInRange(pose[1], -0.01, 0.01)) LimelightConstants.PIDs.x_pid.reset();
         if(LimelightHelpers.getTargetCount(LimelightConstants.device) != 0) {
-            double[] pose = LimelightHelpers.getTargetPose_CameraSpace(LimelightConstants.device);
-            turn_power = Tools.deadband(-pose[4]/50.0, 0.1) * 0.5 / OperationConstant.DriveSpeed; 
-            x_power = Tools.deadband((x_c - pose[0]) / 0.8, 0.1)* 0.5 / OperationConstant.DriveSpeed;
-            z_power = -Tools.deadband((z_c - pose[2]) / 0.8, 0.1)* 0.5 / OperationConstant.DriveSpeed;
-            swerve.drive(z_power , x_power, turn_power, false);
+            pose = LimelightHelpers.getTargetPose_CameraSpace(LimelightConstants.device);
+            turn_power = -LimelightConstants.PIDs.turn_pid.calculate(-pose[4]/ LimelightConstants.TurnSlowDownRange); 
+            x_power = -LimelightConstants.PIDs.y_pid.calculate((x_c - pose[0])/ LimelightConstants.YSlowDownRange);
+            z_power = -LimelightConstants.PIDs.x_pid.calculate((z_c - pose[2])/ LimelightConstants.XSlowDownRange);
         }
         else {
-            swerve.drive(0 , 0, 0, false);   
+            turn_power = 0;
+            x_power = 0;
+            z_power = 0;
         }
+        swerve.drive(z_power , x_power, turn_power, false);
     }
 
     @Override
@@ -50,7 +61,15 @@ public class MoveToReef extends Command {
 
     @Override
     public boolean isFinished() {
-        if(turn_power == 0 && x_power == 0 && z_power == 0) return true;
+        if(
+            Tools.isInRange(pose[4], -1, 1) &&
+            Tools.isInRange(pose[0], x_c-0.1, turn_power+0.1) &&
+            Tools.isInRange(pose[1], z_c-0.1, turn_power+0.1)
+        ) {
+            SmartDashboard.putBoolean("IsFinished Aim", true);
+            return true;
+        }
+        SmartDashboard.putBoolean("isFinished Aim", false);
         return false;
     }
 }

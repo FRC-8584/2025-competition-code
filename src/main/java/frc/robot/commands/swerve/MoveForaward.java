@@ -1,13 +1,14 @@
-package frc.robot.commands.auto;
+package frc.robot.commands.swerve;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Swerve;
 
 public class MoveForaward extends Command {
-  private double seconds, counter;
+  private double power, seconds, counter;
   private Swerve swerve;
 
-  public MoveForaward(Swerve swerve, double seconds) {
+  public MoveForaward(Swerve swerve, double power,double seconds) {
+    this.power = power;
     this.seconds = seconds;
     this.swerve = swerve;
     addRequirements(this.swerve);
@@ -16,7 +17,7 @@ public class MoveForaward extends Command {
   @Override
   public void initialize() {
     counter = 0;
-    swerve.drive(0.20, 0, 0, false);
+    swerve.drive(power, 0, 0, false);
   }
 
   @Override

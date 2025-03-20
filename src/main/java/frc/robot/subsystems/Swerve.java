@@ -177,15 +177,7 @@ public class Swerve extends SubsystemBase {
 
   @Override
   public void periodic() {
-    updateSwerveModuleData();
     updateOdometry();
     SmartDashboard.putNumber("Gyro", getGyroAngle().getDegrees());
-  }
-
-  private void updateSwerveModuleData() {
-    front_left.update();
-    front_right.update();
-    back_left.update();
-    back_right.update();
   }
 }

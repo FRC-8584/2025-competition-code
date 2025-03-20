@@ -36,7 +36,8 @@ public class SwerveModule {
     double drive_power = state.speedMetersPerSecond / SwerveConstants.MaxDriveSpeed;
     double turn_power = pid.calculate(err_degree / 90.0);
 
-    driveMotor.set(drive_power);
+    // driveMotor.set(drive_power);
+    driveMotor.setVoltage(drive_power*11.0);
     turnMotor.set(turn_power);
   }
 

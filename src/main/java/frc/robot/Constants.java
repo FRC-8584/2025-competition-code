@@ -18,13 +18,13 @@ import frc.robot.utils.AxieOptimizer;
 public class Constants {
   public static enum Levels {
     Coral_L1(0, 0), 
-    Coral_L2(25.0, 17.8), 
-    Coral_L3(25.0, 39.5), 
+    Coral_L2(15.0, 16.0), 
+    Coral_L3(15.0, 37.0), 
     Coral_L4(55.0, 75.0),
     Algea_L1(145.0, 24.0),
     Algea_L2(145.0, 44.0),
     Net(80.0, 75.0),
-    Dodge(20.0, -1),
+    Dodge(15.0, -1),
     DefaultWithAlgae(145.0, 0),
     Default(0, 0);
 
@@ -45,8 +45,8 @@ public class Constants {
   }
 
   public static enum Reef {
-    Left       (0.40, 0.225),
-    Right      (0.40, -0.19),
+    Left       (0.45, 0.18),
+    Right      (0.45, -0.15),
     Medium     (0.40, 0.0);
 
     private double x, y;
@@ -65,6 +65,21 @@ public class Constants {
     }
   }
 
+  public static class LimelightConstants {
+    /* device name */
+    public static final String device = "limelight";
+
+    public static final double XSlowDownRange = 0.7; //m
+    public static final double YSlowDownRange = 1.0; //m
+    public static final double TurnSlowDownRange = 30.0; //degree
+
+    public static class PIDs {
+      public static final PIDController x_pid = new PIDController(1.0, 0, 0.1);
+      public static final PIDController y_pid = new PIDController(2.5, 2.0*1e-3, 0.01);
+      public static final PIDController turn_pid = new PIDController(0.3, 0, 0);
+    }
+  }
+
   public static class OperationConstant {
     public static final AxieOptimizer[] axieOptimizers = 
       new AxieOptimizer[] {
@@ -74,7 +89,7 @@ public class Constants {
     };
           
     public static final double TurnSpeed = 0.4;
-    public static final double DriveSpeed = 0.6;
+    public static final double DriveSpeed = 0.3;
   }
   
   public static class CAN_DeviceID {
@@ -133,8 +148,8 @@ public class Constants {
     public static class CancoderOffsets {
       public static final double FrontLeft = 0.300537;
       public static final double FrontRight = 0.385986;
-      public static final double BackRight = -0.204590;
-      public static final double BackLeft = -0.237550;
+      public static final double BackRight = 0.033691;
+      public static final double BackLeft = -0.450439;
     }
 
     public static class Configs {
@@ -172,8 +187,8 @@ public class Constants {
     public static final double MaxAngle = 150.0; // degree
     public static final double MinAngle = 0; // degree
 
-    public static final double MaxPower = 0.5;
-    public static final double MinPower = -0.5;
+    public static final double MaxPower = 0.6;
+    public static final double MinPower = -0.6;
 
     public static final double GrabPower = -0.6;
     public static final double PutPower = -1.0;
@@ -253,11 +268,12 @@ public class Constants {
       }
     }
 
+  // Intake is deleted.
   public static class IntakeConstants {
     public static final double MaxAngle = 90.0;
     public static final double MinAngle = 0.0;
-    public static final double MinPower= -0.4;
-    public static final double MaxPower= 0.4;
+    public static final double MinPower= -0.8;
+    public static final double MaxPower= 0.8;
     public static final double GrabPower= -0.4;
     public static final double PutPower= 0.8;
     public static final double StuckCurrent = 13.0;
@@ -267,10 +283,10 @@ public class Constants {
       public static SparkMaxConfig getShaftConfig() {
         SparkMaxConfig configs = new SparkMaxConfig();
         configs
-          .inverted(true)
+          .inverted(false)
           .idleMode(IdleMode.kBrake);
         configs.encoder
-          .positionConversionFactor(360.0 / 100.0);
+          .positionConversionFactor(360.0 / 75.0);
         configs.closedLoop
           .outputRange(MinPower, MaxPower)
           .positionWrappingInputRange(MinAngle, MaxAngle)
@@ -283,56 +299,11 @@ public class Constants {
       public static SparkMaxConfig getGrabberConfig() {
         SparkMaxConfig configs = new SparkMaxConfig();
         configs
-          .inverted(false)
+          .inverted(true)
           .idleMode(IdleMode.kBrake);
 
         return configs;
       }
     }
   }
-
-  public static class LimelightConstants {
-    /* device name */
-    public static final String device = "limelight";
-
-    /* config limelight offsets */
-    // public static final double X      = 0.19; //m
-    // public static final double Z      = 0.23; //m
-    // public static final double Y      = 0.99; //m
-    // public static final double Pitch  = -45.0; //degree
-    // public static final double Roll   = 2.0; //degree
-    // public static final double Yaw    = 22.12; //degree
-
-    // public static final double RightTxInCameraSpace = -0.24;
-    // public static final double RightTzInCameraSpace = 0.75;
-    // public static final double RightYawInCameraSpace = 23.0;
-    // public static final double LeftTxInCameraSpace = 0.08;
-    // public static final double LeftTzInCameraSpace = 0.69;
-    // public static final double LeftYawInCameraSpace = 23.0;
-    // public static final double MiddleTxInCameraSpace = -0.05;
-    // public static final double MiddleTzInCameraSpace = 0.8;
-    // public static final double MiddleYawInCameraSpace = 23.0;
-    
-  }
-  /*     
-   *        8888888
-   *       888888888
-   *      88888888888
-   *     8888888888888
-   *    888888888888888
-   *   888888888888888888
-   *  88888888888888888888
-   * 
-   * 
-   * 
-   * 
-   * 
-   * 
-   * 
-   * 
-   * 
-   * 
-   * 
-   * 
-   */
 }
