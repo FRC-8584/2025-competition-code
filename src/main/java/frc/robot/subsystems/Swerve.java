@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.PIDConstants;
@@ -176,14 +177,7 @@ public class Swerve extends SubsystemBase {
 
   @Override
   public void periodic() {
-    updateSwerveModuleData();
     updateOdometry();
-  }
-
-  private void updateSwerveModuleData() {
-    front_left.update();
-    front_right.update();
-    back_left.update();
-    back_right.update();
+    SmartDashboard.putNumber("Gyro", getGyroAngle().getDegrees());
   }
 }

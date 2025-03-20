@@ -67,6 +67,5 @@ public class Claw extends SubsystemBase {
   public void periodic() {
     setShaftPosition(level.getAngle());
     if(stuck) grabber_motor.getClosedLoopController().setReference(stuck_pose, ControlType.kPosition);
-    System.out.println(detectCoral());
   }
 }
