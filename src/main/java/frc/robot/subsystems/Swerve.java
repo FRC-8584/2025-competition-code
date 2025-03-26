@@ -22,7 +22,9 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 
 import frc.robot.modules.SwerveModule;
+import frc.robot.utils.LimelightHelpers;
 import frc.robot.Constants.CAN_DeviceID;
+import frc.robot.Constants.LimelightConstants;
 import frc.robot.Constants.OperationConstant;
 import frc.robot.Constants.SwerveConstants;
 import frc.robot.Constants.SwerveConstants.CancoderOffsets;
@@ -31,7 +33,6 @@ public class Swerve extends SubsystemBase {
   private final SwerveModule front_left, front_right, back_right, back_left;
   private final AHRS gyro;
   private final SwerveDrivePoseEstimator poseEstimator;
-
   private final double invert, initial_angle;
 
   /**
@@ -44,9 +45,9 @@ public class Swerve extends SubsystemBase {
     if(fieldRelative) {
       drive(
         new ChassisSpeeds(
-          x * SwerveConstants.MaxDriveSpeed * OperationConstant.DriveSpeed * invert,
-          y * SwerveConstants.MaxDriveSpeed * OperationConstant.DriveSpeed * invert,
-          turn * SwerveConstants.MaxTurnSpeed * OperationConstant.TurnSpeed
+          x * SwerveConstants.MaxDriveSpeed * invert,
+          y * SwerveConstants.MaxDriveSpeed * invert,
+          turn * SwerveConstants.MaxTurnSpeed
         ), true);
     }
     else {
@@ -177,7 +178,7 @@ public class Swerve extends SubsystemBase {
 
   @Override
   public void periodic() {
+    SmartDashboard.putBoolean("Is Limelight Detected", (LimelightHelpers.getTargetCount(LimelightConstants.device) != 0) ? true :false);
     updateOdometry();
-    SmartDashboard.putNumber("Gyro", getGyroAngle().getDegrees());
   }
 }

@@ -23,7 +23,7 @@ public class ControlGrabber extends Command {
 
     @Override
     public void execute() {
-        double power = Tools.deadband(x.get()-y.get(), 0.2);
+        double power = Tools.deadband(x.get()-y.get(), 0.2)*0.4;
         if(power == 0 &&  !claw.isStuck()) {
             claw.setGrabberPower(0);
             claw.stuckAlgae(true);

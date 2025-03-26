@@ -30,15 +30,15 @@ public class ArcadeDrive extends Command {
 
   @Override
   public void execute() {
-    double speed = isSlowDown.get() ? 0.02 : 1.0;
+    double speed = isSlowDown.get() ? 0.2 : 1.0;
     OperationConstant.axieOptimizers[0].setWeight(0.2);
     OperationConstant.axieOptimizers[1].setWeight(0.2);
     OperationConstant.axieOptimizers[2].setWeight(0.3);
     swerve.drive(
-      OperationConstant.axieOptimizers[0].get(Tools.deadband(x.get() * speed, speed * 0.1)),
-      OperationConstant.axieOptimizers[1].get(Tools.deadband(y.get() * speed, speed * 0.1)),
-      OperationConstant.axieOptimizers[2].get(Tools.deadband(turn.get() * speed, speed * 0.1)), 
-      true
+        OperationConstant.axieOptimizers[0].get(Tools.deadband(x.get() * speed, speed * 0.1)) * OperationConstant.DriveSpeed,
+        OperationConstant.axieOptimizers[1].get(Tools.deadband(y.get() * speed, speed * 0.1)) * OperationConstant.DriveSpeed,
+        OperationConstant.axieOptimizers[2].get(Tools.deadband(turn.get() * speed, speed * 0.1)) * OperationConstant.TurnSpeed, 
+        isSlowDown.get() ? true : false
     );
     
   }

@@ -10,9 +10,8 @@ import frc.robot.utils.Tools;
 
 public class MoveToReef extends Command {
     private Swerve swerve;
-    private final double x_c, z_c;
-    private double x_power,z_power, turn_power;
-    private double[] pose;
+    private final double y_c, x_c;
+    private double y_power,x_power, turn_power;
 
     /**
      * Move to reef
@@ -21,11 +20,11 @@ public class MoveToReef extends Command {
      */
     public MoveToReef(Swerve swerve, Reef reef) {
         this.swerve = swerve;
-        x_c = reef.getPosY();
-        z_c = reef.getPosX();
-        LimelightConstants.PIDs.turn_pid.setIZone(0.5);
-        LimelightConstants.PIDs.x_pid.setIZone(0.5);
-        LimelightConstants.PIDs.y_pid.setIZone(0.5);
+        y_c = reef.getPosY();
+        x_c = reef.getPosX();
+        LimelightConstants.PIDs.turn_pid.setIZone(0.3);
+        LimelightConstants.PIDs.x_pid.setIZone(0.3);
+        LimelightConstants.PIDs.y_pid.setIZone(0.3);
     }
 
     @Override
@@ -37,21 +36,18 @@ public class MoveToReef extends Command {
 
     @Override
     public void execute() {
-        if(Tools.isInRange(pose[4], -1.0, 1.0)) LimelightConstants.PIDs.turn_pid.reset();
-        if(Tools.isInRange(pose[0], -0.01, 0.01)) LimelightConstants.PIDs.y_pid.reset();
-        if(Tools.isInRange(pose[1], -0.01, 0.01)) LimelightConstants.PIDs.x_pid.reset();
+        double[] pose = LimelightHelpers.getTargetPose_CameraSpace(LimelightConstants.device);
         if(LimelightHelpers.getTargetCount(LimelightConstants.device) != 0) {
-            pose = LimelightHelpers.getTargetPose_CameraSpace(LimelightConstants.device);
-            turn_power = -LimelightConstants.PIDs.turn_pid.calculate(-pose[4]/ LimelightConstants.TurnSlowDownRange); 
-            x_power = -LimelightConstants.PIDs.y_pid.calculate((x_c - pose[0])/ LimelightConstants.YSlowDownRange);
-            z_power = -LimelightConstants.PIDs.x_pid.calculate((z_c - pose[2])/ LimelightConstants.XSlowDownRange);
+            turn_power = -LimelightConstants.PIDs.turn_pid.calculate(-pose[4]/ LimelightConstants.TurnSlowDownRange) * 0.4; 
+            y_power = -LimelightConstants.PIDs.y_pid.calculate((y_c - pose[0])/ LimelightConstants.YSlowDownRange) * 0.3;
+            x_power = LimelightConstants.PIDs.x_pid.calculate((x_c - pose[2])/ LimelightConstants.XSlowDownRange) * 0.4;
         }
         else {
             turn_power = 0;
+            y_power = 0;
             x_power = 0;
-            z_power = 0;
         }
-        swerve.drive(z_power , x_power, turn_power, false);
+        swerve.drive(x_power , y_power, turn_power, false);
     }
 
     @Override
@@ -62,14 +58,15 @@ public class MoveToReef extends Command {
     @Override
     public boolean isFinished() {
         if(
-            Tools.isInRange(pose[4], -1, 1) &&
-            Tools.isInRange(pose[0], x_c-0.1, turn_power+0.1) &&
-            Tools.isInRange(pose[1], z_c-0.1, turn_power+0.1)
+            Tools.isInRange(y_power, -0.05, 0.05) &&
+            Tools.isInRange(x_power, -0.05, 0.05) &&
+            Tools.isInRange(turn_power, -0.05, 
+            0.05) && LimelightHelpers.getTargetCount(LimelightConstants.device) != 0
         ) {
-            SmartDashboard.putBoolean("IsFinished Aim", true);
+            SmartDashboard.putBoolean("Is finished aimming", true);
             return true;
         }
-        SmartDashboard.putBoolean("isFinished Aim", false);
+        SmartDashboard.putBoolean("Is finished aimming", false);
         return false;
     }
 }

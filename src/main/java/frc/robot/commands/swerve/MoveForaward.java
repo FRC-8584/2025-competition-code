@@ -17,12 +17,13 @@ public class MoveForaward extends Command {
   @Override
   public void initialize() {
     counter = 0;
-    swerve.drive(power, 0, 0, false);
+    swerve.drive(0, 0, 0, false);
   }
 
   @Override
   public void execute() {
     counter++;
+    swerve.drive(power , 0, 0, false);
   }
 
   @Override

@@ -5,7 +5,6 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.ControlType;
@@ -46,7 +45,6 @@ public class Elevator extends SubsystemBase {
   @Override
   public void periodic() {
     SetPosition();
-    SmartDashboard.putNumber("The_Elevator_Height", getPosition());
   }
   public double getPosition() {
     return (l_motor.getEncoder().getPosition() + r_motor.getEncoder().getPosition()) / 2.0;

@@ -7,8 +7,8 @@ import frc.robot.Constants.Levels;
 import frc.robot.Constants.Reef;
 import frc.robot.commands.ToLevel;
 import frc.robot.commands.claw.PutCoral;
-import frc.robot.commands.swerve.MoveForaward;
 import frc.robot.commands.swerve.MoveToReef;
+import frc.robot.commands.swerve.MoveForaward;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Swerve;
@@ -21,16 +21,21 @@ public class AutoPutCoral extends SequentialCommandGroup {
                     new MoveToReef(swerve, reef),
                     new ToLevel(claw, elevator, levels)
                 ),
-                new MoveForaward(swerve, 0.2, 1.0),
-                new PutCoral(claw)
+                new MoveForaward(swerve, 0.12, 0.5).withInterruptBehavior(InterruptionBehavior.kCancelIncoming),
+                new PutCoral(claw),
+                new MoveForaward(swerve, -0.4, 0.5).withInterruptBehavior(InterruptionBehavior.kCancelIncoming),
+                new ToLevel(claw, elevator, Levels.Default)
             );
         }
         else {
             addCommands(
-                new MoveToReef(swerve, reef),
-                new ToLevel(claw, elevator, levels),
+                new ParallelCommandGroup(
+                    new MoveToReef(swerve, reef),
+                    new ToLevel(claw, elevator, levels)
+                ),
                 new WaitCommand(0.3),
-                new PutCoral(claw)
+                new PutCoral(claw),
+                new ToLevel(claw, elevator, Levels.Default)
             );
         }
     }       

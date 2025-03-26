@@ -8,15 +8,16 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.commands.ToLevel;
-import frc.robot.commands.auto.AutoGrabAlgae;
 import frc.robot.commands.auto.AutoPutCoral;
 import frc.robot.commands.claw.ControlGrabber;
 import frc.robot.commands.claw.GetCoral;
 import frc.robot.commands.claw.PutCoral;
 import frc.robot.commands.swerve.ArcadeDrive;
+import frc.robot.commands.swerve.MoveForaward;
 import frc.robot.commands.swerve.MoveToReef;
 import frc.robot.subsystems.*;
 import frc.robot.Constants.Levels;
@@ -65,33 +66,13 @@ public class RobotContainer {
         ()->js1.getRawAxis(2),
         ()->js1.getRawAxis(3))
     );
-    /*  Deleted
-    intake.setDefaultCommand(
-      new RunCommand(
-        ()->{
-          double power = -Tools.deadband(js2.getRawAxis(2) - js2.getRawAxis(3), 0.2);
-          if(power < 0) {
-            intake.setGrabberPower(power * 0.5);
-            intake.setShaftPosition(53);
-          }
-          else if(power > 0) {
-            intake.setGrabberPower(power * 0.5);
-            intake.setShaftPosition(20);
-          }
-          else{
-            intake.setGrabberPower(0);
-            intake.setShaftPosition(0);
-          }
-        },
-        intake));
-    */
-
     claw.setDefaultCommand(
       new ControlGrabber(claw, ()->js1.getRawAxis(2), ()->js1.getRawAxis(3))
     );
   }
 
   private void configBindings() {
+    new JoystickButton(js1, 8).onTrue(new MoveForaward(swerve, 0.12, 0.5).withInterruptBehavior(InterruptionBehavior.kCancelIncoming));
     new JoystickButton(js1, 2).and(()->LimelightHelpers.getTargetCount(LimelightConstants.device)!=0).whileTrue(new MoveToReef(swerve, Reef.Right));
     new JoystickButton(js1, 3).and(()->LimelightHelpers.getTargetCount(LimelightConstants.device)!=0).whileTrue(new MoveToReef(swerve, Reef.Left));
     new JoystickButton(js1, 4).and(()->LimelightHelpers.getTargetCount(LimelightConstants.device)!=0).whileTrue(new MoveToReef(swerve, Reef.Medium));
@@ -139,6 +120,7 @@ public class RobotContainer {
       "GetCoral",
       new GetCoral(claw)
     );
+    /* Never used
     NamedCommands.registerCommand(
       "GetAlgae_L1",
       new AutoGrabAlgae(
@@ -146,15 +128,16 @@ public class RobotContainer {
         elevator, 
         swerve, 
         Levels.Algea_L1));
-      NamedCommands.registerCommand(
-        "GetAlgae_L2",
-        new AutoGrabAlgae(
-          claw,
-          elevator, 
-          swerve, 
-          Levels.Algea_L2));  
+    NamedCommands.registerCommand(
+      "GetAlgae_L2",
+      new AutoGrabAlgae(
+        claw,
+        elevator, 
+        swerve, 
+        Levels.Algea_L2)); 
+    */
     autoChooser =  AutoBuilder.buildAutoChooser();
-    SmartDashboard.putData("Auto Chooser", autoChooser);
+    SmartDashboard.putData("Choose Auto", autoChooser);
   }
 
   public Command getAutonomousCommand() {

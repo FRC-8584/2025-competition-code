@@ -18,13 +18,13 @@ import frc.robot.utils.AxieOptimizer;
 public class Constants {
   public static enum Levels {
     Coral_L1(0, 0), 
-    Coral_L2(15.0, 16.0), 
-    Coral_L3(15.0, 37.0), 
+    Coral_L2(20.0, 20.0), 
+    Coral_L3(20.0, 38.0), 
     Coral_L4(55.0, 75.0),
-    Algea_L1(145.0, 24.0),
+    Algea_L1(145.0, 24.0), 
     Algea_L2(145.0, 44.0),
     Net(80.0, 75.0),
-    Dodge(15.0, -1),
+    Dodge(30.0, -1),
     DefaultWithAlgae(145.0, 0),
     Default(0, 0);
 
@@ -46,7 +46,7 @@ public class Constants {
 
   public static enum Reef {
     Left       (0.45, 0.18),
-    Right      (0.45, -0.15),
+    Right      (0.45, -0.18),
     Medium     (0.40, 0.0);
 
     private double x, y;
@@ -66,15 +66,15 @@ public class Constants {
   }
 
   public static class LimelightConstants {
-    /* device name */
     public static final String device = "limelight";
 
     public static final double XSlowDownRange = 0.7; //m
     public static final double YSlowDownRange = 1.0; //m
     public static final double TurnSlowDownRange = 30.0; //degree
 
+    // ! not good enough
     public static class PIDs {
-      public static final PIDController x_pid = new PIDController(1.0, 0, 0.1);
+      public static final PIDController x_pid = new PIDController(2.5, 2.0*1e-3, 0.01);
       public static final PIDController y_pid = new PIDController(2.5, 2.0*1e-3, 0.01);
       public static final PIDController turn_pid = new PIDController(0.3, 0, 0);
     }
@@ -88,8 +88,8 @@ public class Constants {
         new AxieOptimizer(0.15)
     };
           
-    public static final double TurnSpeed = 0.4;
-    public static final double DriveSpeed = 0.3;
+    public static final double TurnSpeed = 0.6;
+    public static final double DriveSpeed = 0.75;
   }
   
   public static class CAN_DeviceID {
@@ -187,8 +187,8 @@ public class Constants {
     public static final double MaxAngle = 150.0; // degree
     public static final double MinAngle = 0; // degree
 
-    public static final double MaxPower = 0.6;
-    public static final double MinPower = -0.6;
+    public static final double MaxPower = 0.4;
+    public static final double MinPower = -0.4;
 
     public static final double GrabPower = -0.6;
     public static final double PutPower = -1.0;
@@ -196,7 +196,7 @@ public class Constants {
     public static final int SensorPort = 0;
     public static final double SensorThreshold = 2.5;
     public static final double GrabCoralDelay = 0.15; //s
-    public static final double PutDelay = 0.4; //s
+    public static final double PutDelay = 0.8; //s
 
     public static class  Configs {
       public static SparkMaxConfig getShaftConfig() {
@@ -268,7 +268,8 @@ public class Constants {
       }
     }
 
-  // Intake is deleted.
+  // Abandoned
+  /*
   public static class IntakeConstants {
     public static final double MaxAngle = 90.0;
     public static final double MinAngle = 0.0;
@@ -305,5 +306,6 @@ public class Constants {
         return configs;
       }
     }
-  }
+  } 
+  */
 }
